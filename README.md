@@ -1,2 +1,2 @@
 # project-group-1
-#test Nicolas
+#This is the repository for all labs and project for group 1
