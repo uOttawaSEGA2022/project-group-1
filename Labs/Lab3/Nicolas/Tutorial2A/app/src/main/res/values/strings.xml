@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Tutorial2A</string>
+    <string name="Button1">1</string>
+    <string name="Button2">2</string>
+    <string name="Button3">3</string>
+    <string name="ButtonMulti" />
+    <string name="ButtonMultiP">*</string>
+    <string name="Button4">4</string>
+    <string name="Button5">5</string>
+    <string name="Button6">6</string>
+    <string name="ButtonMinus">-</string>
+    <string name="Button7">7</string>
+    <string name="Button8">8</string>
+    <string name="Button9">9</string>
+    <string name="Button9s">9</string>
+    <string name="ButtonPlus">+</string>
+    <string name="Button0">0</string>
+    <string name="ButtonDivision">/</string>
+    <string name="ButtonDot">.</string>
+    <string name="ButtonClear">C</string>
+    <string name="ButtonEqual">=</string>
+    <string name="textArea" />
+    <string name="test">test</string>
+    <string name="Button1Click" />
+    />
+    />
+</resources>
