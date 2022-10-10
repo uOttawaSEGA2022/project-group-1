@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Profile Manager</string>
+
+    <!--> Main Activity </!-->
+    <string name="logoImage_contentDescription">Your Avatar</string>
+    <string name="teamNameFieldHint">Please enter a team name.</string>
+    <string name="teamNameText">Team Name</string>
+    <string name="teamAddressFieldHint">Please enter a ZIP code.</string>
+    <string name="teamAddressText">Team Address</string>
+    <string name="openInGoogleMaps">Open in Google Maps</string>
+    <string name="titleText">Soccer Team Manager</string>
+
+    <!--> Avatar Picker (Profile Activity) </!-->
+    <string name="avatarSelectInstructionText">Select a new avatar</string>
+    <string name="loadFromPhoneText">Load from Phone</string>
+</resources>
