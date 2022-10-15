@@ -15,7 +15,7 @@ However, Entities should refrain from referencing to non-Entities unless they ow
 
 **Entities are expected to call Repository on themselves when necessary**
 
-The `getId()` function should return either null, or an instance of type `I` in `Entity<T,I>`
+The `getId()` function should return either a string or null.
 
 The `serialise(T instance)` function should return a `Map<String, Object>` object with all of the `instance`'s fields.
 
