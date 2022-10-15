@@ -8,12 +8,12 @@ import java.util.Map;
  */
 public abstract class Entity {
     /**
-     * A map of Entity subclasses to their table names, for use by Repository (Should we move this to IRepository instead?)
+     * A map of Entity subclasses to their table names, for use by Repository
+     * All subclasses of Entity should register a name here
+     *
+     * For example: {@code static { Entity.tableNames.put(CLASS_NAME_HERE.class, "TABLE_NAME_HERE"); } }
      */
     static final Map<Class<? extends Entity>, String> tableNames = new HashMap<>();
-    static {
-        // TODO: Initialise this Map with all table names in the Firestore database
-    }
 
     /**
      * Returns an ID uniquely identifying this Entity within its table.

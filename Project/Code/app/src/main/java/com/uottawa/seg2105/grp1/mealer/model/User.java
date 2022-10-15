@@ -18,10 +18,13 @@ public final class User extends Entity {
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
-    protected String getPasswordHash() { return passwordHash; }
+    String getPasswordHash() { return passwordHash; }
     public String getAddress() { return address; }
     public boolean isAdmin() { return admin; }
     public UserRole getRole() { return role; }
+
+    // Defines the storage table name for this class.
+    static { Entity.tableNames.put(User.class, "users"); }
 
     /**
      * Searches persistent storage for a user with this email
@@ -29,7 +32,7 @@ public final class User extends Entity {
      * @return The User with this email, or null if no such user exists in storage
      */
     public static User getByEmail(String email) {
-        // TODO: implement User.getByEmail
+        // TODO: implement User.getByEmail that searches through database
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
