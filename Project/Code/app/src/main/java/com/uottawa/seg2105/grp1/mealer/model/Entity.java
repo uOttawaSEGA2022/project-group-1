@@ -40,7 +40,7 @@ public abstract class Entity {
      * @param cls The class whose table name is being queried
      * @return The table name associated with the specified class
      */
-    public String getTableName(Class<? extends Entity> cls) {
+    public static String getTableName(Class<? extends Entity> cls) {
         return tableNames.get(cls);
     }
 
