@@ -35,4 +35,13 @@ public abstract class Entity {
      */
     public abstract boolean deserialise(Map<String, Object> map);
 
+    /**
+     * Returns the table name associate to the specified Entity subclass, or null if no table name has been specified.
+     * @param cls The class whose table name is being queried
+     * @return The table name associated with the specified class
+     */
+    public String getTableName(Class<? extends Entity> cls) {
+        return tableNames.get(cls);
+    }
+
 }
