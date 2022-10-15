@@ -1,4 +1,6 @@
-package com.uottawa.seg2105.grp1.mealer;
+package com.uottawa.seg2105.grp1.mealer.ui;
+
+// TODO: Replace this class with CloudFirestoreRepository
 
 import android.util.Log;
 import android.view.View;
@@ -25,7 +27,7 @@ public class FirestoreTest {
 
     private final FirebaseFirestore db;
 
-    FirestoreTest(FirebaseFirestore db) {
+    public FirestoreTest(FirebaseFirestore db) {
         this.db = db;
 
     }

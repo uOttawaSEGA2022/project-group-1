@@ -10,16 +10,15 @@ Models that need to be stored in the database are Entities. These classes must p
 
 All Entity classes with a corresponding table in persistent storage should also provide a method getId() that the Repository implementation can use to search up its data.
 
-If an Entity contains references to non-Entities, it must serialise and deserialise those references within itself.
-However, Entities should refrain from referencing to non-Entities unless they own the latter, and should instead refer to the owning Entity.
+An Entity can also contain EntityFragments who can also be serialised and deserialised but do not have an ID.
 
 **Entities are expected to call Repository on themselves when necessary**
 
-The `getId()` function should return either a string or null.
+The `getId()` function should return a string ID unique to this instance.
 
-The `serialise(T instance)` function should return a `Map<String, Object>` object with all of the `instance`'s fields.
+The `serialise()` function should return a `Map<String, Object>` object with all of the `instance`'s fields.
 
-The `deserialise(Map<String, Object> map)` function return the original object built from the Map, or null if it cannot be done.
+The `deserialise(Map<String, Object> map)` function, when 
 
 ## View ##
 The Views are simply the XML layouts of Activity objects.

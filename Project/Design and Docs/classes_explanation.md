@@ -32,9 +32,11 @@ Methods:
 - `static IRepository getRepository()`
 
 ### Entity ###
-Signature: `abstract class Entity<T>`
+Signature: `abstract class Entity`
 
 Description: Generalization of a Domain Model Entity that can be stored to and retrieved from permanent storage.
+
+**All subclasses of Entity should provide an empty constructor callable by IRepository**
 
 Responsabilities:
 - Provide serialisation to a JSON-compatible Map
@@ -42,19 +44,26 @@ Responsabilities:
 - Provide a table name and id to identify the object in permanent storage.
 
 Static variables:
-- `Map<Class extends Entity, String> tableNames` (provides table names for each subclass of IEntity. **MUST BE UPDATED MANUALLY**)
+- `Map<Class<? extends Entity>, String> tableNames` (provides table names for each subclass of Entity. **MUST BE UPDATED MANUALLY**)
 
 Methods:
-- `String getId()` (returns null by default)
-- `abstract Map<Object, String> serialise(T inst)`
-- `abstract T deserialise(Map<Object, String> map)`
+- `abstract String getId()`
+- `abstract Map<Object, String> serialise()` (Called on an object to get a JSON-Compatible Map)
+- `abstract void deserialise(Map<Object, String> map)` (Called on an empty constructor to initialise attributes.)
+
+### EntityFragment ###
+Signature: `abstract class EntityFragment extends Entity`
+
+Description: Specialization of Entity which is stored within another Entity instead of in a storage table. 
+getId() returns null.
 
 ### User ###
-Signature: `class User implements Entity<User, String>`
+Signature: `class User extends Entity`
 
 Description: Stores user data common to all user types.
 
-Responsabilities: TBD
+Responsabilities:
+- Establish a connection to its UserRole
 
 Variables:
 - `String firstName, lastName, email, address`
@@ -63,6 +72,7 @@ Variables:
 
 Methods:
 - getters
+- `static User getByEmail(String email)`
 
 ### UserRole ###
 Sginature: `abstract class UserRole`
@@ -111,13 +121,13 @@ Description: Generalization of operations on persistent storage with tables of J
 Responsabilities:
 - Create, Read, Update, Delete, List, and Query Entities from persistent storage.
 
-Methods: (Assuming `T extends IEntity<T>`)
-- `boolean create<T extends IEntity>(T entity)` (Returns true if the entity was added to storage, false otherwise)
+Methods: (Assuming `T extends Entity<T>`)
+- `boolean create<T extends Entity>(T entity)` (Returns true if the entity was added to storage, false otherwise)
 - `T getById<T>(String id)` (Returns an entity with the specified id if it exists, null otherwise)
-- `boolean set<T extends IEntity>(T entity)` (Returns true if the entity was set successfully in storage, false otherwise)
-- `boolean delete<T extends IEntity>(T entity)` (Returns true if the entity was removed or if it already didn't exist, false otherwise)
-- `List<T> list<T extends IEntity>()` (Returns all elements of a specified table)
-- `List<T> query<T extends IEntity>(Predicate<T> predicate)` (Returns all elements whose items return true when passed through the given predicate.)
+- `boolean set<T extends Entity>(T entity)` (Returns true if the entity was set successfully in storage, false otherwise)
+- `boolean delete<T extends Entity>(T entity)` (Returns true if the entity was removed or if it already didn't exist, false otherwise)
+- `List<T> list<T extends Entity>()` (Returns all elements of a specified table)
+- `List<T> query<T extends Entity>(Predicate<T> predicate)` (Returns all elements whose items return true when passed through the given predicate.)
 
 ### CloudFirestoreRepository ###
 Signature: `class CloudFirestoreRepository implements IRepository`
