@@ -122,12 +122,13 @@ Responsabilities:
 - Create, Read, Update, Delete, List, and Query Entities from persistent storage.
 
 Methods: (Assuming `T extends Entity<T>`)
-- `boolean create<T extends Entity>(T entity)` (Returns true if the entity was added to storage, false otherwise)
-- `T getById<T>(String id)` (Returns an entity with the specified id if it exists, null otherwise)
-- `boolean set<T extends Entity>(T entity)` (Returns true if the entity was set successfully in storage, false otherwise)
-- `boolean delete<T extends Entity>(T entity)` (Returns true if the entity was removed or if it already didn't exist, false otherwise)
-- `List<T> list<T extends Entity>()` (Returns all elements of a specified table)
-- `List<T> query<T extends Entity>(Predicate<T> predicate)` (Returns all elements whose items return true when passed through the given predicate.)
+- `<T extends Entity> boolean set(T entity)` (Returns true if the entity was created or overwritten in storage, false otherwise)
+- `<T extends Entity> T getById(String id)` (Returns an entity with the specified id if it exists, null otherwise)
+- `<T extends Entity> boolean hasId(String id)` (Returns true if an entity with this ID exists, false otherwise)
+- `<T extends Entity> boolean update(String id, Map<String, Object> properties)` (Returns true if all properties of the entity were updated in permanent storage, false otherwise)
+- `<T extends Entity> boolean delete(T entity)` (Returns true if the entity was removed or if it already didn't exist, false otherwise)
+- `<T extends Entity> List<T> list()` (Returns all elements of a specified table)
+- `<T extends Entity> List<T> query(Predicate<T> predicate)` (Returns all elements whose items return true when passed through the given predicate.)
 
 ### CloudFirestoreRepository ###
 Signature: `class CloudFirestoreRepository implements IRepository`
