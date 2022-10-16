@@ -63,6 +63,10 @@ public final class System extends Application {
         }
     }
 
+    /**
+     * Terminates the current user session.
+     * Does nothing if there is no current session.
+     */
     public void logoff() {
         Editor edit = usersession.edit();
 
@@ -72,6 +76,12 @@ public final class System extends Application {
         currentUser = null;
     }
 
+    /**
+     * Attempts to create a user session using user credentials
+     * @param username The email of the user to log in as
+     * @param password The password of the user to lig in as
+     * @return true if login was successful, false otherwise.
+     */
     public boolean tryLogin(String username, String password) {
         try {
             User user = repository.getById(User.class, username);
@@ -89,6 +99,10 @@ public final class System extends Application {
         }
     }
 
+    /**
+     * Registers a User entity as the current user of this session
+     * @param user The User entity the session belongs to
+     */
     private void login(User user) {
         Editor edit = usersession.edit();
 
@@ -98,6 +112,13 @@ public final class System extends Application {
         currentUser = user;
     }
 
+    /**
+     * Hashes a password using SHA-256 on the UTF-8 byte encoding.
+     * Returns a lowercase hex string.
+     *
+     * @param password the password
+     * @return the lowercase hex string SHA-256 on UTF-8
+     */
     private String hashPassword(String password) {
         try {
             // Digest using SHA-256 on UTF-8 encoding

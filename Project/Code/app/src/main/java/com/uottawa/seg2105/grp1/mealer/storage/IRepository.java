@@ -17,7 +17,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    public <T extends Entity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException;
+    <T extends Entity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException;
 
     /**
      * Deserialises an entity by fetching it by ID.
@@ -28,7 +28,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    public <T extends Entity> T getById(Class<T> cls, String id) throws RepositoryRequestException;
+    <T extends Entity> T getById(Class<T> cls, String id) throws RepositoryRequestException;
 
     /**
      * Serialises an entity and stores it in persistent storage.
@@ -41,7 +41,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be added or overwritten
      */
-    public <T extends Entity> void set(Class<T> cls, T entity) throws RepositoryRequestException;
+    <T extends Entity> void set(Class<T> cls, T entity) throws RepositoryRequestException;
 
     /**
      * Updates the fields of the entity with ID {@code id} with new values specified by the {@code prop} map
@@ -55,7 +55,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be accessed
      */
-    public <T extends Entity> void update(Class<T> cls, String id, Map<String, Object> props) throws RepositoryRequestException;
+    <T extends Entity> void update(Class<T> cls, String id, Map<String, Object> props) throws RepositoryRequestException;
 
     /**
      * Deletes the entity from permanent storage.
@@ -67,14 +67,14 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be deleted
      */
-    public <T extends Entity> void delete(Class<T> cls, T entity) throws RepositoryRequestException;
+    <T extends Entity> void delete(Class<T> cls, T entity) throws RepositoryRequestException;
 
     /**
      * @return All entities of the specified type in permanent storage
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    public <T extends Entity> List<T> list(Class<T> cls) throws RepositoryRequestException;
+    <T extends Entity> List<T> list(Class<T> cls) throws RepositoryRequestException;
 
     /**
      * Queries permanent storage for all entities matching the condition specified by the predicate.
@@ -85,5 +85,5 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    public <T extends Entity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException;
+    <T extends Entity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException;
 }

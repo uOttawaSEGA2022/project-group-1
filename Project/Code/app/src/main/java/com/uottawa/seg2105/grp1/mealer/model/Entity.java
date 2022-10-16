@@ -31,7 +31,6 @@ public abstract class Entity {
      * Overwrites the properties of an Entity using the provided Map.
      *
      * @param map The map of properties whose format is decided by the subclass
-     * @return Whether deserialisation was performed or not
      *
      * @exception EntityDeserialisationException if the Map was invalid
      */

@@ -13,24 +13,28 @@ Signature: `final class System extends Application`
 Description: Single point of access for many resources 
 
 Responsabilities:
-- Store static variables such as the current user's session data, the current IRepository implementation instance, etc.
+- Store global variables such as the current user's session data, the current IRepository implementation instance, etc.
 
 Responsabilities:
 - Provide initialization of the application state
 - Provide access to global variables
 - Log in and log out (change current user)
 
-Static variables:
+Variables:
+- `static System system`
+- `SharedPreferences usersession`
 - `User currentUser`
 - `IRepository repository`
 
 Methods:
-- `void onCreate()`
-- `boolean trylogin(String username, String password)`
-- `private login(User user)`
-- `void logoff()`
+- `static getSystem()`
 - `User getCurrentUser()`
 - `IRepository getRepository()`
+- `void onCreate()`
+- `void logoff()`
+- `boolean tryLogin(String username, String password)`
+- `private login(User user)`
+- `private hashPassword(String password)`
 
 ### Entity ###
 Signature: `abstract class Entity`
@@ -61,14 +65,16 @@ getId() returns null.
 ### User ###
 Signature: `class User extends Entity`
 
-Description: Stores user data common to all user types.
+Description: A specialization of Entity that stores user data common to all user types.
 
 Responsabilities:
 - Establish a connection to its UserRole
+- Serialise and deserialise its UserRole when necessary
 
 Variables:
 - `String firstName, lastName, email, address`
 - `String passwordHash` (*Password is hashed for at least a minimum of security*)
+- `boolean admin` (Used as a flag. There should never be more than one of such account)
 - `UserRole role`
 
 Methods:
@@ -76,11 +82,12 @@ Methods:
 - `static User getByEmail(String email)`
 
 ### UserRole ###
-Sginature: `abstract class UserRole`
+Sginature: `abstract class UserRole extends EntityFragment`
 
 Description: Generalization of Roles a User account can possess.
 
-Responsabilities: TBD
+Responsabilities:
+- Return its User
 
 Variables:
 - `User user`
@@ -136,7 +143,8 @@ Signature: `class CloudFirestoreRepository implements IRepository`
 
 Description: Implements an IRepository where persistent storage is stored on a Cloud Firestore database.
 
-Responsabilities: TBD
+Responsabilities:
+- Maintain a connection to a Cloud Firestore database
 
 ---
 

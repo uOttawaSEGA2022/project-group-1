@@ -3,7 +3,7 @@ package com.uottawa.seg2105.grp1.mealer.model;
 import java.util.Map;
 
 /**
- * Stores extra information about Client Users.
+ * Stores extra information about Cook Users.
  */
 public class CookRole extends UserRole {
     /**
@@ -28,13 +28,13 @@ public class CookRole extends UserRole {
 
     @Override
     public Map<String, Object> serialise() {
-        // TODO: implement ClientRole.serialise();
+        // TODO: implement CookRole.serialise();
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     @Override
     public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
-        // TODO: implement ClientRole.deserialise()
+        // TODO: implement CookRole.deserialise()
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 }
