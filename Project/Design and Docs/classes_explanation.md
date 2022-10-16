@@ -4,6 +4,9 @@ A description of classes and their roles.
 
 ## Model Classes ##
 
+Model classes should be able to safely block.
+As such, the Activities must communicate with them asynchronously.
+
 ### System ###
 Signature: `abstract final class System`
 
