@@ -11,23 +11,19 @@ As such, the Activities must communicate with them asynchronously.
 Signature: `final class System extends Application`
 
 Description: Single point of access for many resources 
-
-Responsabilities:
-- Store global variables such as the current user's session data, the current IRepository implementation instance, etc.
+Stores global variables such as the current user's session data, the current IRepository implementation instance, etc.
 
 Responsabilities:
 - Provide initialization of the application state
 - Provide access to global variables
-- Log in and log out (change current user)
+- Log in and log out (change current user, UI must still check and update itself)
 
 Variables:
-- `static System system`
 - `SharedPreferences usersession`
 - `User currentUser`
 - `IRepository repository`
 
 Methods:
-- `static getSystem()`
 - `User getCurrentUser()`
 - `IRepository getRepository()`
 - `void onCreate()`
