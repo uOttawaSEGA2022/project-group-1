@@ -30,6 +30,8 @@ The Controller classes are Activities in charge of validating and responding to 
 
 They also update their UI when changes in the Model occur.
 
+Since model classes are allowed to block, Controller classes should call them asynchronously
+
 ## Repository ##
 An abstracted storage interface that declares Create, Read, Update, Delete, List and Query methods for Entities.
 
