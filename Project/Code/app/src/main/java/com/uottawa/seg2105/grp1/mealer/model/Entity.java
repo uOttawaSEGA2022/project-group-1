@@ -28,12 +28,14 @@ public abstract class Entity {
     public abstract Map<String, Object> serialise();
 
     /**
-     * Overwrites the properties of an Entity using the provided Map and returns true.
-     * If the Map is of an incorrect format, return false.
+     * Overwrites the properties of an Entity using the provided Map.
+     *
      * @param map The map of properties whose format is decided by the subclass
      * @return Whether deserialisation was performed or not
+     *
+     * @exception EntityDeserialisationException if the Map was invalid
      */
-    public abstract boolean deserialise(Map<String, Object> map);
+    public abstract void deserialise(Map<String, Object> map) throws EntityDeserialisationException;
 
     /**
      * Returns the table name associate to the specified Entity subclass, or null if no table name has been specified.

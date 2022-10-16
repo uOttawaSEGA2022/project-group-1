@@ -48,7 +48,7 @@ public final class User extends Entity {
     }
 
     @Override
-    public boolean deserialise(Map<String, Object> map) {
+    public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
         // TODO: implement User.deserialise()
         throw new UnsupportedOperationException("Not implemented yet");
     }

@@ -33,7 +33,7 @@ public class ClientRole extends UserRole {
     }
 
     @Override
-    public boolean deserialise(Map<String, Object> map) {
+    public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
         // TODO: implement ClientRole.deserialise()
         throw new UnsupportedOperationException("Not implemented yet.");
     }
