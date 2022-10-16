@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import android.os.Bundle;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnOpenInGoogleMaps(View view) {
-        EditText teamAddress = (EditText) findViewById(R.id.teamName);
+        EditText teamAddress = (EditText) findViewById(R.id.teamLocation);
 
         // Create a URI from an intent string.
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + teamAddress.getText());
@@ -49,29 +47,29 @@ public class MainActivity extends AppCompatActivity {
 
         //Figuring out the correct image
         String drawableName = "ic_logo_00";
-        switch (data.getIntExtra("imageID",R.id.teamid00)) {
-            case R.id.teamid00:
-                System.out.println("test0");
-                drawableName = "ic_logo_00";
-                break;
+        switch (data.getIntExtra("imageID",R.id.teamid01)) {
             case R.id.teamid01:
+                System.out.println("test0");
                 drawableName = "ic_logo_01";
-                System.out.println("test1");
                 break;
             case R.id.teamid02:
                 drawableName = "ic_logo_02";
-                System.out.println("test2");
+                System.out.println("test1");
                 break;
             case R.id.teamid03:
                 drawableName = "ic_logo_03";
-                System.out.println("test#");
+                System.out.println("test2");
                 break;
             case R.id.teamid04:
                 drawableName = "ic_logo_04";
-                System.out.println("test4");
+                System.out.println("test#");
                 break;
             case R.id.teamid05:
                 drawableName = "ic_logo_05";
+                System.out.println("test4");
+                break;
+            case R.id.teamid00:
+                drawableName = "ic_logo_00";
                 System.out.println("test5");
                 break;
             default:
