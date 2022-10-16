@@ -8,7 +8,7 @@ Model classes should be able to safely block.
 As such, the Activities must communicate with them asynchronously.
 
 ### System ###
-Signature: `abstract final class System`
+Signature: `final class System extends Application`
 
 Description: Single point of access for many resources 
 
@@ -21,18 +21,16 @@ Responsabilities:
 - Log in and log out (change current user)
 
 Static variables:
-- `static boolean init`
-- `static User currentUser`
-- `static IRepository repository`
+- `User currentUser`
+- `IRepository repository`
 
 Methods:
-- `static void initiate()` (Should create the repository instance)
-- `static void stop()` (Should reset global variables)
-- `static boolean hasInit()`
-- `static void login(User user)`
-- `static void logoff()`
-- `static User getCurrentUser()`
-- `static IRepository getRepository()`
+- `void onCreate()`
+- `boolean trylogin(String username, String password)`
+- `private login(User user)`
+- `void logoff()`
+- `User getCurrentUser()`
+- `IRepository getRepository()`
 
 ### Entity ###
 Signature: `abstract class Entity`
