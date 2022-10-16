@@ -48,7 +48,7 @@ public interface IRepository {
 
     /**
      * Updates the fields of the entity with ID {@code id} with new values specified by the {@code prop} map
-     * If no entity with the specified ID exists, this method returns false.
+     * Does nothing if there was no entity to update in permanent storage.
      *
      * NOTE: This method only modifies the storage version of an Entity. Any instance of the Entity must be managed manually.
      *
@@ -56,7 +56,7 @@ public interface IRepository {
      * @param id the id of the Entity to update
      * @param props the properties names and values to update
      *
-     * @exception RepositoryRequestException if data could not be updated
+     * @exception RepositoryRequestException if data could not be accessed
      */
     public <T extends Entity> void update(Class<T> cls, String id, Map<String, Object> props) throws RepositoryRequestException;
 

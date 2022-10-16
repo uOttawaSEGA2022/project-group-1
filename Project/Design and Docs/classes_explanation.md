@@ -127,9 +127,9 @@ Responsabilities:
 Methods: (**All of these functions also take** `Class<T> cls` **as their first parameter**)
 - `boolean hasId(String id)` (Returns true if an entity with this ID exists, false otherwise)
 - `<T extends Entity> T getById(String id)` (Returns an entity with the specified id if it exists, null otherwise)
-- `<T extends Entity> boolean set(T entity)` (Returns true if the entity was created or overwritten in storage, false otherwise)
-- `<T extends Entity> boolean update(String id, Map<String, Object> properties)` (Returns true if all properties of the entity were updated in permanent storage, false otherwise)
-- `<T extends Entity> boolean delete(T entity)` (Returns true if the entity was removed or if it already didn't exist, false otherwise)
+- `<T extends Entity> void set(T entity)` (Create or overwrite an entity)
+- `<T extends Entity> void update(String id, Map<String, Object> properties)` (Updates the properties of the specified entity if it exists)
+- `<T extends Entity> void delete(T entity)` (Deletes an entity if it exists)
 - `<T extends Entity> List<T> list()` (Returns all elements of a specified table)
 - `<T extends Entity> List<T> query(Predicate<T> predicate)` (Returns all elements whose items return true when passed through the given predicate.)
 
