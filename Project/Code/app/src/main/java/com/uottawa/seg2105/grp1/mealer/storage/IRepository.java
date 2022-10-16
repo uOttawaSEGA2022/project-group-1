@@ -10,9 +10,6 @@ import java.util.function.Predicate;
  * An interface for permanent/persistent storage mechanisms.
  */
 public interface IRepository {
-    // TODO: Skeleton of IRepository (See classes_explanation.md)
-    // TODO: Also create CloudFirestoreRepository
-
     /**
      * @param cls The Entity subclass to search
      * @param id The id of the element to verify the existence of.
