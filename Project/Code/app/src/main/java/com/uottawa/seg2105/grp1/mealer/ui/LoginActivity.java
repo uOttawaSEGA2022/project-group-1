@@ -4,6 +4,7 @@ package com.uottawa.seg2105.grp1.mealer.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,6 +31,18 @@ public class LoginActivity extends AppCompatActivity {
 
         //Adds a user to the DB
         test.addUser(view);
+    }
+    //btn that opens a cookregister class
+    public void btnRegisterCook(View view){
+        System.out.println("cook");
+        Intent intent = new Intent(getApplicationContext(), CookRegister.class);
+        startActivityForResult(intent, 0);
+    }
+    //btn that opens a cookClient class
+    public void btnRegisterClient(View view){
+        System.out.println("client");
+        Intent intent = new Intent(getApplicationContext(), ClientRegister.class);
+        startActivityForResult(intent, 0);
     }
 
 }
