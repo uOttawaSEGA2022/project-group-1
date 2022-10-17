@@ -12,9 +12,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29d7fbe5-3e73-4a6c-a77d-5c50a086092a" name="Changes" comment="My app broke and I need to sleep">
-      <change beforePath="$PROJECT_DIR$/.idea/project-group-1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-group-1.iml" afterDir="false" />
-    </list>
+    <list default="true" id="29d7fbe5-3e73-4a6c-a77d-5c50a086092a" name="Changes" comment="My app broke and I need to sleep" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +53,6 @@
   </component>
   <component name="RunManager">
     <configuration name="project-group-1" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="project-group-1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="true" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
