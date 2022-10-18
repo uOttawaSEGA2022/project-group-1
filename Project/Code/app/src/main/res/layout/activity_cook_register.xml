@@ -20,8 +20,8 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="192dp"
-                tools:src="@tools:sample/avatars" />
+                android:layout_height="342dp"
+                app:srcCompat="@drawable/mealerlogo" />
 
             <EditText
                 android:id="@+id/fieldEmail"
@@ -70,8 +70,8 @@
                 android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="OnSetAvatarButton"
-                 />
+                android:onClick="btnVoidCheck"
+                android:text="@string/btnInsertVoid" />
 
         </LinearLayout>
 
