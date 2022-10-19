@@ -17,6 +17,8 @@ import java.security.MessageDigest;
  * Must be initialized
  */
 public final class System extends Application {
+    private static System system;
+
     private static final String SP_NAME = "usersession";
     private static final String SP_USERNAME_FIELD = "username";
 
@@ -28,6 +30,11 @@ public final class System extends Application {
 
     // The repository used to fetch permanent data
     private IRepository repository;
+
+    /**
+     * @return The current system instance, for non-Activity classes
+     */
+    public System getSystem() { return system; }
 
     /**
      * @return The current logged-in user, or nil if there is none
@@ -61,6 +68,8 @@ public final class System extends Application {
                 logoff();
             }
         }
+
+        system = this;
     }
 
     /**
