@@ -7,7 +7,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.uottawa.seg2105.grp1.mealer.model.Entity;
+import com.uottawa.seg2105.grp1.mealer.model.IEntity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.uottawa.seg2105.grp1.mealer.model.EntityDeserialisationException;
@@ -27,10 +27,10 @@ public final class CloudFirestoreRepository implements IRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
-    public <T extends Entity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException {
+    public <T extends IEntity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException {
         try {
             // Block until the DocumentSnapshot can be retrieved
-            Task<DocumentSnapshot> task_docsnap = db.collection(Entity.getTableName(cls)).document(id).get();
+            Task<DocumentSnapshot> task_docsnap = db.collection(IEntity.getTableName(cls)).document(id).get();
             DocumentSnapshot docsnap = Tasks.await(task_docsnap);
 
             // Return whether or not the Entity exists
@@ -45,10 +45,10 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> T getById(Class<T> cls, String id) throws RepositoryRequestException {
+    public <T extends IEntity> T getById(Class<T> cls, String id) throws RepositoryRequestException {
         try {
             // Block until the DocumentSnapshot can be retrieved
-            Task<DocumentSnapshot> task_docsnap = db.collection(Entity.getTableName(cls)).document(id).get();
+            Task<DocumentSnapshot> task_docsnap = db.collection(IEntity.getTableName(cls)).document(id).get();
             DocumentSnapshot docsnap = Tasks.await(task_docsnap);
 
             // Try to convert the document's data to the Entity's type
@@ -68,13 +68,13 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> void set(Class<T> cls, T entity) throws RepositoryRequestException {
+    public <T extends IEntity> void set(Class<T> cls, T entity) throws RepositoryRequestException {
         try {
             // Attempt to serialise the Entity
             Map<String, Object> serialised = entity.serialise();
 
             // Block until the document has been set
-            Task<Void> task_setdoc = db.collection(Entity.getTableName(cls)).document(entity.getId()).set(serialised);
+            Task<Void> task_setdoc = db.collection(IEntity.getTableName(cls)).document(entity.getId()).set(serialised);
             Tasks.await(task_setdoc);
 
             Log.d(TAG, cls.getSimpleName() + " set: Successfully created/overwrote document with id " + entity.getId());
@@ -87,10 +87,10 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> void update(Class<T> cls, String id, Map<String, Object> properties) throws RepositoryRequestException {
+    public <T extends IEntity> void update(Class<T> cls, String id, Map<String, Object> properties) throws RepositoryRequestException {
         try {
             // Block until the file is updated
-            Task<Void> task_update = db.collection(Entity.getTableName(cls)).document(id).update(properties);
+            Task<Void> task_update = db.collection(IEntity.getTableName(cls)).document(id).update(properties);
             Tasks.await(task_update);
 
             Log.d(TAG, cls.getSimpleName() + " update: Successfully updated document with id " + id);
@@ -105,10 +105,10 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> void delete(Class<T> cls, T entity) throws RepositoryRequestException {
+    public <T extends IEntity> void delete(Class<T> cls, T entity) throws RepositoryRequestException {
         try {
             // Block until the file is deleted
-            Task<Void> task_delete = db.collection(Entity.getTableName(cls)).document(entity.getId()).delete();
+            Task<Void> task_delete = db.collection(IEntity.getTableName(cls)).document(entity.getId()).delete();
             Tasks.await(task_delete);
 
             Log.d(TAG, cls.getSimpleName() + " delete: Successfully deleted document with id " + entity.getId());
@@ -121,10 +121,10 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> List<T> list(Class<T> cls) throws RepositoryRequestException {
+    public <T extends IEntity> List<T> list(Class<T> cls) throws RepositoryRequestException {
         try {
             // Block until all elements have been returned
-            Task<QuerySnapshot> task_querysnap = db.collection(Entity.getTableName(cls)).get();
+            Task<QuerySnapshot> task_querysnap = db.collection(IEntity.getTableName(cls)).get();
             QuerySnapshot querysnap = Tasks.await(task_querysnap);
 
             // Iterate over all elements
@@ -152,10 +152,10 @@ public final class CloudFirestoreRepository implements IRepository {
     }
 
     @Override
-    public <T extends Entity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException {
+    public <T extends IEntity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException {
         try {
             // Block until all elements have been returned
-            Task<QuerySnapshot> task_querysnap = db.collection(Entity.getTableName(cls)).get();
+            Task<QuerySnapshot> task_querysnap = db.collection(IEntity.getTableName(cls)).get();
             QuerySnapshot querysnap = Tasks.await(task_querysnap);
 
             // Iterate over all elements
