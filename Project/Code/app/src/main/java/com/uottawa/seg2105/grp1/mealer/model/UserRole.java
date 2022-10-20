@@ -3,7 +3,7 @@ package com.uottawa.seg2105.grp1.mealer.model;
 /**
  * Represents the generic UserRole of a User Entity
  */
-public abstract class UserRole extends EntityFragment {
+public abstract class UserRole implements ISerialisableEntity {
     /**
      * The User this UserRole belongs to
      */

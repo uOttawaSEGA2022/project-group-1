@@ -1,6 +1,6 @@
 package com.uottawa.seg2105.grp1.mealer.storage;
 
-import com.uottawa.seg2105.grp1.mealer.model.IEntity;
+import com.uottawa.seg2105.grp1.mealer.model.IDatabaseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    <T extends IEntity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> boolean hasId(Class<T> cls, String id) throws RepositoryRequestException;
 
     /**
      * Deserialises an entity by fetching it by ID.
@@ -28,7 +28,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    <T extends IEntity> T getById(Class<T> cls, String id) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> T getById(Class<T> cls, String id) throws RepositoryRequestException;
 
     /**
      * Serialises an entity and stores it in persistent storage.
@@ -41,7 +41,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be added or overwritten
      */
-    <T extends IEntity> void set(Class<T> cls, T entity) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> void set(Class<T> cls, T entity) throws RepositoryRequestException;
 
     /**
      * Updates the fields of the entity with ID {@code id} with new values specified by the {@code prop} map
@@ -55,7 +55,7 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be accessed
      */
-    <T extends IEntity> void update(Class<T> cls, String id, Map<String, Object> props) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> void update(Class<T> cls, String id, Map<String, Object> props) throws RepositoryRequestException;
 
     /**
      * Deletes the entity from permanent storage.
@@ -67,14 +67,14 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be deleted
      */
-    <T extends IEntity> void delete(Class<T> cls, T entity) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> void delete(Class<T> cls, T entity) throws RepositoryRequestException;
 
     /**
      * @return All entities of the specified type in permanent storage
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    <T extends IEntity> List<T> list(Class<T> cls) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> List<T> list(Class<T> cls) throws RepositoryRequestException;
 
     /**
      * Queries permanent storage for all entities matching the condition specified by the predicate.
@@ -85,5 +85,5 @@ public interface IRepository {
      *
      * @exception RepositoryRequestException if data could not be fetched
      */
-    <T extends IEntity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException;
+    <T extends IDatabaseEntity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException;
 }
