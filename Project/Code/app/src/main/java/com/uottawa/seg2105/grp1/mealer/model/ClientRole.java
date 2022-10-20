@@ -1,5 +1,6 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,13 +29,21 @@ public class ClientRole extends UserRole {
 
     @Override
     public Map<String, Object> serialise() {
-        // TODO: implement ClientRole.serialise();
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("cardNumber",getCardNumber());
+
+        return map;
     }
 
     @Override
     public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
-        // TODO: implement ClientRole.deserialise()
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        Object cardNum = map.get("cardNumber");
+
+        if (cardNum == null) {
+            throw new EntityDeserialisationException();
+        }
+        this.cardNumber = (String) cardNum;
     }
 }

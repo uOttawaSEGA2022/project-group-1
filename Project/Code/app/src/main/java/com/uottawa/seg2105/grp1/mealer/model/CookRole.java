@@ -1,5 +1,6 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,13 +29,21 @@ public class CookRole extends UserRole {
 
     @Override
     public Map<String, Object> serialise() {
-        // TODO: implement CookRole.serialise();
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("description",getDescription());
+
+        return map;
     }
 
     @Override
     public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
-        // TODO: implement CookRole.deserialise()
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        Object desc = map.get("description");
+
+        if (desc == null) {
+            throw new EntityDeserialisationException();
+        }
+        this.description = (String) desc;
     }
 }
