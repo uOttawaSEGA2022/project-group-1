@@ -18,8 +18,8 @@
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
-            android:layout_height="338dp"
-            android:src="@drawable/mealerlogo" />
+            android:layout_height="278dp"
+            app:srcCompat="@drawable/check" />
 
         <Button
             android:id="@+id/insertBtn"
@@ -27,5 +27,10 @@
             android:layout_height="wrap_content"
             android:onClick="CustomImage"
             android:text="@string/btnVoidCheck" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

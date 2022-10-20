@@ -21,7 +21,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="342dp"
-                app:srcCompat="@drawable/mealerlogo" />
+                app:srcCompat="@drawable/check" />
 
             <EditText
                 android:id="@+id/fieldEmail"
@@ -29,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Enter your email "
-                android:inputType="textPersonName"
-                 />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/fieldName"
@@ -54,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter your password" />
+                android:hint="Enter your password"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/fieldAddress"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Enter your Address"
-                android:inputType="textPersonName"
+                android:inputType="textPostalAddress"
                 android:text="@string/fieldAdress" />
 
             <Button
