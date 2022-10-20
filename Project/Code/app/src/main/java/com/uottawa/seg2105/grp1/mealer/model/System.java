@@ -34,7 +34,7 @@ public final class System extends Application {
     /**
      * @return The current system instance, for non-Activity classes
      */
-    public System getSystem() { return system; }
+    public static System getSystem() { return system; }
 
     /**
      * @return The current logged-in user, or nil if there is none
