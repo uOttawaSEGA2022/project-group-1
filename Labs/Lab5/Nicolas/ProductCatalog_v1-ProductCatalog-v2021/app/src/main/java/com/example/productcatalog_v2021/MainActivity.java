@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -76,6 +77,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        databaseProducts.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                products.clear();
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Product product = postSnapshot.getValue(Product.class);
+                    products.add(product);
+                }
+
+                ProductList productsAdapter = new ProductList(MainActivity.this, products);
+                listViewProducts.setAdapter(productsAdapter);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
 
@@ -105,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     b.dismiss();
                 }
             }
+
         });
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -143,10 +167,7 @@ public class MainActivity extends AppCompatActivity {
             Product product = new Product(id, name, price);
             databaseProducts.child(id).setValue(product);
 
-            System.out.println(databaseProducts.getRoot());
-            System.out.println(databaseProducts.getKey());
-            System.out.println(databaseProducts.get());
-            System.out.println(databaseProducts.getParent());
+
             editTextName.setText("");
             editTextPrice.setText("");
 
