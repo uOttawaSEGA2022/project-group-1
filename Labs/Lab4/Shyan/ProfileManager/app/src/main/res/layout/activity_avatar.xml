@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AvatarActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/select" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:columnCount="3"
+            app:rowCount="2">
+
+            <ImageView
+                android:id="@+id/team00"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="0"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_00" />
+
+            <ImageView
+                android:id="@+id/team01"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="1"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_01" />
+
+            <ImageView
+                android:id="@+id/team02"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="2"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_02" />
+
+            <ImageView
+                android:id="@+id/team03"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="0"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="1"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_03" />
+
+            <ImageView
+                android:id="@+id/team04"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="1"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="1"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_04" />
+
+            <ImageView
+                android:id="@+id/team05"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="SetTeamIcon"
+                app:layout_column="2"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="1"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                app:srcCompat="@drawable/ic_logo_05" />
+        </androidx.gridlayout.widget.GridLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

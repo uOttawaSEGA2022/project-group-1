@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Profile Manager</string>
+    <string name="select">Choose a Team Logo</string>
+    <string name="TeamMNG">Team Manager</string>
+    <string name="EnterTxt">Please Enter Team Name</string>
+    <string name="EnterAddress">Please enter Team Address</string>
+    <string name="maps">Open in Google Maps</string>
+    <string name="teamAddress">Team Address</string>
 </resources>
