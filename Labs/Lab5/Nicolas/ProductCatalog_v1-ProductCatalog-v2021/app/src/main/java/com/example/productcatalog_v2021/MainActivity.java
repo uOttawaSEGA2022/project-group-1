@@ -143,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
     //all under here aws updated
     private void updateProduct(String id, String name, double price) {
 
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("products").child(id);
-
+        DatabaseReference dR = databaseProducts.child(id);
         Product product = new Product(id, name, price);
         dR.setValue(product);
 
@@ -153,8 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteProduct(String id) {
 
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("products").child(id);
-        dR.removeValue();
+        //DatabaseReference dR = FirebaseDatabase.getInstance().getReference("products").child(id);
+        //System.out.println(dR);
+        //System.out.println(databaseProducts.child(id));
+        databaseProducts.child(id).removeValue();
+        //dR.removeValue();
         Toast.makeText(getApplicationContext(), "Product Deleted", Toast.LENGTH_LONG).show();
         }
     private void addProduct() {
