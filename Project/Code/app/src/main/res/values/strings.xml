@@ -5,4 +5,7 @@
     <string name="btnRegisterCook">Register as a Cook</string>
     <string name="btnVoidCheck">Add a image</string>
     <string name="btnInsertVoid">Insert void Check</string>
+    <string name="fieldLastName" />
+    <string name="btnConfirmRegisterCook">Register as Cook</string>
+    <string name="fieldAdress" />
 </resources>
