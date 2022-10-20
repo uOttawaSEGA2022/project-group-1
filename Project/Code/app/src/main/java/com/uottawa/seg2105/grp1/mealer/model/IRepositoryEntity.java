@@ -6,14 +6,14 @@ import java.util.Map;
 /**
  * Represents an Entity that can be stored in and retrieved from permanent storage by means of a unique ID.
  */
-public interface IDatabaseEntity extends ISerialisableEntity {
+public interface IRepositoryEntity extends ISerialisableEntity {
     /**
      * A map of Entity subclasses to their table names, for use by Repository
      * All subclasses of Entity should register a name here
      *
      * For example: {@code static { Entity.tableNames.put(CLASS_NAME_HERE.class, "TABLE_NAME_HERE"); } }
      */
-    Map<Class<? extends IDatabaseEntity>, String> tableNames = new HashMap<>();
+    Map<Class<? extends IRepositoryEntity>, String> tableNames = new HashMap<>();
 
     /**
      * Returns an ID uniquely identifying this Entity within its table.
@@ -26,7 +26,7 @@ public interface IDatabaseEntity extends ISerialisableEntity {
      * @param cls The class whose table name is being queried
      * @return The table name associated with the specified class
      */
-    static String getTableName(Class<? extends IDatabaseEntity> cls) {
+    static String getTableName(Class<? extends IRepositoryEntity> cls) {
         return tableNames.get(cls);
     }
 

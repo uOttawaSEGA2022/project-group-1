@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Represents a User Entity in the Mealer app and Database.
  */
-public final class User implements IDatabaseEntity {
+public final class User implements IRepositoryEntity {
     private String firstName;
     private String lastName;
     private String email;
@@ -24,7 +24,7 @@ public final class User implements IDatabaseEntity {
     public UserRole getRole() { return role; }
 
     // Defines the storage table name for this class.
-    static { IDatabaseEntity.tableNames.put(User.class, "users"); }
+    static { IRepositoryEntity.tableNames.put(User.class, "users"); }
 
     /**
      * Searches persistent storage for a user with this email
