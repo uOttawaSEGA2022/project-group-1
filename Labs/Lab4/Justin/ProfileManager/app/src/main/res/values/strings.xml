@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Profile Manager</string>
+    <string name="titleTextView">Soccer Team Manager</string>
+    <string name="teamNameField">(Please enter a team name)</string>
+    <string name="teamNameTextField">Team Name</string>
+    <string name="teamAddressField">(Please enter a ZIP code)</string>
+    <string name="teamAddressTextField">Team Address</string>
+    <string name="button">Open in Google Maps</string>
+    <string name="avatarText">Select a new avatar</string>
+    <string name="loadImageBtn">Load from phone</string>
+</resources>
