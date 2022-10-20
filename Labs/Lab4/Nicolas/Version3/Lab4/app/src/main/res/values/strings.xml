@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lab4</string>
+    <string name="btnMaps" />
+    <string name="btnLoad" />
+    <string name="btnLoadM">Load from phone</string>
+    <string name="teamAddressField" />
+    <string name="OnSetAvatarButton" />
+    <string name="btnMaps1">Open in google maps</string>
+</resources>

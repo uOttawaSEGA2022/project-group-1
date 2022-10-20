@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Mealer</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegisterClient">Register as a client</string>
+    <string name="btnRegisterCook">Register as a Cook</string>
+    <string name="btnVoidCheck">Add a image</string>
+    <string name="btnInsertVoid">Insert void Check</string>
 </resources>

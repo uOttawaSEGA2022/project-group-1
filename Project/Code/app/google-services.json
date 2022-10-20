@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "656243526584",
+    "firebase_url": "https://group1-mealer-default-rtdb.firebaseio.com",
+    "project_id": "group1-mealer",
+    "storage_bucket": "group1-mealer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656243526584:android:17e6515b5c9afd824a1d4d",
+        "android_client_info": {
+          "package_name": "com.uottawa.seg2105.grp1.mealer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656243526584-u3duv1kfvjr6kl8v50k42mk4vua0rn3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU0BjOn5eTGbaVa8vAvscGvU_aPXA3pNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656243526584-u3duv1kfvjr6kl8v50k42mk4vua0rn3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
