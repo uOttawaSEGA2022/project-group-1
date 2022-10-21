@@ -51,7 +51,7 @@ public class CookRegister extends AppCompatActivity {
 
     private boolean isValidClient(EditText firstName, EditText lastName,
                                   EditText email, EditText password,
-                                  EditText address1) {
+                                  EditText address1, EditText description) {
         boolean result = true;
 
         //if no image was added, cause a problem
@@ -105,6 +105,11 @@ public class CookRegister extends AppCompatActivity {
             }
         }
 
+        if(Utility.isEmpty(description)) {
+            address1.setError("Address required");
+            result = false;
+        }
+
         return result;
     }//end of confirmation
 
@@ -114,9 +119,9 @@ public class CookRegister extends AppCompatActivity {
         EditText email = findViewById(R.id.fieldEmail);
         EditText password = findViewById(R.id.fieldPassword);
         EditText address1 = findViewById(R.id.fieldAddress);
-
+        EditText description = findViewById(R.id.fieldCookDescription);
         boolean valid = isValidClient(firstName, lastName, email, password,
-                address1);
+                address1, description);
 
         if (check != true){
             Toast.makeText(this, "You forgot to add a Check", Toast.LENGTH_LONG).show();
@@ -125,11 +130,13 @@ public class CookRegister extends AppCompatActivity {
 
         if(valid) {
             try {
-                UserRole role = new CookRole();
+                CookRole role = new CookRole();
                 User newUser = User.createNewUser(
                         firstName.getText().toString(), lastName.getText().toString(),
                         email.getText().toString(), password.getText().toString(),
                         address1.getText().toString(), role, false);
+                
+                role.setDescription(description.getText().toString());
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();

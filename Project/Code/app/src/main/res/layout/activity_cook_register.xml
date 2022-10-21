@@ -75,6 +75,16 @@
             android:inputType="textPostalAddress"
             android:text="@string/fieldAdress" />
 
+        <EditText
+            android:id="@+id/fieldCookDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter a description of yourself"
+            android:inputType="textPersonName"
+            android:text="@string/fieldCookDescription" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
