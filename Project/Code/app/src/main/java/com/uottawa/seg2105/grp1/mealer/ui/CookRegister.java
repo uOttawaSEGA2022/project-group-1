@@ -56,7 +56,7 @@ public class CookRegister extends AppCompatActivity {
         boolean result = true;
 
         //if no image was added, cause a problem
-        if(!check){
+        if(check != true){
             result = false;
         }
 

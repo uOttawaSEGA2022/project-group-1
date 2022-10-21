@@ -29,20 +29,15 @@ public class CookRole extends UserRole {
      * @param description The new description.
      */
     public void setDescription(String description) {
-        // TODO: Call repository to update in storage
         this.description = description;
         String email = this.user.getEmail();
-        //throw new UnsupportedOperationException("Not implemented yet.");
 
-        //added here
         new Thread() {
             @Override
             public void run() {
                 try {
-                    // Create or overwrite the User in the repository.
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     Map<String, Object> data = new HashMap<>();
-                    data.put("description", description);
                     rep.update(User.class, email, data);
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
