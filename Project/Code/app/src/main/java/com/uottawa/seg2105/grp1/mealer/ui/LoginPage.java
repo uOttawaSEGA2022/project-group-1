@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+import com.uottawa.seg2105.grp1.mealer.model.System;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -16,20 +17,6 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-    }
-
-    public void btnLoginClient(View view) {
-
-        EditText email = findViewById(R.id.loginEmail);
-        EditText password = findViewById(R.id.loginPassword);
-
-        boolean valid = validateCredentials(email, password);
-
-        if(valid) {
-            Intent resultIntent = new Intent();
-            setResult(RESULT_OK, resultIntent);
-            finish();
-        }
     }
 
     private boolean validateCredentials(EditText email, EditText password) {
@@ -54,5 +41,26 @@ public class LoginPage extends AppCompatActivity {
         return result;
     }
 
+    public void btnLoginClient(View view) {
+
+        EditText email = findViewById(R.id.loginEmail);
+        EditText password = findViewById(R.id.loginPassword);
+
+        boolean valid = validateCredentials(email, password);
+
+        if(valid) {
+            /*
+            Intent resultIntent = new Intent();
+            setResult(RESULT_OK, resultIntent);
+            finish();*/
+            boolean success = System.getSystem().tryLogin(email.getText().toString(),
+                                        password.getText().toString());
+
+            if (success) {
+                Intent intent = new Intent(getApplicationContext(), ClientHome.class);
+                startActivityForResult(intent, 0);
+            }
+        }
+    }
 
 }
