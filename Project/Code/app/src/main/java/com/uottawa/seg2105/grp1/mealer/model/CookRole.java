@@ -15,7 +15,11 @@ public class CookRole extends UserRole {
     /**
      * @return The description of the cook
      */
-    public String getDescription() { return description; }
+    public String getDescription() {
+        if (description == null)
+            return "";
+        return description;
+    }
 
     /**
      * Updates the cook's description.
@@ -41,9 +45,9 @@ public class CookRole extends UserRole {
 
         Object desc = map.get("description");
 
-        if (desc == null) {
+        if (desc == null)
             throw new EntityDeserialisationException();
-        }
+
         this.description = (String) desc;
     }
 }
