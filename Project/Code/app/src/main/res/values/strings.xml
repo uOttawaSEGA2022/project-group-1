@@ -11,4 +11,13 @@
     <string name="loginEmailHint">Your email</string>
     <string name="loginPasswordHint">Your password</string>
     <string name="loginBtn">Login</string>
+    <string name="fieldMenuName" />
+    <string name="fieldMealType" />
+    <string name="fieldCuisineType" />
+    <string name="fieldAllergens" />
+    <string name="fieldIngredients" />
+    <string name="fieldDescription" />
+    <string name="btnAddItem">Add item to menu</string>
+    <string name="btnDebug">Debug mode (remove at end)</string>
+    <string name="btnCookMenu">Open cook addItem menu</string>
 </resources>

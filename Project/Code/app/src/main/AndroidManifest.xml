@@ -14,6 +14,20 @@
         android:theme="@style/Theme.Mealer"
         tools:targetApi="31">
         <activity
+            android:name=".ui.DebugMode"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.CookAddMeal"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.LoginPage"
             android:exported="false">
             <meta-data

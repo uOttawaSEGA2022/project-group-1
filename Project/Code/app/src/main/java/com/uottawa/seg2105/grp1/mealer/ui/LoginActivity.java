@@ -90,5 +90,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnDebugMode(View view){
+        System.out.println("debug");
+        Intent intent = new Intent(getApplicationContext(), DebugMode.class);
+        startActivity(intent);
+    }
+
+
+
 
 }

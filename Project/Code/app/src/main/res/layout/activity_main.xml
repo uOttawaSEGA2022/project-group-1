@@ -46,6 +46,13 @@
             android:onClick="btnRegisterClient"
             android:text="@string/btnRegisterClient" />
 
+        <Button
+            android:id="@+id/btnDebug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnDebugMode"
+            android:text="@string/btnDebug" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
