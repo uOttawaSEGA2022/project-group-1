@@ -35,7 +35,12 @@ public class ClientRole extends UserRole {
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     Map<String, Object> data = new HashMap<>();
                     data.put("cardNumber", cardNumber);
-                    rep.update(User.class, email, data);
+
+                    // Create the properties map
+                    Map<String, Object> properties = new HashMap<>();
+                    properties.put("role", data);
+
+                    rep.update(User.class, email, properties);
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
                 }
