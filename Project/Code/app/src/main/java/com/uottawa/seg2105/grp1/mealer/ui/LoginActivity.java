@@ -32,6 +32,12 @@ public class LoginActivity extends AppCompatActivity {
         //Adds a user to the DB
         test.addUser(view);
     }
+    //btn that opens a loginpage class
+    public void btnLoginPage(View view){
+        System.out.println("loginpage");
+        Intent intent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivityForResult(intent, 0);
+    }
     //btn that opens a cookregister class
     public void btnRegisterCook(View view){
         System.out.println("cook");

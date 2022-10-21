@@ -9,6 +9,9 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+
+import okhttp3.internal.Util;
 
 public class ClientRegister extends AppCompatActivity {
 
@@ -18,48 +21,87 @@ public class ClientRegister extends AppCompatActivity {
         setContentView(R.layout.activity_client_register);
     }
 
-    private boolean isEmpty(EditText editText) {
-        String str = editText.getText().toString();
-        return TextUtils.isEmpty(str);
-    }
-
     private boolean isValidClient(EditText firstName, EditText lastName,
                                   EditText email, EditText password,
                                   EditText address1, EditText address2,
                                   EditText ccNumber, EditText ccExpiry) {
         boolean result = true;
         boolean hasAddress2 = true;
-        if(isEmpty(firstName)) {
+
+        if(Utility.isEmpty(firstName)) {
             firstName.setError("First Name required");
             result = false;
+        } else {
+            //If non-empty, check for validity
+            if (!Utility.isValidField(firstName, Utility.NAME)) {
+                firstName.setError("First Name invalid");
+                result = false;
+            }
         }
-        if (isEmpty(lastName)) {
+
+        if (Utility.isEmpty(lastName)) {
             lastName.setError("Last Name required");
             result = false;
+        } else {
+            if (!Utility.isValidField(lastName, Utility.NAME)) {
+                firstName.setError("Last Name invalid");
+                result = false;
+            }
         }
-        if(isEmpty(email)) {
+
+        if(Utility.isEmpty(email)) {
             email.setError("Email required");
             result = false;
+        } else {
+            if (!Utility.isValidField(email, Utility.EMAIL)) {
+                firstName.setError("Email invalid");
+                result = false;
+            }
         }
-        if (isEmpty(password)) {
+
+        if (Utility.isEmpty(password)) {
             password.setError("Password required");
             result = false;
         }
-        if(isEmpty(address1)) {
+
+        if(Utility.isEmpty(address1)) {
             address1.setError("Address required");
             result = false;
+        } else {
+            if (!Utility.isValidField(address1, Utility.ADDRESS)) {
+                firstName.setError("Address invalid");
+                result = false;
+            }
         }
+
         // address2 is optional, just check if it is present
-        if(isEmpty(address2)) {
+        if(Utility.isEmpty(address2)) {
             hasAddress2 = false;
+        } else {
+            if (!Utility.isValidField(address2, Utility.ADDRESS)) {
+                firstName.setError("Address invalid");
+                result = false;
+            }
         }
-        if (isEmpty(ccNumber)) {
+
+        if (Utility.isEmpty(ccNumber)) {
             ccNumber.setError("Credit Card Number required");
             result = false;
+        } else {
+            if (!Utility.isValidField(ccNumber, Utility.CREDITCARD)) {
+                firstName.setError("Credit Card Number invalid");
+                result = false;
+            }
         }
-        if(isEmpty(ccExpiry)) {
+
+        if(Utility.isEmpty(ccExpiry)) {
             ccExpiry.setError("Credit Card Expiry required");
             result = false;
+        } else {
+            if (!Utility.isValidField(ccExpiry, Utility.CREDITCARDEXPIRY)) {
+                firstName.setError("Credit Card Expiry invalid");
+                result = false;
+            }
         }
         return result;
     }
@@ -73,11 +115,14 @@ public class ClientRegister extends AppCompatActivity {
         EditText address2 = findViewById(R.id.address2);
         EditText ccNumber = findViewById(R.id.ccNumber);
         EditText ccExpiry = findViewById(R.id.ccExpiry);
+
         boolean valid = isValidClient(firstName, lastName, email, password,
                                       address1, address2, ccNumber, ccExpiry);
 
-        Intent resultIntent = new Intent();
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        if (valid) {
+            Intent resultIntent = new Intent();
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
     }
 }

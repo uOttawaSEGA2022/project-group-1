@@ -8,4 +8,7 @@
     <string name="fieldLastName" />
     <string name="btnConfirmRegisterCook">Register as Cook</string>
     <string name="fieldAdress" />
+    <string name="loginEmailHint">Your email</string>
+    <string name="loginPasswordHint">Your password</string>
+    <string name="loginBtn">Login</string>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 
 public class CookRegister extends AppCompatActivity {
     boolean check = false;
@@ -44,12 +45,6 @@ public class CookRegister extends AppCompatActivity {
         }
     }
 
-    //add here for confirmation
-    private boolean isEmpty(EditText editText) {
-        String str = editText.getText().toString();
-        return TextUtils.isEmpty(str);
-    }
-
     private boolean isValidClient(EditText firstName, EditText lastName,
                                   EditText email, EditText password,
                                   EditText address1) {
@@ -60,25 +55,50 @@ public class CookRegister extends AppCompatActivity {
             result = false;
         }
 
-        if(isEmpty(firstName)) {
+        if(Utility.isEmpty(firstName)) {
             firstName.setError("First Name required");
             result = false;
+        } else {
+            //If name is not valid, say it's invalid and set result false
+            if (!Utility.isValidField(firstName, Utility.NAME)) {
+                firstName.setError("First Name invalid");
+                result = false;
+            }
         }
-        if (isEmpty(lastName)) {
+
+        if (Utility.isEmpty(lastName)) {
             lastName.setError("Last Name required");
             result = false;
+        } else {
+            if (!Utility.isValidField(lastName, Utility.NAME)) {
+                firstName.setError("Last Name invalid");
+                result = false;
+            }
         }
-        if(isEmpty(email)) {
+
+        if(Utility.isEmpty(email)) {
             email.setError("Email required");
             result = false;
+        } else {
+            if (!Utility.isValidField(email, Utility.EMAIL)) {
+                firstName.setError("Email invalid");
+                result = false;
+            }
         }
-        if (isEmpty(password)) {
+
+        if (Utility.isEmpty(password)) {
             password.setError("Password required");
             result = false;
         }
-        if(isEmpty(address1)) {
+
+        if(Utility.isEmpty(address1)) {
             address1.setError("Address required");
             result = false;
+        } else {
+            if (!Utility.isValidField(address1, Utility.ADDRESS)) {
+                firstName.setError("Address invalid");
+                result = false;
+            }
         }
 
         return result;

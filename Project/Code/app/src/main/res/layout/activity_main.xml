@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
+            android:onClick="btnLoginPage"
             android:text="@string/btnLogin" />
 
         <Button

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 
 public class ClientHome extends AppCompatActivity {
 
