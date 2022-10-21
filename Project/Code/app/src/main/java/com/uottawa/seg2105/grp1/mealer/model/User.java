@@ -24,6 +24,19 @@ public final class User implements IRepositoryEntity {
     public boolean isAdmin() { return admin; }
     public UserRole getRole() { return role; }
 
+    public User(String firstName, String lastName, String email, String password, String address, UserRole role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.passwordHash = MealerSystem.getSystem().hashPassword(password);
+        this.address = address;
+        this.admin = role == null;
+        this.role = role;
+
+        if (role != null)
+            role.user = this;
+    }
+
     /**
      * Searches persistent storage for a user with this email
      * @param email The email of the user to search for

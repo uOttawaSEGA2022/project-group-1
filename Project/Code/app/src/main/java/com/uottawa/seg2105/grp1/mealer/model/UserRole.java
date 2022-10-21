@@ -7,7 +7,7 @@ public abstract class UserRole implements ISerialisableEntity {
     /**
      * The User this UserRole belongs to
      */
-    private User user;
+    User user;
 
     /**
      *

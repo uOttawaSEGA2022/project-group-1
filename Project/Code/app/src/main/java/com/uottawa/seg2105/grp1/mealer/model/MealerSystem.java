@@ -60,6 +60,10 @@ public final class MealerSystem extends Application {
         system = this;
     }
 
+    /**
+     * Verifies if a user has already logged in in the previous session.
+     * Restores that user as the current user if it exists.
+     */
     public void restoreSession() {
         String username = usersession.getString(SP_USERNAME_FIELD, null);
         if (username == null)
@@ -130,7 +134,7 @@ public final class MealerSystem extends Application {
      * @param password the password
      * @return the lowercase hex string SHA-256 on UTF-8
      */
-    private String hashPassword(String password) {
+    String hashPassword(String password) {
         try {
             // Digest using SHA-256 on UTF-8 encoding
             MessageDigest md = MessageDigest.getInstance("SHA-256");
