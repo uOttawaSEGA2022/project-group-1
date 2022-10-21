@@ -1,9 +1,9 @@
 package com.uottawa.seg2105.grp1.mealer.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,17 +49,29 @@ public class LoginPage extends AppCompatActivity {
         boolean valid = validateCredentials(email, password);
 
         if(valid) {
-            /*
-            Intent resultIntent = new Intent();
-            setResult(RESULT_OK, resultIntent);
-            finish();*/
-            boolean success = System.getSystem().tryLogin(email.getText().toString(),
-                                        password.getText().toString());
+            view.setEnabled(false);
 
-            if (success) {
-                Intent intent = new Intent(getApplicationContext(), ClientHome.class);
-                startActivityForResult(intent, 0);
-            }
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean success = System.getSystem().tryLogin(
+                            email.getText().toString(),
+                            password.getText().toString());
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (success) {
+                                Toast.makeText(LoginPage.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                finish();
+                            } else {
+                                Toast.makeText(LoginPage.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                view.setEnabled(true);
+                            }
+                        }
+                    });
+                }
+            }.start();
         }
     }
 
