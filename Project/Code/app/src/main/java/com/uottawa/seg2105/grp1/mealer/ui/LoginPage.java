@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
-import com.uottawa.seg2105.grp1.mealer.model.System;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -54,7 +54,7 @@ public class LoginPage extends AppCompatActivity {
             new Thread() {
                 @Override
                 public void run() {
-                    boolean success = System.getSystem().tryLogin(
+                    boolean success = MealerSystem.getSystem().tryLogin(
                             email.getText().toString(),
                             password.getText().toString());
 

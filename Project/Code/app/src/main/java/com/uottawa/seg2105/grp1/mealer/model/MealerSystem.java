@@ -16,8 +16,8 @@ import java.security.MessageDigest;
  *
  * Must be initialized
  */
-public final class System extends Application {
-    private static System system;
+public final class MealerSystem extends Application {
+    private static MealerSystem system;
 
     private static final String SP_NAME = "usersession";
     private static final String SP_USERNAME_FIELD = "username";
@@ -34,7 +34,7 @@ public final class System extends Application {
     /**
      * @return The current system instance, for non-Activity classes
      */
-    public static System getSystem() { return system; }
+    public static MealerSystem getSystem() { return system; }
 
     /**
      * @return The current logged-in user, or nil if there is none
