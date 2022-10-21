@@ -22,14 +22,6 @@
             android:hint="@string/hintEmail"
             android:inputType="textEmailAddress" />
 
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Email" />
-
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
@@ -38,14 +30,6 @@
             android:ems="10"
             android:hint="@string/hintPassword"
             android:inputType="textPassword" />
-
-        <TextView
-            android:id="@+id/textViewPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Password" />
 
         <EditText
             android:id="@+id/firstName"
@@ -56,14 +40,6 @@
             android:hint="@string/hintFirstName"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textViewFirstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="First Name" />
-
         <EditText
             android:id="@+id/lastName"
             android:layout_width="match_parent"
@@ -73,14 +49,6 @@
             android:hint="@string/hintLastName"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textViewLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Last Name" />
-
         <EditText
             android:id="@+id/address"
             android:layout_width="match_parent"
@@ -88,14 +56,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/hintAddress" />
-
-        <TextView
-            android:id="@+id/textViewAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Address" />
 
         <EditText
             android:id="@+id/ccNumber"
@@ -106,14 +66,6 @@
             android:hint="@string/hintCreditCard"
             android:inputType="number" />
 
-        <TextView
-            android:id="@+id/textViewCreditCardNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Credit Card Number" />
-
         <EditText
             android:id="@+id/ccExpiry"
             android:layout_width="match_parent"
@@ -122,13 +74,10 @@
             android:ems="10"
             android:hint="@string/hintExpiry" />
 
-        <TextView
-            android:id="@+id/textViewCreditCardExpiry"
+        <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Credit Card Expiry" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/button"
@@ -136,6 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:onClick="onRegisterClient"
-            android:text="Register" />
+            android:text="@string/btnRegisterClient" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
