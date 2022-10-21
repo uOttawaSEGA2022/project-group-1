@@ -135,7 +135,7 @@ public class CookRegister extends AppCompatActivity {
                         firstName.getText().toString(), lastName.getText().toString(),
                         email.getText().toString(), password.getText().toString(),
                         address1.getText().toString(), role, false);
-                
+
                 role.setDescription(description.getText().toString());
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
