@@ -103,7 +103,7 @@ public class ClientRegister extends AppCompatActivity {
         return result;
     }
 
-    public void onRegisterClient(View view) {
+    public void onRegisterClient(View view) throws InterruptedException {
         EditText firstName = findViewById(R.id.firstName);
         EditText lastName = findViewById(R.id.lastName);
         EditText email = findViewById(R.id.email);
@@ -125,7 +125,7 @@ public class ClientRegister extends AppCompatActivity {
                         email.getText().toString(), password.getText().toString(),
                         address.getText().toString(), role, false);
                 role.setCardNumber(ccNumber.getText().toString());
-                new Thread() {
+                Thread t = new Thread() {
                     @Override
                     public void run() {
                         boolean success = MealerSystem.getSystem().tryLogin(
@@ -145,7 +145,9 @@ public class ClientRegister extends AppCompatActivity {
                             }
                         });
                     }
-                }.start();
+                };
+                t.start();
+                t.join();
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
