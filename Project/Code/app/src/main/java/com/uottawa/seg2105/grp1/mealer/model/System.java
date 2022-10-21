@@ -57,6 +57,10 @@ public final class System extends Application {
 
         repository = new CloudFirestoreRepository();
 
+        system = this;
+    }
+
+    public void restoreSession() {
         String username = usersession.getString(SP_USERNAME_FIELD, null);
         if (username == null)
             logoff();
@@ -68,8 +72,6 @@ public final class System extends Application {
                 logoff();
             }
         }
-
-        system = this;
     }
 
     /**
@@ -137,7 +139,7 @@ public final class System extends Application {
             // Convert to lowercase hexadecimal string
             StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
-                String hex = Integer.toHexString(b);
+                String hex = Integer.toHexString(b & 0xFF);
                 if (hex.length() < 2)
                     sb.append("0");
                 sb.append(hex);
