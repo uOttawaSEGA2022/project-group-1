@@ -82,36 +82,20 @@
             android:text="Password" />
 
         <EditText
-            android:id="@+id/address1"
+            android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Address Line 1" />
+            android:hint="Address" />
 
         <TextView
-            android:id="@+id/textViewAddress1"
+            android:id="@+id/textViewAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="center_horizontal"
             android:text="Address" />
-
-        <EditText
-            android:id="@+id/address2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Address Line 2" />
-
-        <TextView
-            android:id="@+id/textViewAddress2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Address (optional)" />
 
         <EditText
             android:id="@+id/ccNumber"
@@ -136,8 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="MM/YY"
-            android:inputType="number" />
+            android:hint="MM/YY" />
 
         <TextView
             android:id="@+id/textViewCreditCardExpiry"

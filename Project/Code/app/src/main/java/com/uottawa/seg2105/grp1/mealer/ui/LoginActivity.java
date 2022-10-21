@@ -75,19 +75,19 @@ public class LoginActivity extends AppCompatActivity {
     public void btnLoginPage(View view){
         System.out.println("loginpage");
         Intent intent = new Intent(getApplicationContext(), LoginPage.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
     //btn that opens a cookregister class
     public void btnRegisterCook(View view){
         System.out.println("cook");
         Intent intent = new Intent(getApplicationContext(), CookRegister.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
     //btn that opens a cookClient class
     public void btnRegisterClient(View view){
         System.out.println("client");
         Intent intent = new Intent(getApplicationContext(), ClientRegister.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
 
 

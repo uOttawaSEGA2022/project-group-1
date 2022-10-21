@@ -7,9 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
+import com.uottawa.seg2105.grp1.mealer.model.CookRole;
+import com.uottawa.seg2105.grp1.mealer.model.User;
+import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import okhttp3.internal.Util;
 
@@ -23,7 +29,7 @@ public class ClientRegister extends AppCompatActivity {
 
     private boolean isValidClient(EditText firstName, EditText lastName,
                                   EditText email, EditText password,
-                                  EditText address1, EditText address2,
+                                  EditText address,
                                   EditText ccNumber, EditText ccExpiry) {
         boolean result = true;
         boolean hasAddress2 = true;
@@ -44,7 +50,7 @@ public class ClientRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(lastName, Utility.NAME)) {
-                firstName.setError("Last Name invalid");
+                lastName.setError("Last Name invalid");
                 result = false;
             }
         }
@@ -54,7 +60,7 @@ public class ClientRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(email, Utility.EMAIL)) {
-                firstName.setError("Email invalid");
+                email.setError("Email invalid");
                 result = false;
             }
         }
@@ -64,22 +70,12 @@ public class ClientRegister extends AppCompatActivity {
             result = false;
         }
 
-        if(Utility.isEmpty(address1)) {
-            address1.setError("Address required");
+        if(Utility.isEmpty(address)) {
+            address.setError("Address required");
             result = false;
         } else {
-            if (!Utility.isValidField(address1, Utility.ADDRESS)) {
-                firstName.setError("Address invalid");
-                result = false;
-            }
-        }
-
-        // address2 is optional, just check if it is present
-        if(Utility.isEmpty(address2)) {
-            hasAddress2 = false;
-        } else {
-            if (!Utility.isValidField(address2, Utility.ADDRESS)) {
-                firstName.setError("Address invalid");
+            if (!Utility.isValidField(address, Utility.ADDRESS)) {
+                address.setError("Address invalid");
                 result = false;
             }
         }
@@ -89,7 +85,7 @@ public class ClientRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(ccNumber, Utility.CREDITCARD)) {
-                firstName.setError("Credit Card Number invalid");
+                ccNumber.setError("Credit Card Number invalid");
                 result = false;
             }
         }
@@ -99,7 +95,7 @@ public class ClientRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(ccExpiry, Utility.CREDITCARDEXPIRY)) {
-                firstName.setError("Credit Card Expiry invalid");
+                ccExpiry.setError("Credit Card Expiry invalid");
                 result = false;
             }
         }
@@ -111,18 +107,26 @@ public class ClientRegister extends AppCompatActivity {
         EditText lastName = findViewById(R.id.lastName);
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
-        EditText address1 = findViewById(R.id.address1);
-        EditText address2 = findViewById(R.id.address2);
+        EditText address = findViewById(R.id.address);
         EditText ccNumber = findViewById(R.id.ccNumber);
         EditText ccExpiry = findViewById(R.id.ccExpiry);
 
         boolean valid = isValidClient(firstName, lastName, email, password,
-                                      address1, address2, ccNumber, ccExpiry);
+                                      address, ccNumber, ccExpiry);
 
         if (valid) {
             // TODO: Use User.createNewUser() when it is completed
-            Intent resultIntent = new Intent();
-            setResult(RESULT_OK, resultIntent);
+            try {
+                UserRole role = new ClientRole();
+                User newUser = User.createNewUser(
+                        firstName.getText().toString(), lastName.getText().toString(),
+                        email.getText().toString(), password.getText().toString(),
+                        address.getText().toString(), role, false);
+            } catch (RepositoryRequestException e) {
+                // TODO: Add a UserAlreadyExistsException
+                Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
+                return;
+            }
             finish();
         }
     }
