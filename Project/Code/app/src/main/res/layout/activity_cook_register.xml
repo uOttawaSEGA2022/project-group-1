@@ -34,8 +34,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter your email "
+            android:hint="@string/hintEmail"
             android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/fieldPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintPassword"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/fieldName"
@@ -43,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter your first name"
+            android:hint="@string/hintFirstName"
             android:inputType="textPersonName" />
 
         <EditText
@@ -52,18 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter your last name"
+            android:hint="@string/hintLastName"
             android:inputType="textPersonName"
             android:text="@string/fieldLastName" />
-
-        <EditText
-            android:id="@+id/fieldPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Enter your password"
-            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/fieldAddress"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter your address"
+            android:hint="@string/hintAddress"
             android:inputType="textPostalAddress"
             android:text="@string/fieldAdress" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter a description of yourself"
+            android:hint="@string/hintDescription"
             android:inputType="textPersonName"
             android:text="@string/fieldCookDescription" />
 

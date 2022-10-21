@@ -21,4 +21,12 @@
     <string name="btnDebug">Debug mode (remove at end)</string>
     <string name="btnCookMenu">Open cook addItem menu</string>
     <string name="fieldCookDescription" />
+    <string name="hintEmail">Enter your email</string>
+    <string name="hintPassword">Enter your password</string>
+    <string name="hintFirstName">Enter your first name</string>
+    <string name="hintLastName">Enter your last name</string>
+    <string name="hintAddress">Enter your address</string>
+    <string name="hintCreditCard">Enter your credit card number</string>
+    <string name="hintExpiry">MM/YY (credit card expiry)</string>
+    <string name="hintDescription">Enter a description of yourself</string>
 </resources>

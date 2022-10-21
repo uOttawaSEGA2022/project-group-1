@@ -14,46 +14,12 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/firstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="First Name"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textViewFirstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="First Name" />
-
-        <EditText
-            android:id="@+id/lastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Last Name"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textViewLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="Last Name" />
-
-        <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/hintEmail"
             android:inputType="textEmailAddress" />
 
         <TextView
@@ -70,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/hintPassword"
             android:inputType="textPassword" />
 
         <TextView
@@ -82,12 +48,46 @@
             android:text="Password" />
 
         <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintFirstName"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textViewFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="First Name" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintLastName"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textViewLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="Last Name" />
+
+        <EditText
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Address" />
+            android:hint="@string/hintAddress" />
 
         <TextView
             android:id="@+id/textViewAddress"
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Credit Card Number"
+            android:hint="@string/hintCreditCard"
             android:inputType="number" />
 
         <TextView
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="MM/YY" />
+            android:hint="@string/hintExpiry" />
 
         <TextView
             android:id="@+id/textViewCreditCardExpiry"
