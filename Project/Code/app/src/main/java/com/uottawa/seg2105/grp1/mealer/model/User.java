@@ -72,8 +72,8 @@ public final class User implements IRepositoryEntity {
         Object role = map.get("role");
         Object roleType = map.get("roleType");
 
-        if (firstName == null || lastName == null || email == null || passwordHash == null
-           || address == null ||    admin == null ||  role == null ||     roleType == null) {
+        if (firstName == null || lastName == null || email == null    || passwordHash == null
+           || address == null ||    admin == null || roleType == null || ( !roleType.equals("admin") && role == null)) {
             throw new EntityDeserialisationException();
         }
         this.firstName = (String) firstName;
