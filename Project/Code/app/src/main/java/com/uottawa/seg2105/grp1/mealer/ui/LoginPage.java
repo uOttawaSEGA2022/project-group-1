@@ -41,7 +41,7 @@ public class LoginPage extends AppCompatActivity {
         return result;
     }
 
-    public void btnLoginClient(View view) {
+    public void btnLogin(View view) {
 
         EditText email = findViewById(R.id.loginEmail);
         EditText password = findViewById(R.id.loginPassword);
