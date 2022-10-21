@@ -24,9 +24,6 @@ public final class User implements IRepositoryEntity {
     public boolean isAdmin() { return admin; }
     public UserRole getRole() { return role; }
 
-    // Defines the storage table name for this class.
-    static { IRepositoryEntity.tableNames.put(User.class, "users"); }
-
     /**
      * Searches persistent storage for a user with this email
      * @param email The email of the user to search for

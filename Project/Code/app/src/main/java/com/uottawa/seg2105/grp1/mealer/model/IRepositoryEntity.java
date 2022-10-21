@@ -13,7 +13,11 @@ public interface IRepositoryEntity extends ISerialisableEntity {
      *
      * For example: {@code static { Entity.tableNames.put(CLASS_NAME_HERE.class, "TABLE_NAME_HERE"); } }
      */
-    Map<Class<? extends IRepositoryEntity>, String> tableNames = new HashMap<>();
+    Map<Class<? extends IRepositoryEntity>, String> tableNames = new HashMap<Class<? extends IRepositoryEntity>, String>() {
+        {
+            put(User.class, "users");
+        }
+    };
 
     /**
      * Returns an ID uniquely identifying this Entity within its table.
