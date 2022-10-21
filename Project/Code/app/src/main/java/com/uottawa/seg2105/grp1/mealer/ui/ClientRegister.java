@@ -128,22 +128,22 @@ public class ClientRegister extends AppCompatActivity {
 
                         runOnUiThread(() -> {
                             if (success) {
-                                Toast.makeText(ClientRegister.this, "Registering successful!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ClientRegister.this, "Registering successful!", Toast.LENGTH_SHORT).show();
                                 finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
                             } else {
-                                Toast.makeText(ClientRegister.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ClientRegister.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                                 view.setEnabled(true);
                             }
                         });
                     } catch (RepositoryRequestException e) {
                         runOnUiThread(() -> {
-                            Toast.makeText(ClientRegister.this, "An error occurred.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ClientRegister.this, "An error occurred.", Toast.LENGTH_SHORT).show();
                             view.setEnabled(true);
                         });
 
                     } catch (UserAlreadyExistsException e) {
                         runOnUiThread(() -> {
-                            Toast.makeText(ClientRegister.this, "This email is already taken.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ClientRegister.this, "This email is already taken.", Toast.LENGTH_SHORT).show();
                             view.setEnabled(true);
                         });
                     }

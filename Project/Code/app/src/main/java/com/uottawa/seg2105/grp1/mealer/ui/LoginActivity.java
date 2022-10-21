@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
@@ -36,20 +34,17 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (currentUser == null) return;
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentUser.isAdmin()) {
-                            Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                runOnUiThread(() -> {
+                    if (currentUser.isAdmin()) {
+                        Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                        startActivity(intent);
+                    } else {
+                        if (currentUser.getRole() instanceof ClientRole) {
+                            Intent intent = new Intent(getApplicationContext(), ClientHome.class);
                             startActivity(intent);
-                        } else {
-                            if (currentUser.getRole() instanceof ClientRole) {
-                                Intent intent = new Intent(getApplicationContext(), ClientHome.class);
-                                startActivity(intent);
-                            } else if (currentUser.getRole() instanceof CookRole) {
-                                Intent intent = new Intent(getApplicationContext(), CookHome.class);
-                                startActivity(intent);
-                            }
+                        } else if (currentUser.getRole() instanceof CookRole) {
+                            Intent intent = new Intent(getApplicationContext(), CookHome.class);
+                            startActivity(intent);
                         }
                     }
                 });

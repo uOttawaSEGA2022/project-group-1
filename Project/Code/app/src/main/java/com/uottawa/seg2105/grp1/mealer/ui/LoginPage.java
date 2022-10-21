@@ -62,10 +62,10 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (success) {
-                                Toast.makeText(LoginPage.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginPage.this, "Login successful!", Toast.LENGTH_SHORT).show();
                                 finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
                             } else {
-                                Toast.makeText(LoginPage.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginPage.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
                                 view.setEnabled(true);
                             }
                         }

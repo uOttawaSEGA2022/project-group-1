@@ -45,8 +45,10 @@ public class CookRegister extends AppCompatActivity {
 
             //sets the image as the custom photo
             ImageView avatarImage = (ImageView) findViewById(R.id.imageView);
-            avatarImage.setImageBitmap(BitmapFactory.decodeFile(custom));
+            // avatarImage.setImageBitmap(BitmapFactory.decodeFile(custom));
             check = true;
+
+            Toast.makeText(this, "Void check registered!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,7 +127,7 @@ public class CookRegister extends AppCompatActivity {
                 address1, description);
 
         if (!check){
-            Toast.makeText(this, "You forgot to add a Check", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please register a void check", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -148,22 +150,22 @@ public class CookRegister extends AppCompatActivity {
 
                         runOnUiThread(() -> {
                             if (success) {
-                                Toast.makeText(CookRegister.this, "Registering successful!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CookRegister.this, "Registering successful!", Toast.LENGTH_SHORT).show();
                                 finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
                             } else {
-                                Toast.makeText(CookRegister.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CookRegister.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                                 view.setEnabled(true);
                             }
                         });
                     } catch (RepositoryRequestException e) {
                         runOnUiThread(() -> {
-                            Toast.makeText(CookRegister.this, "An error occurred.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CookRegister.this, "An error occurred.", Toast.LENGTH_SHORT).show();
                             view.setEnabled(true);
                         });
 
                     } catch (UserAlreadyExistsException e) {
                         runOnUiThread(() -> {
-                            Toast.makeText(CookRegister.this, "This email is already taken.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CookRegister.this, "This email is already taken.", Toast.LENGTH_SHORT).show();
                             view.setEnabled(true);
                         });
                     }
