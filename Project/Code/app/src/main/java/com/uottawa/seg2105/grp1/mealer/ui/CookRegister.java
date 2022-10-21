@@ -19,7 +19,7 @@ import com.uottawa.seg2105.grp1.mealer.model.UserRole;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 public class CookRegister extends AppCompatActivity {
-    boolean check = false;
+    boolean check = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +75,7 @@ public class CookRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(lastName, Utility.NAME)) {
-                firstName.setError("Last Name invalid");
+                lastName.setError("Last Name invalid");
                 result = false;
             }
         }
@@ -85,7 +85,7 @@ public class CookRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(email, Utility.EMAIL)) {
-                firstName.setError("Email invalid");
+                email.setError("Email invalid");
                 result = false;
             }
         }
@@ -100,7 +100,7 @@ public class CookRegister extends AppCompatActivity {
             result = false;
         } else {
             if (!Utility.isValidField(address1, Utility.ADDRESS)) {
-                firstName.setError("Address invalid");
+                address1.setError("Address invalid");
                 result = false;
             }
         }
@@ -135,9 +135,6 @@ public class CookRegister extends AppCompatActivity {
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
                 return;
             }
-
-            Intent resultIntent = new Intent();
-            setResult(RESULT_OK, resultIntent);
             finish();
         }
     }
