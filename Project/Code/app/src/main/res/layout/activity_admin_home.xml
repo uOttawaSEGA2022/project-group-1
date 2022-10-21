@@ -2,11 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clientHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="onLogOff"
-    tools:context=".ui.ClientHome">
+    tools:context=".ui.AdminHome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:gravity="center"
-            android:text="Welcome! You are logged in as Client"
+            android:text="Welcome! You are logged in as Admin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -31,5 +29,4 @@
             android:onClick="onLogOff"
             android:text="Log Off" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

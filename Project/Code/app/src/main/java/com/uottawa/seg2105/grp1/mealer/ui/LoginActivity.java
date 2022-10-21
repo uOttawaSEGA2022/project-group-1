@@ -1,6 +1,5 @@
 package com.uottawa.seg2105.grp1.mealer.ui;
 
-// TODO: Create AdminHome, CookHome
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,15 +40,15 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (currentUser.isAdmin()) {
-                            // TODO: Add intent here when Administrator home is done
-                            Toast.makeText(LoginActivity.this, "TODO: Go to admin home", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                            startActivity(intent);
                         } else {
                             if (currentUser.getRole() instanceof ClientRole) {
                                 Intent intent = new Intent(getApplicationContext(), ClientHome.class);
                                 startActivity(intent);
                             } else if (currentUser.getRole() instanceof CookRole) {
-                                // TODO: Add intent here when Cook home is done
-                                Toast.makeText(LoginActivity.this, "TODO: Go to cook home", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), CookHome.class);
+                                startActivity(intent);
                             }
                         }
                     }
