@@ -13,6 +13,7 @@ import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.User;
 import com.uottawa.seg2105.grp1.mealer.model.UserRole;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
@@ -117,11 +118,34 @@ public class ClientRegister extends AppCompatActivity {
         if (valid) {
             // TODO: Use User.createNewUser() when it is completed
             try {
+                view.setEnabled(false);
                 UserRole role = new ClientRole();
                 User newUser = User.createNewUser(
                         firstName.getText().toString(), lastName.getText().toString(),
                         email.getText().toString(), password.getText().toString(),
                         address.getText().toString(), role, false);
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        boolean success = MealerSystem.getSystem().tryLogin(
+                                email.getText().toString(),
+                                password.getText().toString());
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (success) {
+                                    Toast.makeText(ClientRegister.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                    finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
+                                } else {
+                                    Toast.makeText(ClientRegister.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                    view.setEnabled(true);
+                                }
+                            }
+                        });
+                    }
+                }.start();
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();

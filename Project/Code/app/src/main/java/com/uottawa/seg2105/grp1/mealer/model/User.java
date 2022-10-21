@@ -1,7 +1,10 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import android.widget.Toast;
+
 import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
+import com.uottawa.seg2105.grp1.mealer.ui.LoginPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,12 +66,21 @@ public final class User implements IRepositoryEntity {
         if (role != null)
             role.user = user;
 
-        // Create or overwrite the User in the repository.
-        IRepository rep = MealerSystem.getSystem().getRepository();
-        if (!overwriteIfExists && rep.hasId(User.class, email))
-            return null; // TODO: Change this to UserAlreadyExistsException later
 
-        rep.set(User.class, user);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Create or overwrite the User in the repository.
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    //if (!overwriteIfExists && rep.hasId(User.class, email))
+                    //    return null; // TODO: Change this to UserAlreadyExistsException later
+                    rep.set(User.class, user);
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
         return user;
     }
