@@ -1,5 +1,8 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,19 +27,6 @@ public final class User implements IRepositoryEntity {
     public boolean isAdmin() { return admin; }
     public UserRole getRole() { return role; }
 
-    public User(String firstName, String lastName, String email, String password, String address, UserRole role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.passwordHash = MealerSystem.getSystem().hashPassword(password);
-        this.address = address;
-        this.admin = role == null;
-        this.role = role;
-
-        if (role != null)
-            role.user = this;
-    }
-
     /**
      * Searches persistent storage for a user with this email
      * @param email The email of the user to search for
@@ -45,6 +35,42 @@ public final class User implements IRepositoryEntity {
     public static User getByEmail(String email) {
         // TODO: implement User.getByEmail that searches through database
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    /**
+     * Creates a new user and adds them to the repository.
+     *
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param password
+     * @param address
+     * @param role
+     * @return the created user after it has been saved in the repository
+     * @exception RepositoryRequestException if the repository request failed
+     */
+    public static User createNewUser(String firstName, String lastName, String email, String password, String address, UserRole role, boolean overwriteIfExists) throws RepositoryRequestException {
+        User user = new User();
+
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+        user.passwordHash = MealerSystem.getSystem().hashPassword(password);
+        user.address = address;
+        user.admin = role == null;
+        user.role = role;
+
+        if (role != null)
+            role.user = user;
+
+        // Create or overwrite the User in the repository.
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        if (!overwriteIfExists && rep.hasId(User.class, email))
+            return null; // TODO: Change this to UserAlreadyExistsException later
+
+        rep.set(User.class, user);
+
+        return user;
     }
 
     @Override
@@ -68,6 +94,8 @@ public final class User implements IRepositoryEntity {
             map.put("roleType", "Client");
         } else if (getRole() instanceof CookRole) {
             map.put("roleType", "Cook");
+        } else {
+            map.put("roleType", "Admin");
         }
 
         return map;

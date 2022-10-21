@@ -1,6 +1,6 @@
 package com.uottawa.seg2105.grp1.mealer.ui;
 
-// TODO: Create other Activities (see classes_explanation.md)
+// TODO: Create AdminHome, CookHome
 
 import androidx.appcompat.app.AppCompatActivity;
 

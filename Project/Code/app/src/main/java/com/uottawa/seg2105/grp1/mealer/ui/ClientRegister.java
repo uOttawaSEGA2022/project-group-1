@@ -120,6 +120,7 @@ public class ClientRegister extends AppCompatActivity {
                                       address1, address2, ccNumber, ccExpiry);
 
         if (valid) {
+            // TODO: Use User.createNewUser() when it is completed
             Intent resultIntent = new Intent();
             setResult(RESULT_OK, resultIntent);
             finish();

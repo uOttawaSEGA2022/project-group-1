@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+import com.uottawa.seg2105.grp1.mealer.model.CookRole;
+import com.uottawa.seg2105.grp1.mealer.model.User;
+import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 public class CookRegister extends AppCompatActivity {
     boolean check = false;
@@ -116,9 +120,22 @@ public class CookRegister extends AppCompatActivity {
 
         if (check != true){
             Toast.makeText(this, "You forgot to add a Check", Toast.LENGTH_LONG).show();
+            return;
         }
 
         if(valid) {
+            try {
+                UserRole role = new CookRole();
+                User newUser = User.createNewUser(
+                        firstName.getText().toString(), lastName.getText().toString(),
+                        email.getText().toString(), password.getText().toString(),
+                        address1.getText().toString(), role, false);
+            } catch (RepositoryRequestException e) {
+                // TODO: Add a UserAlreadyExistsException
+                Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             Intent resultIntent = new Intent();
             setResult(RESULT_OK, resultIntent);
             finish();
