@@ -147,13 +147,11 @@ public class ClientRegister extends AppCompatActivity {
                     }
                 };
                 t.start();
-                t.join();
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
                 return;
             }
-            finish();
         }
     }
 }
