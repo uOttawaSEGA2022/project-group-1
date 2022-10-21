@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,7 +52,7 @@ public class CookRegister extends AppCompatActivity {
 
     private boolean isValidClient(EditText firstName, EditText lastName,
                                   EditText email, EditText password,
-                                  EditText address1) {
+                                  EditText address1, EditText description) {
         boolean result = true;
 
         //if no image was added, cause a problem
@@ -105,6 +106,11 @@ public class CookRegister extends AppCompatActivity {
             }
         }
 
+        if(Utility.isEmpty(description)) {
+            address1.setError("Address required");
+            result = false;
+        }
+
         return result;
     }//end of confirmation
 
@@ -114,8 +120,9 @@ public class CookRegister extends AppCompatActivity {
         EditText email = findViewById(R.id.fieldEmail);
         EditText password = findViewById(R.id.fieldPassword);
         EditText address1 = findViewById(R.id.fieldAddress);
-
-        boolean valid = isValidClient(firstName, lastName, email, password, address1);
+        EditText description = findViewById(R.id.fieldCookDescription);
+        boolean valid = isValidClient(firstName, lastName, email, password,
+                address1, description);
 
         if (!check){
             Toast.makeText(this, "You forgot to add a Check", Toast.LENGTH_LONG).show();
@@ -133,6 +140,7 @@ public class CookRegister extends AppCompatActivity {
                                 firstName.getText().toString(), lastName.getText().toString(),
                                 email.getText().toString(), password.getText().toString(),
                                 address1.getText().toString(), role, false);
+                        role.setDescription(description.getText().toString());
 
                         boolean success = MealerSystem.getSystem().tryLogin(
                                 email.getText().toString(),

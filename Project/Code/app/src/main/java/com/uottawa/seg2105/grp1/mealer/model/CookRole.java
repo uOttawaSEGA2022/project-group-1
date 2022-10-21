@@ -1,5 +1,8 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +31,24 @@ public class CookRole extends UserRole {
     public void setDescription(String description) {
         // TODO: Call repository to update in storage
         this.description = description;
-        throw new UnsupportedOperationException("Not implemented yet.");
+        String email = this.user.getEmail();
+        //throw new UnsupportedOperationException("Not implemented yet.");
+
+        //added here
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Create or overwrite the User in the repository.
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("description", description);
+                    rep.update(User.class, email, data);
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override

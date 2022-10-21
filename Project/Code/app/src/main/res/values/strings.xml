@@ -20,4 +20,5 @@
     <string name="btnAddItem">Add item to menu</string>
     <string name="btnDebug">Debug mode (remove at end)</string>
     <string name="btnCookMenu">Open cook addItem menu</string>
+    <string name="fieldCookDescription" />
 </resources>
