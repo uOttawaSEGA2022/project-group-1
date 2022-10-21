@@ -51,8 +51,9 @@ public final class User implements IRepositoryEntity {
      * @param role
      * @return the created user after it has been saved in the repository
      * @exception RepositoryRequestException if the repository request failed
+     * @exception UserAlreadyExistsException if the email is already taken
      */
-    public static User createNewUser(String firstName, String lastName, String email, String password, String address, UserRole role, boolean overwriteIfExists) throws RepositoryRequestException {
+    public static User createNewUser(String firstName, String lastName, String email, String password, String address, UserRole role, boolean overwriteIfExists) throws RepositoryRequestException, UserAlreadyExistsException {
         User user = new User();
 
         user.firstName = firstName;
@@ -66,21 +67,12 @@ public final class User implements IRepositoryEntity {
         if (role != null)
             role.user = user;
 
+        // Create or overwrite the User in the repository.
+        IRepository rep = MealerSystem.getSystem().getRepository();
 
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    // Create or overwrite the User in the repository.
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    //if (!overwriteIfExists && rep.hasId(User.class, email))
-                    //    return null; // TODO: Change this to UserAlreadyExistsException later
-                    rep.set(User.class, user);
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+        if (!overwriteIfExists && rep.hasId(User.class, email))
+            throw new UserAlreadyExistsException();
+        rep.set(User.class, user);
 
         return user;
     }
@@ -100,7 +92,8 @@ public final class User implements IRepositoryEntity {
         map.put("passwordHash",getPasswordHash());
         map.put("address",getAddress());
         map.put("admin",isAdmin());
-        map.put("role",getRole().serialise());
+        if (getRole() != null)
+            map.put("role", getRole().serialise());
 
         if (getRole() instanceof ClientRole) {
             map.put("roleType", "Client");
@@ -126,7 +119,7 @@ public final class User implements IRepositoryEntity {
         Object roleType = map.get("roleType");
 
         if (firstName == null || lastName == null || email == null    || passwordHash == null
-           || address == null ||    admin == null || roleType == null || ( !roleType.equals("admin") && role == null)) {
+           || address == null ||    admin == null || roleType == null || ( !roleType.equals("Admin") && role == null)) {
             throw new EntityDeserialisationException();
         }
         this.firstName = (String) firstName;
