@@ -1,6 +1,14 @@
 package com.uottawa.seg2105.grp1.mealer.storage;
 
 /**
- * An exception thrown whenever an error eccors within a Repository request
+ * An exception thrown whenever an error occurs within a Repository request
  */
-public class RepositoryRequestException extends Exception {}
+public class RepositoryRequestException extends Exception {
+    public RepositoryRequestException() {
+        super();
+    }
+
+    public RepositoryRequestException(String message) {
+        super(message);
+    }
+}
