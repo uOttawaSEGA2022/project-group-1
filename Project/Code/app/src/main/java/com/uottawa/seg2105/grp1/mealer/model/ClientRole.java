@@ -25,13 +25,11 @@ public class ClientRole extends UserRole {
      * @param cardNumber The new credit card number.
      */
     public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-        String email = this.user.getEmail();
         new Thread() {
             @Override
             public void run() {
                 try {
-                    // Create or overwrite the User in the repository.
+                    // Prepare new data
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     Map<String, Object> data = new HashMap<>();
                     data.put("cardNumber", cardNumber);
@@ -40,7 +38,11 @@ public class ClientRole extends UserRole {
                     Map<String, Object> properties = new HashMap<>();
                     properties.put("role", data);
 
-                    rep.update(User.class, email, properties);
+                    // Update the role data
+                    String id = getUser().getId();
+                    rep.update(User.class, id, properties);
+
+                    ClientRole.this.cardNumber = cardNumber;
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
                 }

@@ -29,16 +29,24 @@ public class CookRole extends UserRole {
      * @param description The new description.
      */
     public void setDescription(String description) {
-        this.description = description;
-        String email = this.user.getEmail();
-
         new Thread() {
             @Override
             public void run() {
                 try {
+                    // Prepare new data
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     Map<String, Object> data = new HashMap<>();
-                    rep.update(User.class, email, data);
+                    data.put("description", description);
+
+                    // Create the properties map
+                    Map<String, Object> properties = new HashMap<>();
+                    properties.put("role", data);
+
+                    // Update the role data
+                    String id = getUser().getId();
+                    rep.update(User.class, id, properties);
+
+                    CookRole.this.description = description;
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
                 }

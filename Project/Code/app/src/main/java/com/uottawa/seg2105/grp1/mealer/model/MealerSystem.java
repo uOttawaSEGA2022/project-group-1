@@ -72,7 +72,7 @@ public final class MealerSystem extends Application {
             try {
                 User user = repository.getById(User.class, username);
                 login(user);
-            } catch (RepositoryRequestException e) {
+            } catch (Exception e) {
                 logoff();
             }
         }
