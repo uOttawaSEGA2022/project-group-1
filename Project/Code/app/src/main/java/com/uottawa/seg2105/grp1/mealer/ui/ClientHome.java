@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 
 public class ClientHome extends AppCompatActivity {
 
@@ -18,7 +19,18 @@ public class ClientHome extends AppCompatActivity {
     }
 
     public void onLogOff(View view) {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivityForResult(intent, 0);
+        new Thread() {
+            @Override
+            public void run() {
+                MealerSystem.getSystem().logoff();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
+            }
+        }.start();
     }
 }
