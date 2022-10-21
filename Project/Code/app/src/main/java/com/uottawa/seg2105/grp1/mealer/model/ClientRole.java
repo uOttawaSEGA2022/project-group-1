@@ -1,5 +1,8 @@
 package com.uottawa.seg2105.grp1.mealer.model;
 
+import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +25,22 @@ public class ClientRole extends UserRole {
      * @param cardNumber The new credit card number.
      */
     public void setCardNumber(String cardNumber) {
-        // TODO: Call repository to update in storage
         this.cardNumber = cardNumber;
-        throw new UnsupportedOperationException("Not implemented yet.");
+        String email = this.user.getEmail();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Create or overwrite the User in the repository.
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("cardNumber", cardNumber);
+                    rep.update(User.class, email, data);
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override
