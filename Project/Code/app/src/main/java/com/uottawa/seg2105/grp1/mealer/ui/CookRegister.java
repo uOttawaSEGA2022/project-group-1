@@ -19,7 +19,7 @@ import com.uottawa.seg2105.grp1.mealer.model.UserRole;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 public class CookRegister extends AppCompatActivity {
-    boolean check = true;
+    boolean check = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
