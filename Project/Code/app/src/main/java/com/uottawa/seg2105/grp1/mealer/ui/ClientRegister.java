@@ -125,27 +125,27 @@ public class ClientRegister extends AppCompatActivity {
                         email.getText().toString(), password.getText().toString(),
                         address.getText().toString(), role, false);
                 role.setCardNumber(ccNumber.getText().toString());
-//                new Thread() {
-//                    @Override
-//                    public void run() {
-//                        boolean success = MealerSystem.getSystem().tryLogin(
-//                                email.getText().toString(),
-//                                password.getText().toString());
-//
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                if (success) {
-//                                    Toast.makeText(ClientRegister.this, "Login successful!", Toast.LENGTH_LONG).show();
-//                                    finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
-//                                } else {
-//                                    Toast.makeText(ClientRegister.this, "Invalid username or password", Toast.LENGTH_LONG).show();
-//                                    view.setEnabled(true);
-//                                }
-//                            }
-//                        });
-//                    }
-//                }.start();
+                new Thread() {
+                    @Override
+                    public void run() {
+                        boolean success = MealerSystem.getSystem().tryLogin(
+                                email.getText().toString(),
+                                password.getText().toString());
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (success) {
+                                    Toast.makeText(ClientRegister.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                    finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
+                                } else {
+                                    Toast.makeText(ClientRegister.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                    view.setEnabled(true);
+                                }
+                            }
+                        });
+                    }
+                }.start();
             } catch (RepositoryRequestException e) {
                 // TODO: Add a UserAlreadyExistsException
                 Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
