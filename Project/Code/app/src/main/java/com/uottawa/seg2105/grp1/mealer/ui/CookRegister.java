@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,8 +13,9 @@ import android.widget.Toast;
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.User;
-import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.model.UserAlreadyExistsException;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 public class CookRegister extends AppCompatActivity {
@@ -55,7 +55,7 @@ public class CookRegister extends AppCompatActivity {
         boolean result = true;
 
         //if no image was added, cause a problem
-        if(check != true){
+        if(!check){
             result = false;
         }
 
@@ -115,27 +115,52 @@ public class CookRegister extends AppCompatActivity {
         EditText password = findViewById(R.id.fieldPassword);
         EditText address1 = findViewById(R.id.fieldAddress);
 
-        boolean valid = isValidClient(firstName, lastName, email, password,
-                address1);
+        boolean valid = isValidClient(firstName, lastName, email, password, address1);
 
-        if (check != true){
+        if (!check){
             Toast.makeText(this, "You forgot to add a Check", Toast.LENGTH_LONG).show();
             return;
         }
 
         if(valid) {
-            try {
-                UserRole role = new CookRole();
-                User newUser = User.createNewUser(
-                        firstName.getText().toString(), lastName.getText().toString(),
-                        email.getText().toString(), password.getText().toString(),
-                        address1.getText().toString(), role, false);
-            } catch (RepositoryRequestException e) {
-                // TODO: Add a UserAlreadyExistsException
-                Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
-                return;
-            }
-            finish();
+            view.setEnabled(false);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        CookRole role = new CookRole();
+                        User.createNewUser(
+                                firstName.getText().toString(), lastName.getText().toString(),
+                                email.getText().toString(), password.getText().toString(),
+                                address1.getText().toString(), role, false);
+
+                        boolean success = MealerSystem.getSystem().tryLogin(
+                                email.getText().toString(),
+                                password.getText().toString());
+
+                        runOnUiThread(() -> {
+                            if (success) {
+                                Toast.makeText(CookRegister.this, "Registering successful!", Toast.LENGTH_LONG).show();
+                                finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
+                            } else {
+                                Toast.makeText(CookRegister.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                view.setEnabled(true);
+                            }
+                        });
+                    } catch (RepositoryRequestException e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(CookRegister.this, "An error occurred.", Toast.LENGTH_LONG).show();
+                            view.setEnabled(true);
+                        });
+
+                    } catch (UserAlreadyExistsException e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(CookRegister.this, "This email is already taken.", Toast.LENGTH_LONG).show();
+                            view.setEnabled(true);
+                        });
+                    }
+                }
+            }.start();
         }
     }
 

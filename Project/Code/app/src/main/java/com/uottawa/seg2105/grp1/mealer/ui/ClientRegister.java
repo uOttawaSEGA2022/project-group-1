@@ -2,23 +2,18 @@ package com.uottawa.seg2105.grp1.mealer.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
-import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.User;
-import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.model.UserAlreadyExistsException;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
-
-import okhttp3.internal.Util;
 
 public class ClientRegister extends AppCompatActivity {
 
@@ -33,7 +28,6 @@ public class ClientRegister extends AppCompatActivity {
                                   EditText address,
                                   EditText ccNumber, EditText ccExpiry) {
         boolean result = true;
-        boolean hasAddress2 = true;
 
         if(Utility.isEmpty(firstName)) {
             firstName.setError("First Name required");
@@ -103,7 +97,7 @@ public class ClientRegister extends AppCompatActivity {
         return result;
     }
 
-    public void onRegisterClient(View view) throws InterruptedException {
+    public void onRegisterClient(View view) {
         EditText firstName = findViewById(R.id.firstName);
         EditText lastName = findViewById(R.id.lastName);
         EditText email = findViewById(R.id.email);
@@ -116,44 +110,45 @@ public class ClientRegister extends AppCompatActivity {
                                       address, ccNumber, ccExpiry);
 
         if (valid) {
-            // TODO: Use User.createNewUser() when it is completed
-            try {
-                view.setEnabled(false);
-                ClientRole role = new ClientRole();
-                User newUser = User.createNewUser(
-                        firstName.getText().toString(), lastName.getText().toString(),
-                        email.getText().toString(), password.getText().toString(),
-                        address.getText().toString(), role, false);
-                role.setCardNumber(ccNumber.getText().toString());
-                Thread t = new Thread() {
-                    @Override
-                    public void run() {
+            view.setEnabled(false);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        ClientRole role = new ClientRole();
+                        User.createNewUser(
+                                firstName.getText().toString(), lastName.getText().toString(),
+                                email.getText().toString(), password.getText().toString(),
+                                address.getText().toString(), role, false);
+                        role.setCardNumber(ccNumber.getText().toString());
+
                         boolean success = MealerSystem.getSystem().tryLogin(
                                 email.getText().toString(),
                                 password.getText().toString());
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (success) {
-                                    Toast.makeText(ClientRegister.this, "Login successful!", Toast.LENGTH_LONG).show();
-                                    finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
-                                } else {
-                                    Toast.makeText(ClientRegister.this, "Invalid username or password", Toast.LENGTH_LONG).show();
-                                    view.setEnabled(true);
-                                }
+                        runOnUiThread(() -> {
+                            if (success) {
+                                Toast.makeText(ClientRegister.this, "Registering successful!", Toast.LENGTH_LONG).show();
+                                finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
+                            } else {
+                                Toast.makeText(ClientRegister.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                view.setEnabled(true);
                             }
                         });
+                    } catch (RepositoryRequestException e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(ClientRegister.this, "An error occurred.", Toast.LENGTH_LONG).show();
+                            view.setEnabled(true);
+                        });
+
+                    } catch (UserAlreadyExistsException e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(ClientRegister.this, "This email is already taken.", Toast.LENGTH_LONG).show();
+                            view.setEnabled(true);
+                        });
                     }
-                };
-                t.start();
-                t.join();
-            } catch (RepositoryRequestException e) {
-                // TODO: Add a UserAlreadyExistsException
-                Toast.makeText(this, "An error occured", Toast.LENGTH_LONG).show();
-                return;
-            }
-            finish();
+                }
+            }.start();
         }
     }
 }
