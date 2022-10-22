@@ -17,7 +17,7 @@ public class Utility {
     //            or isValidField("email@email.com", Utility.EMAIL)
 
     //A name starts with a capital letter followed by lowercases
-    public static final String NAME = "[A-Z][a-z]*";
+    public static final String NAME = "[A-Z][A-Za-z]*([\\-' ][A-Za-z]+)*";
 
     //Email regex provided by baeldung
     //https://www.baeldung.com/java-email-validation-regex
