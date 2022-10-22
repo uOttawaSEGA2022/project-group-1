@@ -9,7 +9,7 @@ Mealer is an meal sharing app, similar to uber eats or grubhub <br />
 - Administrator: `admin@email.com`
 - Client: `client@email.com`
 - Cook: `cook@email.com`
-- Extra Client: `johndoe@email`
+- Extra Client: `johndoe@email.com`
 
 The password to all of these default accounts is `123`
 
