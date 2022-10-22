@@ -22,3 +22,11 @@ The password to all of these default accounts is `123`
 - [Problem and scope](https://github.com/uOttawaSEGA2022/project-group-1/blob/main/Project/Design%20and%20Docs/problem.md)
 - [Basic Structure Explanation](https://github.com/uOttawaSEGA2022/project-group-1/blob/main/Project/Design%20and%20Docs/structure_explanation.md)
 - [1st Deliverable Classes and their Responsabilities](https://github.com/uOttawaSEGA2022/project-group-1/blob/main/Project/Design%20and%20Docs/classes_explanation.md)
+
+---
+
+## Notes on Register string formats
+
+Names must begin with an uppercase letter, then can repeatedly be any separator (space, hyphen, or apostrophe) plus one or more letters.
+
+Ex.: `This-is-a-valid-name`
