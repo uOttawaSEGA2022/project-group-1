@@ -5,17 +5,3 @@ Mealer aims to connect cooks and their potential clients through as an applicati
 # Scope #
 Mealer handles user registration, menu management, search and placement of orders on meals, payment, pick-up information, and feedback on and moderation of the cooks.
 It does not, however, handle delivery or communication outside of purchases and feedback
-
-# Requirements #
-
-## Functional ##
-TODO
-
-## Quality ##
-TODO
-
-## Platform ##
-Mealer is a mobile application for Android.
-
-## Process ##
-TODO

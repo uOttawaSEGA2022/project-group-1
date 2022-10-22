@@ -10,7 +10,7 @@ Models that need to be stored in the database are Entities. These classes must p
 
 All Entity classes with a corresponding table in persistent storage should also provide a method getId() that the Repository implementation can use to search up its data.
 
-An Entity can also contain EntityFragments who can also be serialised and deserialised but do not have an ID.
+An Entity can also contain other non-tabular Entities who can also be serialised and deserialised but do not have an ID.
 
 **Entities are expected to call Repository on themselves when necessary**
 
@@ -30,7 +30,7 @@ The Controller classes are Activities in charge of validating and responding to 
 
 They also update their UI when changes in the Model occur.
 
-Since model classes are allowed to block, Controller classes should call them asynchronously
+Since model classes are allowed to block, Controller classes should call them asynchronously (Using Thread and runOnUiThread)
 
 ## Repository ##
 An abstracted storage interface that declares Create, Read, Update, Delete, List and Query methods for Entities.

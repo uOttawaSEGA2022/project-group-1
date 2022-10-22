@@ -7,111 +7,79 @@ A description of classes and their roles.
 Model classes should be able to safely block.
 As such, the Activities must communicate with them asynchronously.
 
-### System ###
-Signature: `final class System extends Application`
+### MealerSystem ###
+Signature: `final class MealerSystem extends Application`
 
 Description: Single point of access for many resources 
 Stores global variables such as the current user's session data, the current IRepository implementation instance, etc.
 
 Responsabilities:
 - Provide initialization of the application state
-- Provide access to global variables
+- Provide access to global variables (Current user, Repository, itself)
 - Log in and log out (change current user, UI must still check and update itself)
+- Restore the previous user session if they did not logout
 
-Variables:
-- `SharedPreferences usersession`
-- `User currentUser`
-- `IRepository repository`
+### ISerialisableEntity ###
+Signature: `interface ISerialisableEntity`
 
-Methods:
-- `User getCurrentUser()`
-- `IRepository getRepository()`
-- `void onCreate()`
-- `void logoff()`
-- `boolean tryLogin(String username, String password)`
-- `private login(User user)`
-- `private hashPassword(String password)`
-
-### Entity ###
-Signature: `abstract class Entity`
-
-Description: Generalization of a Domain Model Entity that can be stored to and retrieved from permanent storage.
-
-**All subclasses of Entity should provide an empty constructor callable by IRepository**
+Description: Generalization of an Entity that can serialise and deserialise its own state.
 
 Responsabilities:
 - Provide serialisation to a JSON-compatible Map
 - Provide deserialisation from a JSON-compatible Map
-- Provide a table name and id to identify the object in permanent storage.
 
-Static variables:
-- `Map<Class<? extends Entity>, String> tableNames` (provides table names for each subclass of Entity. **MUST BE UPDATED MANUALLY**)
+### IRepositoryEntity ###
+Signature: `interface IRepositoryEntity extends ISerialisableEntity`
 
-Methods:
-- `abstract String getId()`
-- `abstract Map<Object, String> serialise()` (Called on an object to get a JSON-Compatible Map)
-- `abstract void deserialise(Map<Object, String> map)` (Called on an empty constructor to initialise attributes.)
-
-### EntityFragment ###
-Signature: `abstract class EntityFragment extends Entity`
-
-Description: Specialization of Entity which is stored within another Entity instead of in a storage table. 
-getId() returns null.
-
-### User ###
-Signature: `class User extends Entity`
-
-Description: A specialization of Entity that stores user data common to all user types.
+Description: Specialization of `ISerialisableEntity` that can be stored to and retrieved from a table in permanent storage.
 
 Responsabilities:
+- Store a mapping of Entities to their table names
+- Provide an ID to look up specific entities
+
+Notable variable:
+- `Map<Class<? extends Entity>, String> tableNames` (provides table names for each subclass of Entity. **MUST BE UPDATED MANUALLY**)
+
+### User ###
+Signature: `final class User extends IRepositoryEntity`
+
+Description: An implementation of IRepositoryEntity that stores user data common to all user types.
+
+Responsabilities:
+- Store and retrieve user data
+- Allow the creation of new users in the Repository
 - Establish a connection to its UserRole
 - Serialise and deserialise its UserRole when necessary
 
-Variables:
+State:
 - `String firstName, lastName, email, address`
 - `String passwordHash` (*Password is hashed for at least a minimum of security*)
-- `boolean admin` (Used as a flag. There should never be more than one of such account)
-- `UserRole role`
-
-Methods:
-- getters
-- `static User getByEmail(String email)`
+- `boolean admin` (Used as a flag. Should be set to true when the User has no UserRole upon creation)
+- `UserRole role` (May be null if the user is an Administrator)
 
 ### UserRole ###
-Sginature: `abstract class UserRole extends EntityFragment`
+Sginature: `abstract class UserRole extends ISerialisableEntity`
 
 Description: Generalization of Roles a User account can possess.
 
 Responsabilities:
 - Return its User
 
-Variables:
-- `User user`
-
-Methods:
-- getter
-
 ### ClientRole ###
-Signature: `class ClientRole extends UserRole`
+Signature: `final class ClientRole extends UserRole`
 
 Description: Stores user data for clients.
 
-Variables:
-- `String cardNumber`
-
-Methods:
-- getter, setter
+Responsabilities:
+- Store and retrieve the client's credit card number
 
 ### CookRole ###
-Signature: `class CookRole extends UserRole`
+Signature: `final class CookRole extends UserRole`
 
 Description: Stores user data for cooks.
 
-Variables:
-- `String description`
-
-Methods:
-- getter, setter
+Responsabilities:
+- Store and retrieve the cook's self-description
 
 ---
 
@@ -158,36 +126,49 @@ Responsabilities:
 - Otherwise, allow the user to log in and redirect them
 - Otherwise, redirect the user to either a Client registration page or a Cook registration page
 
-### ClientRegisterActivity ###
-Description: Allows the user to sign up as a client, then redirects them to the Client page.
+### LoginPage ###
+Description: Allows the user to log in. Changes the current user by calling MealerSystem
+
+Notes: Should tell MealerSystem to login the user, then finish this Activity so that LoginActivity sends them to the appropriate page.
+
+### ClientRegister ###
+Description: Allows the user to sign up as a client.
 
 Responsabilities:
 - Allow the user to register a new client account with a unique email, then redirect them to the Client page.
 
 Notes: Should tell the System to login the new client, then finish this Activity so that LoginActivity sends them to the Client page.
 
-### CookRegisterActivity ###
+### CookRegister ###
 Description: Allows the user to sign up as a cook, then redirects them to the Cook page.
 Responsabilities:
 - Allow the user to register a new cook account with a unique email, then redirect them to the Cook page.
+- "Accept" an image (show an image prompt but keeps default image)
 
 Notes: Should tell the System to login the new cook, then finish this Activity so that LoginActivity sends them to the Cook page.
 
-### AdministratorPage ###
+### ImageCheck ###
+Description: Allows the user to select an image
+
+Responsabilities:
+- Open an image selection prompt
+- Return the image file (the result is ignored due to file permissions
+
+### AdminHome ###
 Description: The Activity that is started when an administrator logs in.
 
 Responsablities:
 - Display the message "Welcome, Administrator"
 - Allow the user to log off, sending them back to LoginActivity
 
-### ClientPage ###
+### ClientHome ###
 Description: The Activity that is started when a client logs in.
 
 Responsablities:
 - Display the message "Welcome, Client"
 - Allow the user to log off, sending them back to LoginActivity
 
-### CookPage ###
+### CookHome ###
 Description: The Activity that is started when a cook logs in.
 
 Responsablities:
