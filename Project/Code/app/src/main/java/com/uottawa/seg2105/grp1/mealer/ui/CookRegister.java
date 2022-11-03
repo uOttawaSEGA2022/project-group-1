@@ -142,7 +142,7 @@ public class CookRegister extends AppCompatActivity {
                                 firstName.getText().toString(), lastName.getText().toString(),
                                 email.getText().toString(), password.getText().toString(),
                                 address1.getText().toString(), role, false);
-                        role.setDescription(description.getText().toString());
+                        role.setRole(description.getText().toString(), -1, "");
 
                         boolean success = MealerSystem.getSystem().tryLogin(
                                 email.getText().toString(),
