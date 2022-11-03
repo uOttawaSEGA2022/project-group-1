@@ -86,4 +86,15 @@ public interface IRepository {
      * @exception RepositoryRequestException if data could not be fetched
      */
     <T extends IRepositoryEntity> List<T> query(Class<T> cls, Predicate<T> predicate) throws RepositoryRequestException;
+
+    /**
+     * Obtains a unique automatically generated ID from the specified table's class.
+     *
+     * @param cls The Entity subclass
+     * @return A unique auto-ID in this subclass' persistent storage.
+     *
+     * @throws RepositoryRequestException if data could not be fetched
+     */
+    <T extends IRepositoryEntity> String getAutoID(Class<T> cls) throws RepositoryRequestException;
+
 }

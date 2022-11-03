@@ -184,4 +184,16 @@ public final class CloudFirestoreRepository implements IRepository {
             throw new RepositoryRequestException();
         }
     }
+
+    @Override
+    public <T extends IRepositoryEntity> String getAutoID(Class<T> cls) throws RepositoryRequestException {
+        try {
+            return db.collection(IRepositoryEntity.getTableName(cls)).document().getId();
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            Log.e(TAG, cls.getSimpleName() + " getAutoID: ", e);
+            throw new RepositoryRequestException();
+        }
+    }
 }
