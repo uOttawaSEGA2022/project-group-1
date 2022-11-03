@@ -23,4 +23,10 @@ public class DebugMode extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnOpenComplaint(View view){
+        System.out.println("debug");
+        Intent intent = new Intent(getApplicationContext(), ComplaintActivity.class);
+        startActivity(intent);
+    }
+
 }

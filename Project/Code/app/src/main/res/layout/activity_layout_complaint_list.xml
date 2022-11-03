@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DebugMode">
+    tools:context=".ui.layoutComplaintList">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnCookMenu"
+        <TextView
+            android:id="@+id/textViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnOpenCook"
-            android:text="@string/btnCookMenu" />
+            android:text=""
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
-        <Button
-            android:id="@+id/button2"
+        <TextView
+            android:id="@+id/textViewComplaint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnOpenComplaint"
-            android:text="@string/btnDebugComplaint" />
+            android:text=""
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

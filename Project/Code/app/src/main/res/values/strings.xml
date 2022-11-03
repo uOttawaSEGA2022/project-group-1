@@ -29,4 +29,6 @@
     <string name="hintCreditCard">Enter your credit card number</string>
     <string name="hintExpiry">MM/YY (credit card expiry)</string>
     <string name="hintDescription">Enter a description of yourself</string>
+    <string name="btnCloseComplaint">Close Complaint Board</string>
+    <string name="btnDebugComplaint">Open Complaint Menu</string>
 </resources>
