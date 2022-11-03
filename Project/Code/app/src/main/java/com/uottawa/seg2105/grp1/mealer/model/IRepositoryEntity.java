@@ -16,6 +16,7 @@ public interface IRepositoryEntity extends ISerialisableEntity {
     Map<Class<? extends IRepositoryEntity>, String> tableNames = new HashMap<Class<? extends IRepositoryEntity>, String>() {
         {
             put(User.class, "users");
+            put(Complaint.class, "complaints");
         }
     };
 

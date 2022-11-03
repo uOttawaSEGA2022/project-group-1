@@ -1,6 +1,5 @@
 package com.uottawa.seg2105.grp1.mealer.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-import android.os.Bundle;
-
 import com.uottawa.seg2105.grp1.mealer.R;
-import com.uottawa.seg2105.grp1.mealer.storage.Complaint;
+import com.uottawa.seg2105.grp1.mealer.model.Complaint;
 
 public class layoutComplaintList extends ArrayAdapter<Complaint> {
 

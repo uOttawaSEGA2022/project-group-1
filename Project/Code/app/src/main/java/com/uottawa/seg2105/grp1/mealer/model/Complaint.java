@@ -1,6 +1,9 @@
-package com.uottawa.seg2105.grp1.mealer.storage;
+package com.uottawa.seg2105.grp1.mealer.model;
 
-public class Complaint {
+import java.util.Map;
+
+// TODO: Fix up
+public class Complaint implements IRepositoryEntity {
     private String _id;
     private String _productname;
     private double _price;
@@ -34,5 +37,17 @@ public class Complaint {
     }
     public double getPrice() {
         return _price;
+    }
+
+    @Override
+    public Map<String, Object> serialise() {
+        // TODO: implement serialisation
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deserialise(Map<String, Object> map) throws EntityDeserialisationException {
+        // TODO: implement deserialisation
+        throw new UnsupportedOperationException();
     }
 }
