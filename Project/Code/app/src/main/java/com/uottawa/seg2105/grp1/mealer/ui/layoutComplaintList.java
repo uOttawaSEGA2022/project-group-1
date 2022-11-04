@@ -31,8 +31,8 @@ public class layoutComplaintList extends ArrayAdapter<Complaint> {
         TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.textViewComplaint);
 
         Complaint product = products.get(position);
-        textViewName.setText(product.getProductName());
-        textViewPrice.setText(String.valueOf(product.getPrice()));
+        //textViewName.setText(product.getProductName());
+        //textViewPrice.setText(String.valueOf(product.getPrice()));
         return listViewItem;
     }
 }
