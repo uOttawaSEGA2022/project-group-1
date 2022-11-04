@@ -6,15 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.ComplainButtonActivity">
 
-    <Button
-        android:id="@+id/buttonComplain"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="300dp"
-        android:onClick="btnComplain"
-        android:text="Complain"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47000003" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonComplain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnComplain"
+            android:text="Complain" />
+
+        <Button
+            android:id="@+id/buttonArchive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnArchive"
+            android:text="Archive" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

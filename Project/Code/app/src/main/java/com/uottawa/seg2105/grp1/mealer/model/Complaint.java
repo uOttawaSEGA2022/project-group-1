@@ -13,30 +13,47 @@ public final class Complaint implements IRepositoryEntity {
     private String description;
     private User client;
     private User cook;
+    private boolean isArchived;
 
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public User getClient() { return client; }
     public User getCook() { return cook; }
+    public boolean isArchived() { return isArchived; }
 
-    public void create(String title, String description, String clientEmail, String cookEmail) {
-        new Thread() {
+    public static Complaint create(String title, String description, String clientEmail, String cookEmail) throws RepositoryRequestException {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Complaint complaint = new Complaint();
+        complaint.id = rep.getAutoID(Complaint.class);
+        complaint.title = title;
+        complaint.description = description;
+        complaint.client = User.getByEmail(clientEmail);
+        complaint.cook = User.getByEmail(cookEmail);
+        complaint.isArchived = false;
+        rep.set(Complaint.class, complaint);
+        return complaint;
+    }
+
+    public void archive() throws InterruptedException {
+        String id = this.getId();
+        Thread t = new Thread() {
             @Override
             public void run() {
                 try {
+                    // Prepare new data
                     IRepository rep = MealerSystem.getSystem().getRepository();
-                    Complaint complaint = new Complaint();
-                    complaint.id = rep.getAutoID(Complaint.class);
-                    complaint.title = title;
-                    complaint.description = description;
-                    complaint.client = User.getByEmail(clientEmail);
-                    complaint.cook = User.getByEmail(cookEmail);
-                    rep.set(Complaint.class, complaint);
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("isArchived", true);
+
+                    rep.update(Complaint.class, id, data);
+
+                    Complaint.this.isArchived = true;
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
                 }
             }
-        }.start();
+        };
+        t.start();
     }
 
     @Override
@@ -53,6 +70,7 @@ public final class Complaint implements IRepositoryEntity {
         map.put("description",getDescription());
         map.put("clientEmail",getClient().getEmail());
         map.put("cookEmail",getCook().getEmail());
+        map.put("isArchived", isArchived());
 
         return map;
     }
@@ -63,6 +81,7 @@ public final class Complaint implements IRepositoryEntity {
         Object title = map.get("title");
         Object description = map.get("description");
         Object clientEmail = map.get("clientEmail");
+        Object isArchived = map.get("isArchived");
         User client = null;
         if (clientEmail != null) {
             client = User.getByEmail((String) clientEmail);
@@ -73,7 +92,8 @@ public final class Complaint implements IRepositoryEntity {
             cook = User.getByEmail((String) cookEmail);
         }
 
-        if (id == null || title == null || description == null || client == null || cook == null) {
+        if (id == null || title == null || description == null ||
+                client == null || cook == null || isArchived == null) {
             throw new EntityDeserialisationException();
         }
         this.id = (String) id;
@@ -81,5 +101,6 @@ public final class Complaint implements IRepositoryEntity {
         this.description = (String) description;
         this.client = client;
         this.cook = cook;
+        this.isArchived = (boolean) isArchived;
     }
 }
