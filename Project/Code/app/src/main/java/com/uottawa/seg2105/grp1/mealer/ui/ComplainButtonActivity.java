@@ -71,4 +71,8 @@ public class ComplainButtonActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public void btnUnarchiveAll(View view) throws RepositoryRequestException {
+        Complaint.unarchiveAll();
+    }
 }

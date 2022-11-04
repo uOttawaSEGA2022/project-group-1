@@ -26,6 +26,14 @@
             android:layout_weight="1"
             android:onClick="btnArchive"
             android:text="Archive" />
+
+        <Button
+            android:id="@+id/buttonUnarchiveAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnUnarchiveAll"
+            android:text="Unarchive All" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

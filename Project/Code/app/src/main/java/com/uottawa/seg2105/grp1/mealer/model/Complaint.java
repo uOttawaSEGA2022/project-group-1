@@ -4,6 +4,7 @@ import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class Complaint implements IRepositoryEntity {
@@ -55,6 +56,33 @@ public final class Complaint implements IRepositoryEntity {
         };
         t.start();
     }
+
+    /**
+     * Utility function to help with testing
+     * @throws RepositoryRequestException
+     */
+    public static void unarchiveAll() throws RepositoryRequestException {
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Prepare new data
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    List<Complaint> complaintList= rep.list(Complaint.class);
+                    for (Complaint c : complaintList) {
+                        String id = c.getId();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("isArchived", false);
+                        rep.update(Complaint.class, id, data);
+                    }
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        t.start();
+    }
+
 
     @Override
     public String getId() {
