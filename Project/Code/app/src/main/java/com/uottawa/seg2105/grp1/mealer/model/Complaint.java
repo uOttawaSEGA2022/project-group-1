@@ -24,7 +24,6 @@ public final class Complaint implements IRepositoryEntity {
             @Override
             public void run() {
                 try {
-                    // Prepare new data
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     Complaint complaint = new Complaint();
                     complaint.id = rep.getAutoID(Complaint.class);
@@ -32,24 +31,7 @@ public final class Complaint implements IRepositoryEntity {
                     complaint.description = description;
                     complaint.client = User.getByEmail(clientEmail);
                     complaint.cook = User.getByEmail(cookEmail);
-
-                    //data.put("id", id);
-                    //data.put("title", title);
-                    //data.put("description", description);
-                    //data.put("clientEmail", clientEmail);
-                    //data.put("cookEmail", cookEmail);
-
-                    // Create the properties map
-                    //Map<String, Object> properties = new HashMap<>();
-                    //properties.put("complaint", data);
-
-                    // Update the complaint data
                     rep.set(Complaint.class, complaint);
-                    //Complaint.this.id = id;
-                    //Complaint.this.title = title;
-                    //Complaint.this.description = description;
-                    //Complaint.this.client = User.getByEmail(clientEmail);
-                    //Complaint.this.cook = User.getByEmail(cookEmail);
                 } catch (RepositoryRequestException e) {
                     e.printStackTrace();
                 }
