@@ -36,8 +36,12 @@ public final class User implements IRepositoryEntity {
      * @return The User with this email, or null if no such user exists in storage
      */
     public static User getByEmail(String email) {
-        // TODO: implement User.getByEmail that searches through database
-        throw new UnsupportedOperationException("Not implemented yet");
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        User user = null;
+        try {
+            user = rep.getById(User.class, email);
+        } catch (RepositoryRequestException e) {}
+        return user;
     }
 
     /**
