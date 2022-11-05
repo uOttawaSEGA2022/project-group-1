@@ -35,4 +35,10 @@ public class DebugMode extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnSuspensionActivity(View view){
+        System.out.println("debug");
+        Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
+        startActivity(intent);
+    }
+
 }

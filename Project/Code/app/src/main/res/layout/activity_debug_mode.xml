@@ -31,5 +31,12 @@
             android:layout_height="wrap_content"
             android:onClick="btnComplain"
             android:text="Complain" />
+
+        <Button
+            android:id="@+id/banFormBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnSuspensionActivity"
+            android:text="Suspension Activity" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

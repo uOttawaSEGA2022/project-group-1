@@ -31,4 +31,6 @@
     <string name="hintDescription">Enter a description of yourself</string>
     <string name="btnCloseComplaint">Close Complaint Board</string>
     <string name="btnDebugComplaint">Open Complaint Menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
