@@ -82,7 +82,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/hintDescription"
-            android:inputType="textPersonName"
             android:text="@string/fieldCookDescription" />
 
         <Space

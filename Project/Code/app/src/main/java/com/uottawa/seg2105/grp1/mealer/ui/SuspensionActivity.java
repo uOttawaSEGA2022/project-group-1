@@ -17,17 +17,29 @@ import android.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
+import com.uottawa.seg2105.grp1.mealer.model.Complaint;
+import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
+import com.uottawa.seg2105.grp1.mealer.model.User;
+import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SuspensionActivity extends AppCompatActivity {
 
     //Set public & static for datePick fragment to edit
     @SuppressLint("StaticFieldLeak")
     public static TextView banDateText;
+    public static long banDateAsLong;
 
     private EditText banReason;
     private ToggleButton banPermaToggle;
     private CheckBox banConfirmBox;
+
+    private String cookID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +55,49 @@ public class SuspensionActivity extends AppCompatActivity {
     public void showDatePickerDialog(View view) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
-        //getSupportFragmentManager().beginTransaction().replace(R.id.container_a, newFragment).commit();
     }
 
     public void banBtn(View view) {
-        validateBanForm();
+        if (banFormIsValid()) {
+
+            view.setEnabled(false);
+
+            new Thread() {
+                @Override
+                public void run() {
+
+                    try {
+                        cookID = "cooktest@email.com";//change to proper value
+
+                        User cook = MealerSystem.getSystem().getRepository().getById(
+                                User.class,
+                                cookID
+                        );
+
+                        Map<String, Object> properties = cook.serialise();
+                        Map<String, Object> roleData = (HashMap<String, Object>) properties.get("role");
+
+                        roleData.replace("banReason", banReason.getText().toString());
+                        roleData.replace("banExpiration", getDateAsLong());
+
+                        properties.replace("role", roleData);//Finally, put roleData to properties
+
+                        MealerSystem.getSystem().getRepository().update(User.class, cookID, properties);
+
+                        Toast.makeText(SuspensionActivity.this, "Cook Banned", Toast.LENGTH_SHORT).show();
+                        finish();//End this activity & return to ComplaintActivity (must finish() that as well)
+                    } catch (RepositoryRequestException e) {
+                        Toast.makeText(getApplicationContext(), "Could not update data from repository.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }.start();
+
+        } else {
+            Toast.makeText(SuspensionActivity.this, "Please complete required fields", Toast.LENGTH_SHORT).show();
+        }
     }
 
-
-    private boolean validateBanForm() {
+    private boolean banFormIsValid() {
 
         boolean result = true;
 
@@ -98,41 +144,12 @@ public class SuspensionActivity extends AppCompatActivity {
         }
     }
 
-/*
-    public void btnBan(View view) {
-
-        EditText banReason = findViewById(R.id.banReason);
-        EditText banDate = findViewById(R.id.banDate);
-        //R.id.banCookName
-        //R.id.banCookEmail
-        R.id.banPermaToggle
-
-        boolean valid = validateBanForm(email, password);
-
-        if(valid) {
-            view.setEnabled(false);
-
-            new Thread() {
-                @Override
-                public void run() {
-                    boolean success = MealerSystem.getSystem().tryLogin(
-                            email.getText().toString(),
-                            password.getText().toString());
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (success) {
-                                Toast.makeText(LoginPage.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                                finish(); // Return to LoginActivity (main) so it redirects to the correct home page.
-                            } else {
-                                Toast.makeText(LoginPage.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
-                                view.setEnabled(true);
-                            }
-                        }
-                    });
-                }
-            }.start();
-        }*/
+    private long getDateAsLong() {
+        if (banPermaToggle.getText().toString().equals("NO")) {
+            return banDateAsLong;
+        } else {
+            return 0;
+        }
+    }
 
 }

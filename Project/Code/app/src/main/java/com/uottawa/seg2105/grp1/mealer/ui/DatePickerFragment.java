@@ -77,7 +77,13 @@ public class DatePickerFragment extends DialogFragment
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        SuspensionActivity.banDateText.setText(sdf.format(setTime));
+        if (setTime.before(new Date())) {
+            Toast.makeText(getContext(), "Date must be after today", Toast.LENGTH_LONG).show();
+        } else {
+            SuspensionActivity.banDateText.setText(sdf.format(setTime));
+            SuspensionActivity.banDateAsLong = setTime.getTime();
+        }
+
     }
 
 }
