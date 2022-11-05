@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
@@ -43,6 +44,30 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), ClientHome.class);
                             startActivity(intent);
                         } else if (currentUser.getRole() instanceof CookRole) {
+                            // Check if the cook has been banned
+                            CookRole role = (CookRole) currentUser.getRole();
+                            long banExpirationMillis = role.getBanExpiration();
+
+                            // TODO: Send banned user to SuspendedHome
+                            if (banExpirationMillis == 0) {
+                               Toast.makeText(getApplicationContext(), "Permanently banned", Toast.LENGTH_SHORT).show();
+                               return;
+                            } else if (banExpirationMillis > 0) {
+                                // This will be vulnerable to the users changing their phone's clock time but checking times form the internet seems a bit out of scope for this project.
+                                long currentTimeMillis = System.currentTimeMillis();
+
+                                System.out.println(String.format(
+                                        "Current: %d, banExpiration: %d",
+                                        currentTimeMillis,
+                                        banExpirationMillis
+                                ));
+
+                                if (banExpirationMillis >= currentTimeMillis) {
+                                    Toast.makeText(getApplicationContext(), "Temporarily banned", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+
                             Intent intent = new Intent(getApplicationContext(), CookHome.class);
                             startActivity(intent);
                         }
