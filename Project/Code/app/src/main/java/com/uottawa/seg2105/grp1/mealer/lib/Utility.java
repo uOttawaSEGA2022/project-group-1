@@ -39,9 +39,9 @@ public class Utility {
 
 
     //Returns whether a string matches a provided regex pattern
-    public static boolean isValidField(EditText field, String regexPattern) {
+    public static boolean isValidField(String field, String regexPattern) {
         return Pattern.compile(regexPattern)
-                .matcher(field.getText().toString())
+                .matcher(field)
                 .matches();
     }
 

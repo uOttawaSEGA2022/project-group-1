@@ -67,7 +67,7 @@ public class CookRegister extends AppCompatActivity {
             result = false;
         } else {
             //If name is not valid, say it's invalid and set result false
-            if (!Utility.isValidField(firstName, Utility.NAME)) {
+            if (!Utility.isValidField(firstName.getText().toString(), Utility.NAME)) {
                 firstName.setError("First Name invalid");
                 result = false;
             }
@@ -77,7 +77,7 @@ public class CookRegister extends AppCompatActivity {
             lastName.setError("Last Name required");
             result = false;
         } else {
-            if (!Utility.isValidField(lastName, Utility.NAME)) {
+            if (!Utility.isValidField(lastName.getText().toString(), Utility.NAME)) {
                 lastName.setError("Last Name invalid");
                 result = false;
             }
@@ -87,7 +87,7 @@ public class CookRegister extends AppCompatActivity {
             email.setError("Email required");
             result = false;
         } else {
-            if (!Utility.isValidField(email, Utility.EMAIL)) {
+            if (!Utility.isValidField(email.getText().toString(), Utility.EMAIL)) {
                 email.setError("Email invalid");
                 result = false;
             }
@@ -102,7 +102,7 @@ public class CookRegister extends AppCompatActivity {
             address1.setError("Address required");
             result = false;
         } else {
-            if (!Utility.isValidField(address1, Utility.ADDRESS)) {
+            if (!Utility.isValidField(address1.getText().toString(), Utility.ADDRESS)) {
                 address1.setError("Address invalid");
                 result = false;
             }

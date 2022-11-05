@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
             email.setError("Email required");
             result = false;
         } else {
-            if (!Utility.isValidField(email, Utility.EMAIL)) {
+            if (!Utility.isValidField(email.getText().toString(), Utility.EMAIL)) {
                 email.setError("Email invalid");
                 result = false;
             }
