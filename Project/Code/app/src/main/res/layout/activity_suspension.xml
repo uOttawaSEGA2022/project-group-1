@@ -36,7 +36,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name: "
+                android:text=" Name: "
                 android:textSize="16sp" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="E-mail: "
+                android:text=" E-mail: "
                 android:textSize="16sp" />
 
             <TextView
@@ -97,7 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Permanent Ban? "
+                android:text=" Permanent Ban? "
                 android:textSize="16sp" />
 
             <ToggleButton
@@ -105,8 +105,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:textOff="No"
-                android:textOn="Yes"
+                android:onClick="banToggleBtn"
+                android:textOff="NO"
+                android:textOn="YES"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -120,7 +121,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ban Until: "
+                android:text=" Ban Until: "
                 android:textAlignment="textStart"
                 android:textSize="16sp" />
 
@@ -128,7 +129,7 @@
                 android:id="@+id/banDateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(shows date)"
+                android:text="(Please choose a date)"
                 android:textSize="16sp" />
 
             <Space
@@ -153,19 +154,10 @@
                 app:srcCompat="@android:drawable/ic_menu_month" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="(Only if applicable)"
-            android:textAlignment="center"
-            android:textSize="16sp" />
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,6 +169,7 @@
                 android:id="@+id/banConfirmBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="banCheckBoxBtn"
                 android:text="Confirm Ban"
                 android:textSize="16sp" />
 
@@ -193,6 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#B71C1C"
+            android:onClick="banBtn"
             android:text="Ban Cook"
             android:textSize="20sp" />
     </LinearLayout>
