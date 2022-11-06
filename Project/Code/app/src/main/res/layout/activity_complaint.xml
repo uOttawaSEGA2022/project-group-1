@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Complaints"
+            android:text="Complaint"
             android:textFontWeight="@integer/material_motion_duration_long_1"
             android:textSize="30sp" />
 
@@ -122,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Complaint: "
+                        android:text="Description: "
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -146,14 +146,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="98dp"
-            android:layout_weight="0"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnCloseComplaint"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="btnClose"
                 android:text="@string/btnCloseComplaint" />
@@ -161,7 +160,7 @@
             <Button
                 android:id="@+id/btnDismiss"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="btnDismiss"
                 android:text="@string/btnDismiss" />
@@ -169,10 +168,10 @@
             <Button
                 android:id="@+id/btnOpenSuspension"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="btnSuspesnsion"
-                android:text="open Suspension" />
+                android:onClick="btnSuspension"
+                android:text="@string/btnSuspension" />
         </LinearLayout>
 
         <Space

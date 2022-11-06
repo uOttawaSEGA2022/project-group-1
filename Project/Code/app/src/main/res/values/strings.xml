@@ -29,10 +29,11 @@
     <string name="hintCreditCard">Enter your credit card number</string>
     <string name="hintExpiry">MM/YY (credit card expiry)</string>
     <string name="hintDescription">Enter a description of yourself</string>
-    <string name="btnCloseComplaint">Close Complaint Board</string>
+    <string name="btnCloseComplaint">Back</string>
     <string name="btnDebugComplaint">Open Complaint Menu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="btnDismiss">Dismiss the Complaint</string>
+    <string name="btnDismiss">Dismiss Complaint</string>
+    <string name="btnSuspension">Ban Cook</string>
     <string name="txtTitle">(Title should be here)</string>
 </resources>

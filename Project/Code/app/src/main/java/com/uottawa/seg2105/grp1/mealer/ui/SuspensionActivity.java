@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +51,17 @@ public class SuspensionActivity extends AppCompatActivity {
         banReason = (EditText) findViewById(R.id.banReason);
         banPermaToggle = (ToggleButton) findViewById(R.id.banPermaToggle);
         banConfirmBox = (CheckBox) findViewById(R.id.banConfirmBox);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                cookID = null;
+            } else {
+                cookID = extras.getString("cookId");
+            }
+        } else {
+            cookID = (String) savedInstanceState.getSerializable("cookId");
+        }
     }
 
     public void showDatePickerDialog(View view) {
@@ -67,8 +79,6 @@ public class SuspensionActivity extends AppCompatActivity {
                 public void run() {
 
                     try {
-                        cookID = "cooktest@email.com";//change to proper value
-
                         User cook = MealerSystem.getSystem().getRepository().getById(
                                 User.class,
                                 cookID
@@ -85,9 +95,16 @@ public class SuspensionActivity extends AppCompatActivity {
                         MealerSystem.getSystem().getRepository().update(User.class, cookID, properties);
 
                         Toast.makeText(SuspensionActivity.this, "Cook Banned", Toast.LENGTH_SHORT).show();
+
+                        Intent resultIntent = new Intent();
+                        setResult(Activity.RESULT_OK, resultIntent);
                         finish();//End this activity & return to ComplaintActivity (must finish() that as well)
                     } catch (RepositoryRequestException e) {
                         Toast.makeText(getApplicationContext(), "Could not update data from repository.", Toast.LENGTH_LONG).show();
+
+                        Intent resultIntent = new Intent();
+                        setResult(Activity.RESULT_CANCELED, resultIntent);
+                        finish();
                     }
                 }
             }.start();
@@ -144,6 +161,8 @@ public class SuspensionActivity extends AppCompatActivity {
         }
     }
 
+    //Returns 0 if permabanned, or a long if
+    //not a permaban (date specified)
     private long getDateAsLong() {
         if (banPermaToggle.getText().toString().equals("NO")) {
             return banDateAsLong;
