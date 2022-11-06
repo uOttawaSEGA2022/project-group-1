@@ -75,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
 
                             // TODO: Send banned user to SuspendedHome
                             if (banExpirationMillis == 0) {
-                               Toast.makeText(getApplicationContext(), "Permanently banned", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
+                                intent.putExtra("banExpiration", 0);
+                                startActivityForResult(intent, 0);
 
                                 btnLogin.setEnabled(true);
                                 btnRegisterCook.setEnabled(true);
@@ -93,7 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                                 ));
 
                                 if (banExpirationMillis >= currentTimeMillis) {
-                                    Toast.makeText(getApplicationContext(), "Temporarily banned", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
+                                    intent.putExtra("banExpiration", banExpirationMillis - currentTimeMillis);
+                                    startActivityForResult(intent, 0);
 
                                     btnLogin.setEnabled(true);
                                     btnRegisterCook.setEnabled(true);

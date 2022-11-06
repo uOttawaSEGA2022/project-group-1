@@ -36,4 +36,5 @@
     <string name="btnDismiss">Dismiss Complaint</string>
     <string name="btnSuspension">Ban Cook</string>
     <string name="txtTitle">(Title should be here)</string>
+    <string name="logOffSusBtn">Log Off</string>
 </resources>
