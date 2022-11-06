@@ -5,80 +5,64 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.uottawa.seg2105.grp1.mealer.R;
-import com.uottawa.seg2105.grp1.mealer.lib.Utility;
 import com.uottawa.seg2105.grp1.mealer.model.Complaint;
-import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.User;
-import com.uottawa.seg2105.grp1.mealer.model.UserRole;
+import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.uottawa.seg2105.grp1.mealer.R;
 
 public class ComplaintActivity extends AppCompatActivity {
 
-    public static TextView banDateText;
-    public static long banDateAsLong;
-
-    private TextView banReason;
-    private ToggleButton banPermaToggle;
-    private CheckBox banConfirmBox;
     private TextView cookName;
     private TextView clientName;
-    private TextView textComplaint;
+    private TextView complaintTitle;
+    private TextView complaintDescription;
 
-    private String cookID;
-
+    private String complaintID;
+    private Complaint complaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            complaintID = extras.getString("complaintId");
+        }
 
         cookName = (TextView) findViewById(R.id.txtCook);
         clientName = (TextView) findViewById(R.id.txtClient);
-        textComplaint = (TextView) findViewById(R.id.txtComplaint);
-        banReason = (TextView) findViewById(R.id.txtTitle);
+        complaintTitle = (TextView) findViewById(R.id.txtTitle);
+        complaintDescription = (TextView) findViewById(R.id.txtComplaint);
 
         new Thread() {
             @Override
             public void run() {
                 try {
-                    cookID = "cooktest@email.com";//Connect it so it checks for who the actual ID is
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    complaint = rep.getById(Complaint.class, complaintID);
 
-                    User cook = MealerSystem.getSystem().getRepository().getById(User.class,cookID);
+                    User cook = complaint.getCook();
 
-                    Map<String, Object> properties = cook.serialise();
-                    Map<String, Object> roleData = (HashMap<String, Object>) properties.get("role");
+                    String cookNameStr = cook.getFirstName() +" "+ cook.getLastName();
+                    String clientNameStr = complaint.getClient().getFirstName() + " " + complaint.getClient().getLastName();
 
-                    System.out.println(roleData.get("banReason"));
-
-                    String name = cook.getFirstName() +" "+ cook.getLastName();
-                    System.out.println(name);
-
-
-
-                    //TODO: find out what the problem is
-                    //ERROR: Only the original thread that created a view hierarchy can touch its views. <---
-                    cookName.setText(name);
-                    banReason.setText(String.valueOf(roleData.get("banReason")));
-                    textComplaint.setText(String.valueOf(roleData.get("description"))); //this one crashes if the description is too long, will need to fix
-                    clientName.setText("Client not implemented yet?");
+                    runOnUiThread(() -> {
+                        cookName.setText(cookNameStr);
+                        complaintTitle.setText(complaint.getTitle());
+                        complaintDescription.setText(complaint.getDescription());
+                        clientName.setText(clientNameStr);
+                    });
 
                 } catch (RepositoryRequestException e) {
-                    Toast.makeText(getApplicationContext(), "Could not get data from repository.", Toast.LENGTH_LONG).show();
+                    runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Could not get data from repository.", Toast.LENGTH_LONG).show();
+                    });
                 }
             }
 
@@ -90,17 +74,17 @@ public class ComplaintActivity extends AppCompatActivity {
         finish();
     }
 
-    public void btnSuspesnsion(View view){
-        //TODO: This still needs to be done
+    public void btnSuspension(View view){
 
         Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
+        intent.putExtra("cookId", complaint.getCook().getId());
         startActivity(intent);
     }
 
-    public void btnDismiss(View view){
+    public void btnDismiss(View view) throws InterruptedException {
 
-        //TODO: This still needs to be done
-
+        complaint.archive();
+        finish();
     }
 
 
