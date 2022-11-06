@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.uottawa.seg2105.grp1.mealer.BuildConfig;
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
@@ -20,6 +22,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Disable the debug menu if not in debug mode
+        if (!BuildConfig.DEBUG) {
+            Button debugBtn = (Button) findViewById(R.id.btnDebug);
+            debugBtn.setVisibility(View.GONE); // Allow other components to take the button's space
+        }
     }
 
     @Override
