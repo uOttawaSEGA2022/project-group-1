@@ -70,22 +70,30 @@ public class ComplaintActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) return;
+        try {
+            complaint.archive();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        finish();
+    }
+
     public void btnClose(View view){
         finish();
     }
 
     public void btnSuspension(View view){
-
         Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
         intent.putExtra("cookId", complaint.getCook().getId());
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     public void btnDismiss(View view) throws InterruptedException {
-
         complaint.archive();
         finish();
     }
-
-
 }
