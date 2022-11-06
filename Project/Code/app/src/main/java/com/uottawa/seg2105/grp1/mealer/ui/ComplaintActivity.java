@@ -90,6 +90,9 @@ public class ComplaintActivity extends AppCompatActivity {
     public void btnSuspension(View view){
         Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
         intent.putExtra("cookId", complaint.getCook().getId());
+        intent.putExtra("cookFirstName", complaint.getCook().getFirstName());
+        intent.putExtra("cookLastName", complaint.getCook().getLastName());
+        intent.putExtra("cookEmail", complaint.getCook().getEmail());
         startActivityForResult(intent, 0);
     }
 
