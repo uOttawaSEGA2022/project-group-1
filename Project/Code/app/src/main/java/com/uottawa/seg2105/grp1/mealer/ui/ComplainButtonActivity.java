@@ -11,6 +11,8 @@ import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
+// TODO: To be removed soon
+@Deprecated
 public class ComplainButtonActivity extends AppCompatActivity {
 
     public static String complaintID;

@@ -12,31 +12,45 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnCookMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btnOpenCook"
             android:text="@string/btnCookMenu" />
 
         <Button
-            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnOpenComplaint"
-            android:text="@string/btnDebugComplaint" />
+            android:onClick="btnRandomComplaint"
+            android:text="Create Randomized Complaint" />
 
         <Button
-            android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnComplain"
-            android:text="Complain" />
+            android:onClick="unArchiveAll"
+            android:text="UnArchive all Complaints" />
 
         <Button
-            android:id="@+id/banFormBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="unBanAll"
+            android:text="UnBan all users" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="The buttons below are set for deletion, please avoid using them as much as possible" />
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btnSuspensionActivity"
             android:text="Suspension Activity" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnOpenComplaint"
+            android:text="@string/btnDebugComplaint" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

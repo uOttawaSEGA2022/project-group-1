@@ -142,5 +142,8 @@ public final class User implements IRepositoryEntity {
             c.deserialise((Map<String, Object>) role);
             this.role = c;
         }
+
+        if (this.role instanceof UserRole)
+            this.role.user = this;
     }
 }

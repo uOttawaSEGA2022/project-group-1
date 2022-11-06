@@ -1,7 +1,5 @@
 package com.uottawa.seg2105.grp1.mealer.ui;
 
-// TODO: Replace this class with CloudFirestoreRepository
-
 import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +16,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 
+// TODO: To be removed soon
+@Deprecated
 public class FirestoreTest {
 
     private static final String TAG = "FirestoreTest";

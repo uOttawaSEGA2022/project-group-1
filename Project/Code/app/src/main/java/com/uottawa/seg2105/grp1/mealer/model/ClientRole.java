@@ -24,30 +24,21 @@ public class ClientRole extends UserRole {
      * Updates the client's credit card number.
      * @param cardNumber The new credit card number.
      */
-    public void setCardNumber(String cardNumber) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    // Prepare new data
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("cardNumber", cardNumber);
+    public void setCardNumber(String cardNumber) throws RepositoryRequestException {
+        // Prepare new data
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> data = new HashMap<>();
+        data.put("cardNumber", cardNumber);
 
-                    // Create the properties map
-                    Map<String, Object> properties = new HashMap<>();
-                    properties.put("role", data);
+        // Create the properties map
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role", data);
 
-                    // Update the role data
-                    String id = getUser().getId();
-                    rep.update(User.class, id, properties);
+        // Update the role data
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
 
-                    ClientRole.this.cardNumber = cardNumber;
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+        ClientRole.this.cardNumber = cardNumber;
     }
 
     @Override

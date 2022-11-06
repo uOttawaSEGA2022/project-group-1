@@ -33,6 +33,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Temporarily disable all buttons while checking the user
+        View btnLogin = findViewById(R.id.btnLogin);
+        View btnRegisterClient = findViewById(R.id.btnRegisterClient);
+        View btnRegisterCook = findViewById(R.id.btnRegisterCook);
+
+        btnLogin.setEnabled(false);
+        btnRegisterCook.setEnabled(false);
+        btnRegisterClient.setEnabled(false);
+
         new Thread() {
             @Override
             public void run() {
@@ -41,7 +51,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 User currentUser = system.getCurrentUser();
 
-                if (currentUser == null) return;
+                if (currentUser == null) {
+                    runOnUiThread(() -> {
+                        btnLogin.setEnabled(true);
+                        btnRegisterCook.setEnabled(true);
+                        btnRegisterClient.setEnabled(true);
+                    });
+                    return;
+                }
 
                 runOnUiThread(() -> {
                     if (currentUser.isAdmin()) {
@@ -59,7 +76,12 @@ public class LoginActivity extends AppCompatActivity {
                             // TODO: Send banned user to SuspendedHome
                             if (banExpirationMillis == 0) {
                                Toast.makeText(getApplicationContext(), "Permanently banned", Toast.LENGTH_SHORT).show();
-                               return;
+
+                                btnLogin.setEnabled(true);
+                                btnRegisterCook.setEnabled(true);
+                                btnRegisterClient.setEnabled(true);
+
+                                return;
                             } else if (banExpirationMillis > 0) {
                                 // This will be vulnerable to the users changing their phone's clock time but checking times form the internet seems a bit out of scope for this project.
                                 long currentTimeMillis = System.currentTimeMillis();
@@ -72,6 +94,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if (banExpirationMillis >= currentTimeMillis) {
                                     Toast.makeText(getApplicationContext(), "Temporarily banned", Toast.LENGTH_SHORT).show();
+
+                                    btnLogin.setEnabled(true);
+                                    btnRegisterCook.setEnabled(true);
+                                    btnRegisterClient.setEnabled(true);
+
                                     return;
                                 }
                             }

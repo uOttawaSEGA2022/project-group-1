@@ -57,41 +57,33 @@ public class CookRole extends UserRole {
      * @param desc The new description.
      * @param exp The new banExpiration
      * @param reason The new banReason
+     * @throws RepositoryRequestException if data could not be updated
      */
-    public void setRole(String desc, long exp, String reason) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    // Prepare new data
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("description", desc);
-                    data.put("banExpiration", exp);
-                    data.put("banReason", reason);
+    public void setRole(String desc, long exp, String reason) throws RepositoryRequestException {
+        // Prepare new data
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> data = new HashMap<>();
+        data.put("description", desc);
+        data.put("banExpiration", exp);
+        data.put("banReason", reason);
 
-                    // Create the properties map
-                    Map<String, Object> properties = new HashMap<>();
-                    properties.put("role", data);
+        // Create the properties map
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role", data);
 
-                    // Update the role data
-                    String id = getUser().getId();
-                    rep.update(User.class, id, properties);
+        // Update the role data
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
 
-                    CookRole.this.description = desc;
-                    CookRole.this.banExpiration = exp;
-                    CookRole.this.banReason = reason;
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+        CookRole.this.description = desc;
+        CookRole.this.banExpiration = exp;
+        CookRole.this.banReason = reason;
     }
     /**
      * Updates the cook's description.
      * @param description The new description.
      */
-    public void setDescription(String description) {
+    public void setDescription(String description) throws RepositoryRequestException {
         setRole(description, this.banExpiration, this.banReason);
     }
     /**
@@ -99,7 +91,7 @@ public class CookRole extends UserRole {
      * @param exp The new banExpiration
      * @param reason The new banReason
      */
-    public void setBan(long exp, String reason) {
+    public void setBan(long exp, String reason) throws RepositoryRequestException {
         setRole(this.description, exp, reason);
     }
 
