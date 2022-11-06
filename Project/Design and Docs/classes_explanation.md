@@ -58,7 +58,7 @@ State:
 - `UserRole role` (May be null if the user is an Administrator)
 
 ### UserRole ###
-Sginature: `abstract class UserRole extends ISerialisableEntity`
+Signature: `abstract class UserRole extends ISerialisableEntity`
 
 Description: Generalization of Roles a User account can possess.
 
@@ -80,6 +80,23 @@ Description: Stores user data for cooks.
 
 Responsabilities:
 - Store and retrieve the cook's self-description
+- Store and retrieve ban information
+
+
+Ban Details:
+
+CookRole contains banReason which is set by the admin and displayed to the cook.
+
+It also contains banExpiration which acts as the ban indicator:
+- banExpiration = -1 => The cook is not banned
+- banExpiration =  0 => The cook is permanently banned
+- banExpiration >  0 => The cook is banned up to the time banExpiration represents, as a unix timestamp in milliseconds
+
+
+### Complaint ###
+Signature: `final class Complaint implements IRepositoryEntity`
+
+Description: Stores complaint data
 
 ---
 
@@ -158,8 +175,40 @@ Responsabilities:
 Description: The Activity that is started when an administrator logs in.
 
 Responsablities:
-- Display the message "Welcome, Administrator"
+- Display an inbox of complaints
+	- Each item displays the complaint's title, the complaining user, and the reported cook.
+	- Clicking on one of the complaint summaries redirects the user to ComplaintActivity.
 - Allow the user to log off, sending them back to LoginActivity
+
+### ComplaintActivity ###
+Description: The Activity that displays details about a Complaint.
+
+Responsabilities:
+- Display the title, concerned users and description of the complaint.
+- Marks a complaint as archived when it has been handled.
+- Allows the administrator to handle the Complaint.
+	- The Suspend button redirect the administrator to the SuspensionActivity.
+	- The Dismiss button archives the complaint.
+	- The Cancel button finishes the activity.
+	
+### SuspensionActivity ###
+Description: The Activity that allows an administrator to ban/suspend a Cook.
+
+Responsabilities:
+- Allows the administrator to specify a ban reason.
+- Allows the administrator to suspend the cook
+	- Either the administrator permanently suspends the cook
+	- Or the administrator specifies a date of expiration to the ban and temporarily suspends the cook
+
+### SuspendedHome ###
+Description: The Activity that is started when a banned cook logs in.
+
+Responsabilities:
+- Display "Your account has been suspended"
+- Display when the ban expires
+	- If the ban is permanent, "You will no longer be able to use this account on Mealer"
+	- Otherwise, "Your suspension will end on (date) at midnight UTC"
+- Display the ban reason
 
 ### ClientHome ###
 Description: The Activity that is started when a client logs in.
