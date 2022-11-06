@@ -200,7 +200,7 @@ Responsabilities:
 	- Either the administrator permanently suspends the cook
 	- Or the administrator specifies a date of expiration to the ban and temporarily suspends the cook
 
-### SuspendedHome ###
+### SuspensionHome ###
 Description: The Activity that is started when a banned cook logs in.
 
 Responsabilities:

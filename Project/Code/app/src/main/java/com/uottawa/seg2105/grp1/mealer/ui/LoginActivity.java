@@ -73,38 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                             CookRole role = (CookRole) currentUser.getRole();
                             long banExpirationMillis = role.getBanExpiration();
 
-                            // TODO: Send banned user to SuspendedHome
-                            if (banExpirationMillis == 0) {
+                            if (banExpirationMillis >= 0) {
                                 Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
-                                intent.putExtra("banExpiration", 0);
-                                startActivityForResult(intent, 0);
-
-                                btnLogin.setEnabled(true);
-                                btnRegisterCook.setEnabled(true);
-                                btnRegisterClient.setEnabled(true);
-
+                                intent.putExtra("banExpiration", role.getBanExpiration());
+                                intent.putExtra("banReason", role.getBanReason());
+                                startActivity(intent);
                                 return;
-                            } else if (banExpirationMillis > 0) {
-                                // This will be vulnerable to the users changing their phone's clock time but checking times form the internet seems a bit out of scope for this project.
-                                long currentTimeMillis = System.currentTimeMillis();
-
-                                System.out.println(String.format(
-                                        "Current: %d, banExpiration: %d",
-                                        currentTimeMillis,
-                                        banExpirationMillis
-                                ));
-
-                                if (banExpirationMillis >= currentTimeMillis) {
-                                    Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
-                                    intent.putExtra("banExpiration", banExpirationMillis - currentTimeMillis);
-                                    startActivityForResult(intent, 0);
-
-                                    btnLogin.setEnabled(true);
-                                    btnRegisterCook.setEnabled(true);
-                                    btnRegisterClient.setEnabled(true);
-
-                                    return;
-                                }
                             }
 
                             Intent intent = new Intent(getApplicationContext(), CookHome.class);
