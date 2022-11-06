@@ -63,31 +63,42 @@ public class SuspensionActivity extends AppCompatActivity {
             if(extras == null) {
                 cookID = null;
             } else {
-                cookID = extras.getString("cookId");
-                try {
-                    cook = MealerSystem.getSystem().getRepository().getById(
-                            User.class,
-                            cookID
-                    );
-                    banCookName.setText(cook.getFirstName() +" "+ cook.getLastName());
-                    banCookEmail.setText(cook.getEmail());
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                }
+                new Thread() {
+                    @Override
+                    public void run() {
+                        cookID = extras.getString("cookId");
+                        try {
+                            cook = MealerSystem.getSystem().getRepository().getById(
+                                    User.class,
+                                    cookID
+                            );
+                            banCookName.setText(cook.getFirstName() + " " + cook.getLastName());
+                            banCookEmail.setText(cook.getEmail());
+                        } catch (RepositoryRequestException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
         } else {
-            cookID = (String) savedInstanceState.getSerializable("cookId");
-            try {
-                cook = MealerSystem.getSystem().getRepository().getById(
-                        User.class,
-                        cookID
-                );
-                banCookName.setText(cook.getFirstName() +" "+ cook.getLastName());
-                banCookEmail.setText(cook.getEmail());
-            } catch (RepositoryRequestException e) {
-                e.printStackTrace();
-            }
+            new Thread() {
+                @Override
+                public void run() {
+                    cookID = (String) savedInstanceState.getSerializable("cookId");
+                    try {
+                        cook = MealerSystem.getSystem().getRepository().getById(
+                                User.class,
+                                cookID
+                        );
+                        banCookName.setText(cook.getFirstName() +" "+ cook.getLastName());
+                        banCookEmail.setText(cook.getEmail());
+                    } catch (RepositoryRequestException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
+
     }
 
     public void showDatePickerDialog(View view) {
