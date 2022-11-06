@@ -48,15 +48,16 @@ public class ComplaintActivity extends AppCompatActivity {
                     complaint = rep.getById(Complaint.class, complaintID);
 
                     User cook = complaint.getCook();
+                    User client = complaint.getClient();
 
-                    String cookNameStr = cook.getFirstName() +" "+ cook.getLastName();
-                    String clientNameStr = complaint.getClient().getFirstName() + " " + complaint.getClient().getLastName();
+                    String cookStr = cook.getFirstName() +" "+ cook.getLastName() + " (" + cook.getId() + ")";
+                    String clientStr = client.getFirstName() +" "+ client.getLastName() + " (" + client.getId() + ")";
 
                     runOnUiThread(() -> {
-                        cookName.setText(cookNameStr);
+                        cookName.setText(cookStr);
                         complaintTitle.setText(complaint.getTitle());
                         complaintDescription.setText(complaint.getDescription());
-                        clientName.setText(clientNameStr);
+                        clientName.setText(clientStr);
                     });
 
                 } catch (RepositoryRequestException e) {
