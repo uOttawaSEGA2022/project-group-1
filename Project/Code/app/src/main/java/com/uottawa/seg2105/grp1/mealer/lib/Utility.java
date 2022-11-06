@@ -26,7 +26,7 @@ public class Utility {
 
     //Address regex provided by Jayakumari Arumugham from StackOverflow
     //https://stackoverflow.com/questions/11456670/regular-expression-for-address-field-validation
-    public static final String ADDRESS = "^[#\\.0-9a-zA-Z\\s,-']+$";
+    public static final String ADDRESS = "^[#\\.0-9a-zA-Z'\\s,-]+$";
 
     //Using convention that a credit card num. is a 16-digit number
     public static final String CREDITCARD = "^\\d{16}$";
