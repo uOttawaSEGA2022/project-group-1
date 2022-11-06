@@ -36,11 +36,14 @@ public class SuspensionActivity extends AppCompatActivity {
     public static TextView banDateText;
     public static long banDateAsLong;
 
+    private TextView banCookName;
+    private TextView banCookEmail;
     private EditText banReason;
     private ToggleButton banPermaToggle;
     private CheckBox banConfirmBox;
 
     private String cookID;
+    private User cook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,9 @@ public class SuspensionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_suspension);
 
         banDateText = (TextView) findViewById(R.id.banDateText);
+
+        banCookName = (TextView) findViewById(R.id.banCookName);
+        banCookEmail = (TextView) findViewById(R.id.banCookEmail);
         banReason = (EditText) findViewById(R.id.banReason);
         banPermaToggle = (ToggleButton) findViewById(R.id.banPermaToggle);
         banConfirmBox = (CheckBox) findViewById(R.id.banConfirmBox);
@@ -58,9 +64,29 @@ public class SuspensionActivity extends AppCompatActivity {
                 cookID = null;
             } else {
                 cookID = extras.getString("cookId");
+                try {
+                    cook = MealerSystem.getSystem().getRepository().getById(
+                            User.class,
+                            cookID
+                    );
+                    banCookName.setText(cook.getFirstName() +" "+ cook.getLastName());
+                    banCookEmail.setText(cook.getEmail());
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             cookID = (String) savedInstanceState.getSerializable("cookId");
+            try {
+                cook = MealerSystem.getSystem().getRepository().getById(
+                        User.class,
+                        cookID
+                );
+                banCookName.setText(cook.getFirstName() +" "+ cook.getLastName());
+                banCookEmail.setText(cook.getEmail());
+            } catch (RepositoryRequestException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -79,10 +105,6 @@ public class SuspensionActivity extends AppCompatActivity {
                 public void run() {
 
                     try {
-                        User cook = MealerSystem.getSystem().getRepository().getById(
-                                User.class,
-                                cookID
-                        );
 
                         Map<String, Object> properties = cook.serialise();
                         Map<String, Object> roleData = (HashMap<String, Object>) properties.get("role");
@@ -94,13 +116,10 @@ public class SuspensionActivity extends AppCompatActivity {
 
                         MealerSystem.getSystem().getRepository().update(User.class, cookID, properties);
 
-                        Toast.makeText(SuspensionActivity.this, "Cook Banned", Toast.LENGTH_SHORT).show();
-
                         Intent resultIntent = new Intent();
                         setResult(Activity.RESULT_OK, resultIntent);
                         finish();//End this activity & return to ComplaintActivity (must finish() that as well)
                     } catch (RepositoryRequestException e) {
-                        Toast.makeText(getApplicationContext(), "Could not update data from repository.", Toast.LENGTH_LONG).show();
 
                         Intent resultIntent = new Intent();
                         setResult(Activity.RESULT_CANCELED, resultIntent);
