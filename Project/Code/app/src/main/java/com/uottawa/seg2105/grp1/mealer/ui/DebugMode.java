@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.model.Complaint;
+import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 public class DebugMode extends AppCompatActivity {
 
@@ -29,16 +31,13 @@ public class DebugMode extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void btnComplain(View view){
-        System.out.println("debug");
-        Intent intent = new Intent(getApplicationContext(), ComplainButtonActivity.class);
-        startActivity(intent);
-    }
-
     public void btnSuspensionActivity(View view){
         System.out.println("debug");
         Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
         startActivity(intent);
     }
-
+    public void btnUnarchiveAll(View view) throws RepositoryRequestException {
+        System.out.println("debug");
+        Complaint.unarchiveAll();
+    }
 }

@@ -29,8 +29,8 @@
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnComplain"
-            android:text="Complain" />
+            android:onClick="btnUnarchiveAll"
+            android:text="Unarchive All Complaints" />
 
         <Button
             android:id="@+id/banFormBtn"
