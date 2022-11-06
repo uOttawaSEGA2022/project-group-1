@@ -3,9 +3,11 @@ package com.uottawa.seg2105.grp1.mealer.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class SuspensionHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suspension_home);
+        banDescription = (TextView) findViewById(R.id.banDescription);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -47,5 +50,21 @@ public class SuspensionHome extends AppCompatActivity {
                 banDescription.setText("You are permanently banned.");
             }
         }
+    }
+
+    public void onLogOff(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                MealerSystem.getSystem().logoff();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
+            }
+        }.start();
     }
 }
