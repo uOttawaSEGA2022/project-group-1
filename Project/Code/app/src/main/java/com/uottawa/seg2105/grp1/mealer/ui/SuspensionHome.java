@@ -24,7 +24,6 @@ public class SuspensionHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suspension_home);
-        banDescription = (TextView) findViewById(R.id.banDescription);
 
         tvBanDescription = (TextView) findViewById(R.id.banDescription);
         tvBanReason = (TextView) findViewById(R.id.tvBanReason);
@@ -41,15 +40,15 @@ public class SuspensionHome extends AppCompatActivity {
                     Date date = new Date(banExpiration);
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
                     sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    tvBanDescription.setText("You are temporarily banned until: " + sdf.format(date));
+                    tvBanDescription.setText("You are temporarily banned until:\n" + sdf.format(date));
                 } else {
-                    tvBanDescription.setText("You are permanently banned.");
+                    tvBanDescription.setText("You will no longer be able to use this account on Mealer");
                 }
 
                 if (banReason == null || banReason.trim().equals(""))
-                    tvBanReason.setText("The administrator has not specified a reason.");
+                    tvBanReason.setText("The administrator has not specified a reason");
                 else
-                    tvBanReason.setText(banReason);
+                    tvBanReason.setText("Ban Reason:\n" + banReason);
             }
         } else {
             banExpiration = (Long) savedInstanceState.getSerializable("banExpiration");
