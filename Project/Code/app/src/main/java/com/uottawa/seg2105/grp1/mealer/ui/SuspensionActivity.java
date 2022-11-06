@@ -101,7 +101,7 @@ public class SuspensionActivity extends AppCompatActivity {
                         finish();//End this activity & return to ComplaintActivity (must finish() that as well)
                     } catch (RepositoryRequestException e) {
                         Toast.makeText(getApplicationContext(), "Could not update data from repository.", Toast.LENGTH_LONG).show();
-                        
+
                         Intent resultIntent = new Intent();
                         setResult(Activity.RESULT_CANCELED, resultIntent);
                         finish();
@@ -161,6 +161,8 @@ public class SuspensionActivity extends AppCompatActivity {
         }
     }
 
+    //Returns 0 if permabanned, or a long if
+    //not a permaban (date specified)
     private long getDateAsLong() {
         if (banPermaToggle.getText().toString().equals("NO")) {
             return banDateAsLong;
