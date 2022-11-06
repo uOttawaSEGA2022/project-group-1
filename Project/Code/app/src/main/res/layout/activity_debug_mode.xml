@@ -26,31 +26,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="unArchiveAll"
+            android:onClick="btnUnarchiveAll"
             android:text="UnArchive all Complaints" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="unBanAll"
+            android:onClick="btnUnbanAll"
             android:text="UnBan all users" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="The buttons below are set for deletion, please avoid using them as much as possible" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="btnSuspensionActivity"
-            android:text="Suspension Activity" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="btnOpenComplaint"
-            android:text="@string/btnDebugComplaint" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

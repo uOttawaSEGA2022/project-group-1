@@ -85,7 +85,7 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
-    public void unArchiveAll(View view) {
+    public void btnUnarchiveAll(View view) {
         view.setEnabled(false);
         new Thread() {
             @Override
@@ -106,7 +106,7 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
-    public void unBanAll(View view) {
+    public void btnUnbanAll(View view) {
         // TODO: Unban all cooks
         IRepository rep = MealerSystem.getSystem().getRepository();
         view.setEnabled(false);
