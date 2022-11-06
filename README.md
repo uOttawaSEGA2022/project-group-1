@@ -11,6 +11,8 @@ Mealer is an meal sharing app, similar to uber eats or grubhub <br />
 - Cook: `cook@email.com`
 - Extra Client: `johndoe@email.com`
 
+Extra accounts `cook1@email.com` to `cook5@email.com` have been made available for ban testing.
+
 The password to all of these default accounts is `123`
 
 ---
