@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:gravity="center|right"
         android:onClick="toggleInStock"
+        android:focusable="false"
         android:text="In Stock" />
 
     <ImageButton
@@ -39,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
+        android:focusable="false"
         android:adjustViewBounds="true"
         android:backgroundTint="#687877"
         android:cropToPadding="true"

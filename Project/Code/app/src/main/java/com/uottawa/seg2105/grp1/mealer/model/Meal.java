@@ -78,8 +78,8 @@ public final class Meal implements IRepositoryEntity {
     }
 
     public Meal updateMeal(String name, String type, String cuisine,
-                                  String ingredients, String allergens, int price, String description,
-                                  User cook, boolean isOffered) throws RepositoryRequestException {
+                           String ingredients, String allergens, int price, String description,
+                           User cook, boolean isOffered) throws RepositoryRequestException {
         IRepository rep = MealerSystem.getSystem().getRepository();
         rep.delete(Meal.class, this);
         Meal meal = Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, isOffered);

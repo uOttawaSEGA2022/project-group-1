@@ -7,21 +7,23 @@
     tools:context=".ui.MealListActivity">
 
     <LinearLayout
+        android:id="@+id/mealListLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="35.5">
 
         <ListView
             android:id="@+id/listViewMeals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="16" />
+            android:layout_weight="35.5" />
 
         <Button
             android:id="@+id/createMealBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Create a Meal" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
