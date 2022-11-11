@@ -143,4 +143,25 @@ public class DebugMode extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnCreateMeal(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Meal meal = Meal.createMeal("The Only Meal", "Midnight Snack", "Other",
+                            "Potatoes, Red Number 6", "Red Number 6", 12599,
+                            "It's the only meal", User.getByEmail("cook@email.com"), true);
+                    meal.flipIsOffered();
+                    meal.updateMeal("The Other Meal", "Midday Snack", "Unknown",
+                            "Rice, Red Number 6", "Red Number 6", 12499,
+                            "It's the other meal", User.getByEmail("cook@email.com"), true);
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
 }
