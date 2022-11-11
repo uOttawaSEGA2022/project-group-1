@@ -135,14 +135,6 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
-    // TODO: Remove once SuspensionActivity starts expecting a complaintId
-    @Deprecated
-    public void btnSuspensionActivity(View view){
-        System.out.println("debug");
-        Intent intent = new Intent(getApplicationContext(), SuspensionActivity.class);
-        startActivity(intent);
-    }
-
     public void btnCreateMeal(View view) {
         new Thread() {
             @Override
@@ -162,6 +154,12 @@ public class DebugMode extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+
+    public void btnMealListActivity(View view){
+        Intent intent = new Intent(getApplicationContext(), MealListActivity.class);
+        intent.putExtra("cookId", "cook@email.com");
+        startActivity(intent);
     }
 
 }

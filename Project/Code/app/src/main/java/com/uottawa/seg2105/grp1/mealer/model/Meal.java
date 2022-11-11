@@ -137,7 +137,7 @@ public final class Meal implements IRepositoryEntity {
         this.cuisine = (String) cuisine;
         this.ingredients = (String) ingredients;
         this.allergens = (String) allergens;
-        this.price = (int) price;
+        this.price = ((Long) price).intValue();
         this.description = (String) description;
         this.cook = cook;
         this.isOffered = (boolean) isOffered;
