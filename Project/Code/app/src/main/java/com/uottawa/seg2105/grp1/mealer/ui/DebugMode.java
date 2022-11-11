@@ -156,12 +156,12 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
-<<<<<<< Updated upstream
-    public void btnMealListActivity(View view){
+    public void btnMealListActivity(View view) {
         Intent intent = new Intent(getApplicationContext(), MealListActivity.class);
         intent.putExtra("cookId", "cook@email.com");
         startActivity(intent);
-=======
+    }
+
     public void btnRateCook(View view) {
         new Thread() {
             @Override
@@ -186,7 +186,6 @@ public class DebugMode extends AppCompatActivity {
                 }
             }
         }.start();
->>>>>>> Stashed changes
     }
 
 }
