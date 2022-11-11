@@ -28,14 +28,56 @@ public class CookRole extends UserRole {
      */
     private String banReason;
 
+    /**
+     * Sum of the values (1-5) of all ratings received
+     */
+    private long totalRatings;
+
+    /**
+     * Number of ratings received
+     */
+    private long numRatings;
+
+    /**
+     * Number of meals sold
+     */
+    private long mealsSold;
+
     public CookRole() {
         this.banExpiration = -1;
         this.banReason = "";
+        this.totalRatings = 0;
+        this.numRatings = 0;
+        this.mealsSold = 0;
     }
 
     /**
-     * @return The description of the cook
+     * Creates the cook's role data
+     * @param desc The new description.
+     * @throws RepositoryRequestException if data could not be updated
      */
+    public void create(String desc) throws RepositoryRequestException {
+        // Prepare new data
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> data = new HashMap<>();
+        data.put("description", desc);
+        data.put("banExpiration", this.banExpiration);
+        data.put("banReason", this.banReason);
+        data.put("totalRatings", this.totalRatings);
+        data.put("numRatings", this.numRatings);
+        data.put("mealsSold", this.mealsSold);
+
+        // Create the properties map
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role", data);
+
+        // Update the role data
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
+
+        this.description = desc;
+    }
+
     public String getDescription() {
         if (description == null)
             return "";
@@ -52,39 +94,53 @@ public class CookRole extends UserRole {
         return banReason;
     }
 
+    public float getAverageRating() {
+        if (numRatings == 0)
+            return 0;
+        return (float) totalRatings/numRatings;
+    }
+
     /**
-     * Updates the cook's role data
-     * @param desc The new description.
-     * @param exp The new banExpiration
-     * @param reason The new banReason
-     * @throws RepositoryRequestException if data could not be updated
+     * Increments the number of ratings and adds this rating to the total
+     * @param rating
+     * @throws RepositoryRequestException
      */
-    public void setRole(String desc, long exp, String reason) throws RepositoryRequestException {
-        // Prepare new data
+    public void rate(int rating) throws RepositoryRequestException {
         IRepository rep = MealerSystem.getSystem().getRepository();
-        Map<String, Object> data = new HashMap<>();
-        data.put("description", desc);
-        data.put("banExpiration", exp);
-        data.put("banReason", reason);
-
-        // Create the properties map
         Map<String, Object> properties = new HashMap<>();
-        properties.put("role", data);
-
-        // Update the role data
+        properties.put("role.numRatings", this.numRatings + 1);
+        properties.put("role.totalRatings", this.totalRatings + rating);
         String id = getUser().getId();
         rep.update(User.class, id, properties);
-
-        CookRole.this.description = desc;
-        CookRole.this.banExpiration = exp;
-        CookRole.this.banReason = reason;
+        this.numRatings = this.numRatings + 1;
+        this.totalRatings = this.totalRatings + rating;
     }
+
+    /**
+     * Increments the number of meals sold by the cook
+     * @throws RepositoryRequestException
+     */
+    public void soldMeal() throws RepositoryRequestException {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role.mealsSold", this.mealsSold + 1);
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
+        this.mealsSold = this.mealsSold + 1;
+    }
+
+
     /**
      * Updates the cook's description.
      * @param description The new description.
      */
     public void setDescription(String description) throws RepositoryRequestException {
-        setRole(description, this.banExpiration, this.banReason);
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role.description", description);
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
+        this.description = description;
     }
     /**
      * Updates the cook's ban information
@@ -92,7 +148,14 @@ public class CookRole extends UserRole {
      * @param reason The new banReason
      */
     public void setBan(long exp, String reason) throws RepositoryRequestException {
-        setRole(this.description, exp, reason);
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role.banExpiration", exp);
+        properties.put("role.banReason", reason);
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
+        this.banExpiration = exp;
+        this.banReason = reason;
     }
 
     @Override
@@ -102,6 +165,9 @@ public class CookRole extends UserRole {
         map.put("description",getDescription());
         map.put("banExpiration", getBanExpiration());
         map.put("banReason", getBanReason());
+        map.put("totalRatings", this.totalRatings);
+        map.put("numRatings", this.numRatings);
+        map.put("mealsSold", this.mealsSold);
 
         return map;
     }
@@ -112,12 +178,35 @@ public class CookRole extends UserRole {
         Object desc = map.get("description");
         Object exp = map.get("banExpiration");
         Object reason = map.get("banReason");
+        Object totalRatings = map.get("totalRatings");
+        Object numRatings = map.get("numRatings");
+        Object mealsSold = map.get("mealsSold");
 
-        if (desc == null || exp == null || reason == null)
+        if (desc == null || exp == null || reason == null || totalRatings == null ||
+            numRatings == null || mealsSold == null )
             throw new EntityDeserialisationException();
 
         this.description = (String) desc;
         this.banExpiration = (long) exp;
         this.banReason = (String) reason;
+        this.totalRatings = (long) totalRatings;
+        this.numRatings = (long) numRatings;
+        this.mealsSold = (long) mealsSold;
+    }
+
+    /**
+     * Helper for debugging
+     */
+    public void resetRatingsAndMealsSold() throws RepositoryRequestException {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("role.numRatings", 0);
+        properties.put("role.totalRatings", 0);
+        properties.put("role.mealsSold", 0);
+        String id = getUser().getId();
+        rep.update(User.class, id, properties);
+        this.numRatings = 0;
+        this.totalRatings = 0;
+        this.mealsSold = 0;
     }
 }
