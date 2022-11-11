@@ -42,11 +42,18 @@
             android:text="Create meal" />
 
         <Button
+<<<<<<< Updated upstream
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btnMealListActivity"
             android:text="Open Meal List Activity" />
+=======
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnRateCook"
+            android:text="Rate Cook" />
+>>>>>>> Stashed changes
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

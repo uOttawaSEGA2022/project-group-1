@@ -156,10 +156,37 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
+<<<<<<< Updated upstream
     public void btnMealListActivity(View view){
         Intent intent = new Intent(getApplicationContext(), MealListActivity.class);
         intent.putExtra("cookId", "cook@email.com");
         startActivity(intent);
+=======
+    public void btnRateCook(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    IRepository rep = MealerSystem.getSystem().getRepository();
+                    User user = rep.getById(User.class, "cook3@email.com");
+                    CookRole cookRole = (CookRole) user.getRole();
+                    cookRole.soldMeal();
+                    Thread.sleep(1000);
+                    cookRole.soldMeal();
+                    Thread.sleep(1000);
+                    cookRole.rate(1);
+                    Thread.sleep(1000);
+                    cookRole.rate(5);
+                    Thread.sleep(2000);
+                    cookRole.resetRatingsAndMealsSold();
+                } catch (RepositoryRequestException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+>>>>>>> Stashed changes
     }
 
 }
