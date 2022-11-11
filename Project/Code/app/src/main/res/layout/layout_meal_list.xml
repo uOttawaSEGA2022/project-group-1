@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mealListName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="(meal name here)"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/mealListPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="(meal price here)"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/mealInStockCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|right"
+        android:onClick="toggleInStock"
+        android:text="In Stock" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|right"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#687877"
+        android:cropToPadding="true"
+        android:onClick="removeMeal"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="1dp"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/btn_dialog" />
+
+</LinearLayout>
+
