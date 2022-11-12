@@ -36,21 +36,38 @@
         android:text="In Stock" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/removeMealIconBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
-        android:focusable="false"
         android:adjustViewBounds="true"
-        android:backgroundTint="#687877"
+        android:backgroundTint="#B71C1C"
         android:cropToPadding="true"
+        android:focusable="false"
         android:onClick="removeMeal"
         android:paddingLeft="1dp"
         android:paddingTop="1dp"
         android:paddingRight="1dp"
         android:paddingBottom="1dp"
         android:scaleType="fitCenter"
-        android:src="@android:drawable/btn_dialog" />
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <ImageButton
+        android:id="@+id/viewMealIconBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|right"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#5A5A5A"
+        android:cropToPadding="true"
+        android:focusable="false"
+        android:onClick="showMeal"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="1dp"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_edit" />
 
 </LinearLayout>
 

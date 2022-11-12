@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,52 +44,6 @@ public class MealListActivity extends AppCompatActivity {
 
     private String TAG = "MealListActivity";
 
-    public class MealList extends ArrayAdapter<Meal> {
-        private Activity context;
-
-        List<Meal> meals;
-        TextView mealName, mealPrice;
-        CheckBox mealInStock;
-        ImageButton removeMealBtn;
-
-
-        public MealList(Activity context, List<Meal> meals) {
-            super(context, R.layout.layout_meal_list, meals);
-            this.context = context;
-            this.meals = meals;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View listViewItem = inflater.inflate(R.layout.layout_meal_list, null, true);
-
-            mealName = (TextView) listViewItem.findViewById(R.id.mealListName);
-            mealPrice = (TextView) listViewItem.findViewById(R.id.mealListPrice);
-            mealInStock = (CheckBox) listViewItem.findViewById(R.id.mealInStockCheck);
-            removeMealBtn = (ImageButton) listViewItem.findViewById(R.id.imageButton);
-
-            Meal meal = meals.get(position);
-            mealName.setText(meal.getName());
-            mealPrice.setText("$"+String.valueOf(meal.getPrice()));
-            mealInStock.setChecked(meal.getIsOffered());
-
-            //Just store position where invisible
-            mealName.setTag(position);
-            mealInStock.setTag(position);
-            removeMealBtn.setTag(position);
-
-            mealName.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    int position = (int) mealName.getTag();
-                    showMealDetailsDialog(meals.get(position));
-                    return true;
-                }
-            });
-            return listViewItem;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,15 +70,6 @@ public class MealListActivity extends AppCompatActivity {
         createMealBtn = (Button) findViewById(R.id.createMealBtn);
 
         meals = new ArrayList<>();
-
-        /*listViewMeals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Meal meal = meals.get(i);
-                showMealDetailsDialog(meals.get(i));
-                return true;
-            }
-        });*/
     }
 
 
@@ -159,6 +103,49 @@ public class MealListActivity extends AppCompatActivity {
         }.start();
 
     }
+
+    //Adapter class for listView
+    public class MealList extends ArrayAdapter<Meal> {
+        private Activity context;
+
+        List<Meal> meals;
+        TextView mealName, mealPrice;
+        CheckBox mealInStock;
+        ImageButton removeMealBtn, viewMealBtn;
+
+
+        public MealList(Activity context, List<Meal> meals) {
+            super(context, R.layout.layout_meal_list, meals);
+            this.context = context;
+            this.meals = meals;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View listViewItem = inflater.inflate(R.layout.layout_meal_list, null, true);
+
+            mealName = (TextView) listViewItem.findViewById(R.id.mealListName);
+            mealPrice = (TextView) listViewItem.findViewById(R.id.mealListPrice);
+            mealInStock = (CheckBox) listViewItem.findViewById(R.id.mealInStockCheck);
+            removeMealBtn = (ImageButton) listViewItem.findViewById(R.id.removeMealIconBtn);
+            viewMealBtn = (ImageButton) listViewItem.findViewById(R.id.viewMealIconBtn);
+
+            Meal meal = meals.get(position);
+            mealName.setText(meal.getName());
+            mealPrice.setText("$"+String.valueOf(meal.getPrice()));
+            mealInStock.setChecked(meal.getIsOffered());
+
+            //Just store position where invisible
+            mealInStock.setTag(position);
+            removeMealBtn.setTag(position);
+            viewMealBtn.setTag(position);
+
+            return listViewItem;
+        }
+    }
+
+    //Buttons
 
     public void createNewMealBtn(View view) {
         Intent intent = new Intent(getApplicationContext(), CookAddMeal.class);
@@ -203,61 +190,13 @@ public class MealListActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void showMealDetailsDialog(Meal meal) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.meal_details_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final TextView name = (TextView) dialogView.findViewById(R.id.mealDtlsName);
-        final TextView cuisine = (TextView) dialogView.findViewById(R.id.mealDtlsCuisine);
-        final TextView type = (TextView) dialogView.findViewById(R.id.mealDtlsType);
-        final TextView price  = (TextView) dialogView.findViewById(R.id.mealDtlsPrice);
-        final TextView ingredients = (TextView) dialogView.findViewById(R.id.mealDtlsIngredients);
-        final TextView allergens = (TextView) dialogView.findViewById(R.id.mealDtlsAllergens);
-        final TextView description = (TextView) dialogView.findViewById(R.id.mealDtlsDesc);
-
-        final Button editBtn = (Button) dialogView.findViewById(R.id.updateMealBtn);
-        final Button cancelBtn = (Button) dialogView.findViewById(R.id.cancelMealDialogBtn);
-
-        name.setText(meal.getName());
-        cuisine.setText(meal.getCuisine());
-        type.setText(meal.getType());
-        price.setText("$"+meal.getPrice());
-        ingredients.setText(meal.getIngredients());
-        allergens.setText(meal.getAllergens());
-        description.setText(meal.getDescription());
-
-        final AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CookAddMeal.class);
-                intent.putExtra("cookId", cookID);
-                intent.putExtra("mealId", meal.getId());
-                startActivity(intent);
-            }
-        });
-
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
+    //Gets position of the meal and shows the remove dialog
     public void removeMeal(View view) {
 
-        int position = (int) view.findViewById(R.id.imageButton).getTag();
+        int position = (int) view.findViewById(R.id.removeMealIconBtn).getTag();
         Log.d(TAG, "meal position selected (removeBtn): "+position);
         showRemoveMealDialog(position);
     }
-
     private void showRemoveMealDialog(int mealPosition) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -308,6 +247,61 @@ public class MealListActivity extends AppCompatActivity {
                         }
                     }
                 }.start();
+            }
+        });
+
+    }
+
+    //Gets position of meal in meals & show detail dialog
+    public void showMeal(View view) {
+
+        int position = (int) view.findViewById(R.id.viewMealIconBtn).getTag();
+        Log.d(TAG, "meal position selected (mealDetailsBtn): "+position);
+        showMealDetailsDialog(meals.get(position));
+    }
+    private void showMealDetailsDialog(Meal meal) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.meal_details_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final TextView name = (TextView) dialogView.findViewById(R.id.mealDtlsName);
+        final TextView cuisine = (TextView) dialogView.findViewById(R.id.mealDtlsCuisine);
+        final TextView type = (TextView) dialogView.findViewById(R.id.mealDtlsType);
+        final TextView price  = (TextView) dialogView.findViewById(R.id.mealDtlsPrice);
+        final TextView ingredients = (TextView) dialogView.findViewById(R.id.mealDtlsIngredients);
+        final TextView allergens = (TextView) dialogView.findViewById(R.id.mealDtlsAllergens);
+        final TextView description = (TextView) dialogView.findViewById(R.id.mealDtlsDesc);
+
+        final Button editBtn = (Button) dialogView.findViewById(R.id.updateMealBtn);
+        final Button cancelBtn = (Button) dialogView.findViewById(R.id.cancelMealDialogBtn);
+
+        name.setText(meal.getName());
+        cuisine.setText(meal.getCuisine());
+        type.setText(meal.getType());
+        price.setText("$"+meal.getPrice());
+        ingredients.setText(meal.getIngredients());
+        allergens.setText(meal.getAllergens());
+        description.setText(meal.getDescription());
+
+        final AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CookAddMeal.class);
+                intent.putExtra("cookId", cookID);
+                intent.putExtra("mealId", meal.getId());
+                startActivity(intent);
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 
