@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -159,6 +160,12 @@ public class MealListActivity extends AppCompatActivity {
 
     }
 
+    public void createNewMealBtn(View view) {
+        Intent intent = new Intent(getApplicationContext(), MealCreateActivity.class);
+        intent.putExtra("cookId", cookID);
+        startActivity(intent);
+    }
+
     public void toggleInStock(View view) {
 
         int position = (int) view.findViewById(R.id.mealInStockCheck).getTag();
@@ -228,7 +235,10 @@ public class MealListActivity extends AppCompatActivity {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Intent to CreateMealActivity with bundle of data
+                Intent intent = new Intent(getApplicationContext(), MealCreateActivity.class);
+                intent.putExtra("cookId", cookID);
+                intent.putExtra("mealId", meal.getId());
+                startActivity(intent);
             }
         });
 
