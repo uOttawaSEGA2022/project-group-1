@@ -2,6 +2,7 @@ package com.uottawa.seg2105.grp1.mealer.lib;
 
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -46,7 +47,7 @@ public class Utility {
     }
 
     //Checks if a particular @text is empty
-    public static boolean isEmpty(@NonNull EditText text) {
+    public static boolean isEmpty(@NonNull TextView text) {
         String str = text.getText().toString();
         return TextUtils.isEmpty(str);
     }
