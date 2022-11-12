@@ -23,7 +23,7 @@
             android:id="@+id/createMealBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="createMeal"
+            android:onClick="createNewMealBtn"
             android:text="Create a Meal" />
     </LinearLayout>
 

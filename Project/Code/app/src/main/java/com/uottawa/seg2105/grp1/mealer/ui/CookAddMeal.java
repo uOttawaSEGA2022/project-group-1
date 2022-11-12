@@ -45,6 +45,8 @@ public class CookAddMeal extends AppCompatActivity {
     String[] mealTypeArray = {"Breakfast", "Lunch", "Dinner", "Other"};
     private String cookID;
     User user;
+    User cook;
+
 
 
     @Override
@@ -60,7 +62,7 @@ public class CookAddMeal extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                cookID = "cook@email.com";
+                cookID = "cook2@email.com";
             } else {
                 cookID = extras.getString("cookId");
             }
@@ -68,6 +70,9 @@ public class CookAddMeal extends AppCompatActivity {
             cookID = (String) savedInstanceState.getSerializable("cookId");
         }
 
+        System.out.println(cookID);
+        System.out.println("test");
+        System.out.println(cookID);
         //TODO: HERE
         new Thread() {
             @Override
@@ -75,9 +80,9 @@ public class CookAddMeal extends AppCompatActivity {
                 try {
                     IRepository rep = MealerSystem.getSystem().getRepository();
                     user = rep.getById(User.class, cookID);
-                    System.out.println(user.getRole());
-                    System.out.println(user.getEmail());
-                    System.out.println("next is to see outside");
+                    User cook = rep.getById(User.class, "cook@email.com");
+
+
 
                 } catch (RepositoryRequestException e) {
                     runOnUiThread(() -> {
@@ -86,12 +91,13 @@ public class CookAddMeal extends AppCompatActivity {
                 }
             }
 
+
         }.start();
         //TODO:END
+        //System.out.println(arraylistUser.size());
+        //System.out.println("Now outside");
 
-        System.out.println("Now outside");
-
-        System.out.println(user);
+        //System.out.println(user);
         //System.out.println(user.getEmail());
 
 
@@ -315,12 +321,15 @@ public class CookAddMeal extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
+
+                        User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
+
                         Meal meal = new Meal();
                         meal.createMeal(
                                 menuName.getText().toString(), mealType.getText().toString(),
                                 cuisineType.getText().toString(), itemIngrediants.getText().toString(),
                                 itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
-                                itemDescription.getText().toString(), user, true);
+                                itemDescription.getText().toString(), cook, true);
 
                     } catch (RepositoryRequestException e) {
                         runOnUiThread(() -> {
@@ -332,6 +341,6 @@ public class CookAddMeal extends AppCompatActivity {
                 }
             }.start();
             //TODO: END HERE
-        } finish();
+            finish();}
     }
 }
