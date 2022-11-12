@@ -3,19 +3,13 @@ package com.uottawa.seg2105.grp1.mealer;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-
-import android.util.Pair;
 
 import com.uottawa.seg2105.grp1.mealer.lib.Utility;
-
-import java.util.List;
 
 /**
  * Tests the Utility Class's isValidField
  */
-public class DeliverableOneUnitTest {
+public class DeliverableTwoUnitTest {
 
     /**
      * Test 1
