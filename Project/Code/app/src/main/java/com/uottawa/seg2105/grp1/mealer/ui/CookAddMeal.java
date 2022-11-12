@@ -37,10 +37,8 @@ public class CookAddMeal extends AppCompatActivity {
     //this is for the multiple choice
     TextView cuisineTypeView;
     TextView mealTypeView;
-    boolean[] selectedCuisine;
-    boolean[] selectedMeal;
-    ArrayList<Integer> cuisineList = new ArrayList<>();
-    ArrayList<Integer> mealList = new ArrayList<>();
+    int selectedCuisine = -1;
+    int selectedMeal = -1;
     String[] cuisineTypeArray = {"Italian", "Thai", "Indian", "Other"};
     String[] mealTypeArray = {"Breakfast", "Lunch", "Dinner", "Other"};
     private String cookID;
@@ -56,7 +54,6 @@ public class CookAddMeal extends AppCompatActivity {
 
         cuisineTypeView = findViewById(R.id.cuisineTypeView);
         mealTypeView = findViewById(R.id.mealTypeView);
-        selectedCuisine = new boolean[mealTypeArray.length];
 
         //gets cook id
         if (savedInstanceState == null) {
@@ -115,43 +112,21 @@ public class CookAddMeal extends AppCompatActivity {
                 // set dialog non cancelable
                 builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(cuisineTypeArray, selectedCuisine, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setSingleChoiceItems(cuisineTypeArray, selectedCuisine, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        // check condition
-                        if (b) {
-                            // when checkbox selected
-                            // Add position  in lang list
-                            cuisineList.add(i);
-                            // Sort array list
-                            Collections.sort(cuisineList);
-                        } else {
-                            // when checkbox unselected
-                            // Remove position from langList
-                            cuisineList.remove(Integer.valueOf(i));
-                        }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        selectedCuisine = i;
                     }
                 });
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Initialize string builder
-                        StringBuilder stringBuilder = new StringBuilder();
-                        // use for loop
-                        for (int j = 0; j < cuisineList.size(); j++) {
-                            // concat array value
-                            stringBuilder.append(cuisineTypeArray[cuisineList.get(j)]);
-                            // check condition
-                            if (j != cuisineList.size() - 1) {
-                                // When j value  not equal
-                                // to lang list size - 1
-                                // add comma
-                                stringBuilder.append(", ");
-                            }
-                        }
                         // set text on textView
-                        cuisineTypeView.setText(stringBuilder.toString());
+                        if (selectedCuisine == -1)
+                            cuisineTypeView.setText("");
+                        else
+                            cuisineTypeView.setText(cuisineTypeArray[selectedCuisine]);
                         //cuisineTypeView.setText("test");
                         System.out.println("okkakyyy");
                     }
@@ -186,43 +161,21 @@ public class CookAddMeal extends AppCompatActivity {
                 // set dialog non cancelable
                 builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(mealTypeArray, selectedMeal, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setSingleChoiceItems(mealTypeArray, selectedMeal, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        // check condition
-                        if (b) {
-                            // when checkbox selected
-                            // Add position  in lang list
-                            mealList.add(i);
-                            // Sort array list
-                            Collections.sort(mealList);
-                        } else {
-                            // when checkbox unselected
-                            // Remove position from langList
-                            mealList.remove(Integer.valueOf(i));
-                        }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        selectedMeal = i;
                     }
                 });
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Initialize string builder
-                        StringBuilder stringBuilder = new StringBuilder();
-                        // use for loop
-                        for (int j = 0; j < mealList.size(); j++) {
-                            // concat array value
-                            stringBuilder.append(mealTypeArray[mealList.get(j)]);
-                            // check condition
-                            if (j != mealList.size() - 1) {
-                                // When j value  not equal
-                                // to lang list size - 1
-                                // add comma
-                                stringBuilder.append(", ");
-                            }
-                        }
                         // set text on textView
-                        mealTypeView.setText(stringBuilder.toString());
+                        if (selectedMeal == -1)
+                            mealTypeView.setText("");
+                        else
+                            mealTypeView.setText(mealTypeArray[selectedMeal]);
                         //cuisineTypeView.setText("test");
                         System.out.println("okkakyyy");
                     }
@@ -255,15 +208,13 @@ public class CookAddMeal extends AppCompatActivity {
             itemName.setError("Item name required");
             result = false;
         }
-        System.out.println(mealType.getText());
-        if (mealType.getText() == "") {
+
+        if (Utility.isEmpty(mealType)) {
             mealType.setError("Meal type required");
             result = false;
-
         }
 
-
-        if (cuisineType.getText() == "") {
+        if (Utility.isEmpty(cuisineType)) {
             cuisineType.setError("Cuisine type required");
             result = false;
         }
