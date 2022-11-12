@@ -32,24 +32,39 @@
             android:text="@string/fieldMenuName" />
 
         <EditText
-            android:id="@+id/fieldMealType"
+            android:id="@+id/fieldPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Meal type (e.g., main dish, soup, desert, etc.)"
-            android:inputType="textPersonName"
-            android:text="@string/fieldMealType" />
+            android:hint="Price of item"
+            android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/fieldCuisineType"
+        <TextView
+            android:id="@+id/mealTypeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="Cuisine type (e.g., Italian, Chinese, Greek, etc.)"
-            android:inputType="textPersonName"
-            android:text="@string/fieldCuisineType" />
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:drawablePadding="16dp"
+            android:hint="Select meal type"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/cuisineTypeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:drawablePadding="16dp"
+            android:hint="Select cuisine type"
+            android:padding="12dp" />
+
+            />
 
         <EditText
             android:id="@+id/fieldAllergens"
