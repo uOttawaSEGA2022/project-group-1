@@ -14,12 +14,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnOpenCook"
-            android:text="@string/btnCookMenu" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:onClick="btnRandomComplaint"
             android:text="Create Randomized Complaint" />
 
@@ -40,6 +34,12 @@
             android:layout_height="wrap_content"
             android:onClick="btnCreateMeal"
             android:text="Create meal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnOpenCook"
+            android:text="@string/btnCookMenu" />
 
         <Button
             android:id="@+id/button2"

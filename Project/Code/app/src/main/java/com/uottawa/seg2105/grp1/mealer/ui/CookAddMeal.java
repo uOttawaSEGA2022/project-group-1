@@ -31,6 +31,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CookAddMeal extends AppCompatActivity {
 
@@ -41,10 +43,11 @@ public class CookAddMeal extends AppCompatActivity {
     int selectedMeal = -1;
     String[] cuisineTypeArray = {"Italian", "Thai", "Indian", "Other"};
     String[] mealTypeArray = {"Breakfast", "Lunch", "Dinner", "Other"};
-    private String cookID;
+    private String cookID = null;
+    private String mealID = null;
     User user;
     User cook;
-
+    private List<Meal> meals;
 
 
     @Override
@@ -55,47 +58,66 @@ public class CookAddMeal extends AppCompatActivity {
         cuisineTypeView = findViewById(R.id.cuisineTypeView);
         mealTypeView = findViewById(R.id.mealTypeView);
 
-        //gets cook id
+        //gets cook id and meal id
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
+
             if (extras == null) {
-                cookID = "cook2@email.com";
+                mealID = null;
+                cookID = "cook@email.com";
             } else {
                 cookID = extras.getString("cookId");
+                if (getIntent().hasExtra("mealId")) {
+                    if(!extras.getString("mealId").equals(null)){
+                        mealID = extras.getString("mealId");}}
+
             }
         } else {
-            cookID = (String) savedInstanceState.getSerializable("cookId");
+            cookID = (String) savedInstanceState.getSerializable("mealId");
         }
 
-        System.out.println(cookID);
-        System.out.println("test");
-        System.out.println(cookID);
-        //TODO: HERE
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    user = rep.getById(User.class, cookID);
-                    User cook = rep.getById(User.class, "cook@email.com");
+        //checks if its being updated or created
+        if (mealID != null){
+            EditText menuName = findViewById(R.id.fieldMenuName);
+            TextView mealType = findViewById(R.id.mealTypeView);
+            TextView cuisineType = findViewById(R.id.cuisineTypeView);
+            EditText itemAllergens = findViewById(R.id.fieldAllergens);
+            EditText itemIngrediants = findViewById(R.id.fieldIngredients);
+            EditText itemDescription = findViewById(R.id.fieldDescription);
+            EditText itemPrice = findViewById(R.id.fieldPrice);
+            Button updateBtn = findViewById(R.id.btnAddItem);
 
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
 
+                        Meal meal = MealerSystem.getSystem().getRepository().getById(Meal.class, mealID);
+                        System.out.println(meal.getDescription());
+                        System.out.println(meal.getAllergens());
+                        System.out.println(meal.getName());
 
-                } catch (RepositoryRequestException e) {
-                    runOnUiThread(() -> {
-                        Toast.makeText(getApplicationContext(), "Could not get data from repository.", Toast.LENGTH_LONG).show();
-                    });
+                        runOnUiThread(() -> {
+                            menuName.setText(meal.getName());
+                            mealType.setText(meal.getType());
+                            cuisineType.setText(meal.getCuisine());
+                            itemAllergens.setText(meal.getAllergens());
+                            itemIngrediants.setText(meal.getIngredients());
+                            itemDescription.setText(meal.getDescription());
+                            updateBtn.setText("Update the item");
+                        });
+
+                    } catch (RepositoryRequestException e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(CookAddMeal.this, "An error occurred.", Toast.LENGTH_SHORT).show();
+                        });
+
+                    }
                 }
-            }
+            }.start();
+        }
 
 
-        }.start();
-        //TODO:END
-        //System.out.println(arraylistUser.size());
-        //System.out.println("Now outside");
-
-        //System.out.println(user);
-        //System.out.println(user.getEmail());
 
 
         //Cuisine multiple choice
@@ -242,7 +264,7 @@ public class CookAddMeal extends AppCompatActivity {
         return result;
     }
 
-    public void btnAddItem(View view) {
+    public void btnAddItem(View view) throws InterruptedException {
 
 
         EditText menuName = findViewById(R.id.fieldMenuName);
@@ -253,45 +275,62 @@ public class CookAddMeal extends AppCompatActivity {
         EditText itemDescription = findViewById(R.id.fieldDescription);
         EditText itemPrice = findViewById(R.id.fieldPrice);
 
-        User user = new User();
-        //user.getByEmail(cookID);
-        //System.out.println(user);
-        //System.out.println(user.getEmail());
-        //System.out.println(user.getId());
-
-
-
         boolean valid = isValidItem(menuName, mealType, cuisineType, itemAllergens, itemPrice,
                 itemIngrediants, itemDescription);
         if (valid) {
-            System.out.println(valid);
+            if (mealID == null) { //if we have no mealID, create a new item
 
+                view.setEnabled(false);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
+                            Meal meal = new Meal();
+                            meal.createMeal( //create a meal with all the atributes
+                                    menuName.getText().toString(), mealType.getText().toString(),
+                                    cuisineType.getText().toString(), itemIngrediants.getText().toString(),
+                                    itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
+                                    itemDescription.getText().toString(), cook, true);
 
-            view.setEnabled(false);
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
+                        } catch (RepositoryRequestException e) {
+                            runOnUiThread(() -> {
+                                Toast.makeText(CookAddMeal.this, "An error occurred.", Toast.LENGTH_SHORT).show();
+                                view.setEnabled(true);
+                            });
 
-                        User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
-
-                        Meal meal = new Meal();
-                        meal.createMeal(
-                                menuName.getText().toString(), mealType.getText().toString(),
-                                cuisineType.getText().toString(), itemIngrediants.getText().toString(),
-                                itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
-                                itemDescription.getText().toString(), cook, true);
-
-                    } catch (RepositoryRequestException e) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(CookAddMeal.this, "An error occurred.", Toast.LENGTH_SHORT).show();
-                            view.setEnabled(true);
-                        });
-
+                        }
                     }
-                }
-            }.start();
-            //TODO: END HERE
-            finish();}
+                }.start();
+                TimeUnit.SECONDS.sleep(1); //This is here, so it gives time to update before closing
+                finish();
+            }
+
+        //if we have a mealID, update
+        else {
+                view.setEnabled(false);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
+                            Meal meal = MealerSystem.getSystem().getRepository().getById(Meal.class, mealID);
+                            meal.updateMeal( //create a meal with all the attributes
+                                   menuName.getText().toString(), mealType.getText().toString(),
+                                   cuisineType.getText().toString(), itemIngrediants.getText().toString(),
+                                   itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
+                                   itemDescription.getText().toString(), cook, true);
+                        } catch (RepositoryRequestException e) {
+                            runOnUiThread(() -> {
+                                Toast.makeText(CookAddMeal.this, "An error occurred.", Toast.LENGTH_SHORT).show();
+                                view.setEnabled(true);
+                            });
+                        }
+                    }
+                }.start();
+                TimeUnit.SECONDS.sleep(1); //This is here, so it gives time to update before closing
+                finish();
+            }
+        }
     }
 }

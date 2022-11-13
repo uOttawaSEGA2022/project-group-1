@@ -19,7 +19,7 @@
     <string name="fieldDescription" />
     <string name="btnAddItem">Add item to menu</string>
     <string name="btnDebug">Debug mode (remove at end)</string>
-    <string name="btnCookMenu">Open cook addItem menu</string>
+    <string name="btnCookMenu">Create a specific meal</string>
     <string name="fieldCookDescription" />
     <string name="hintEmail">Enter your email</string>
     <string name="hintPassword">Enter your password</string>
