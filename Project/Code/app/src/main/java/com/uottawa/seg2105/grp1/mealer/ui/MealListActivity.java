@@ -133,7 +133,9 @@ public class MealListActivity extends AppCompatActivity {
 
             Meal meal = meals.get(position);
             mealName.setText(meal.getName());
-            mealPrice.setText("$"+String.valueOf(meal.getPrice()));
+
+            float price = meal.getPrice();
+            mealPrice.setText("$"+String.valueOf(price/100));
             mealInStock.setChecked(meal.getIsOffered());
 
             //Just store position where invisible
@@ -209,7 +211,8 @@ public class MealListActivity extends AppCompatActivity {
         final Button removeConfirm = (Button) dialogView.findViewById(R.id.delMealBtn);
 
         delMealName.setText(meals.get(mealPosition).getName());
-        delMealPrice.setText("$"+meals.get(mealPosition).getPrice());
+        float price = meals.get(mealPosition).getPrice();
+        delMealPrice.setText("$"+price/100);
 
         final AlertDialog dialog = dialogBuilder.create();
         dialog.show();
@@ -280,7 +283,8 @@ public class MealListActivity extends AppCompatActivity {
         name.setText(meal.getName());
         cuisine.setText(meal.getCuisine());
         type.setText(meal.getType());
-        price.setText("$"+meal.getPrice());
+        float floatPrice = meal.getPrice();
+        price.setText("$"+floatPrice/100);
         ingredients.setText(meal.getIngredients());
         allergens.setText(meal.getAllergens());
         description.setText(meal.getDescription());

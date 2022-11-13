@@ -73,7 +73,7 @@ public class CookAddMeal extends AppCompatActivity {
 
             }
         } else {
-            cookID = (String) savedInstanceState.getSerializable("mealId");
+            cookID = (String) savedInstanceState.getSerializable("cookId");
         }
 
         //checks if its being updated or created
@@ -285,12 +285,14 @@ public class CookAddMeal extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
+                            float floatPrice = Float.valueOf((itemPrice.getText().toString()))*100;
+                            int intPrice = (int) Math.floor(floatPrice);
                             User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
                             Meal meal = new Meal();
                             meal.createMeal( //create a meal with all the atributes
                                     menuName.getText().toString(), mealType.getText().toString(),
                                     cuisineType.getText().toString(), itemIngrediants.getText().toString(),
-                                    itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
+                                    itemAllergens.getText().toString(), intPrice,
                                     itemDescription.getText().toString(), cook, true);
 
                         } catch (RepositoryRequestException e) {
@@ -308,17 +310,20 @@ public class CookAddMeal extends AppCompatActivity {
 
         //if we have a mealID, update
         else {
+
                 view.setEnabled(false);
                 new Thread() {
                     @Override
                     public void run() {
                         try {
+                            float floatPrice = Float.valueOf((itemPrice.getText().toString()))*100;
+                            int intPrice = (int) Math.floor(floatPrice);
                             User cook = MealerSystem.getSystem().getRepository().getById(User.class, cookID);
                             Meal meal = MealerSystem.getSystem().getRepository().getById(Meal.class, mealID);
                             meal.updateMeal( //create a meal with all the attributes
                                    menuName.getText().toString(), mealType.getText().toString(),
                                    cuisineType.getText().toString(), itemIngrediants.getText().toString(),
-                                   itemAllergens.getText().toString(), Integer.parseInt(itemPrice.getText().toString()),
+                                   itemAllergens.getText().toString(), intPrice,
                                    itemDescription.getText().toString(), cook, true);
                         } catch (RepositoryRequestException e) {
                             runOnUiThread(() -> {
