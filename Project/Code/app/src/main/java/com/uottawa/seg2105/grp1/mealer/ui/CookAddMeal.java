@@ -86,6 +86,7 @@ public class CookAddMeal extends AppCompatActivity {
             EditText itemDescription = findViewById(R.id.fieldDescription);
             EditText itemPrice = findViewById(R.id.fieldPrice);
             Button updateBtn = findViewById(R.id.btnAddItem);
+            TextView titleText = findViewById(R.id.titleText);
 
             new Thread() {
                 @Override
@@ -98,7 +99,9 @@ public class CookAddMeal extends AppCompatActivity {
                         System.out.println(meal.getName());
 
                         runOnUiThread(() -> {
+                            titleText.setText("Update Meal");
                             menuName.setText(meal.getName());
+                            itemPrice.setText(Double.toString(meal.getPrice()/100.0));
                             mealType.setText(meal.getType());
                             cuisineType.setText(meal.getCuisine());
                             itemAllergens.setText(meal.getAllergens());

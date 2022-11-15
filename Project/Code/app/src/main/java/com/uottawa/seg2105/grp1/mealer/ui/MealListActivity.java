@@ -299,6 +299,7 @@ public class MealListActivity extends AppCompatActivity {
                 intent.putExtra("cookId", cookID);
                 intent.putExtra("mealId", meal.getId());
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
 

@@ -32,12 +32,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnCreateMeal"
-            android:text="Create meal" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:onClick="btnOpenCook"
             android:text="@string/btnCookMenu" />
 
@@ -47,12 +41,6 @@
             android:layout_height="wrap_content"
             android:onClick="btnMealListActivity"
             android:text="Open Meal List Activity" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="btnRateCook"
-            android:text="Rate Cook" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

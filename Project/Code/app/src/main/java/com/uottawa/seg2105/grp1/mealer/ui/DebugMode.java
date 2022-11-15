@@ -135,57 +135,10 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
-    public void btnCreateMeal(View view) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Meal meal = Meal.createMeal("The Only Meal", "Midnight Snack", "Other",
-                            "Potatoes, Red Number 6", "Red Number 6", 12599,
-                            "It's the only meal", User.getByEmail("cook@email.com"), true);
-                    meal.flipIsOffered();
-                    meal.updateMeal("The Other Meal", "Midday Snack", "Unknown",
-                            "Rice, Red Number 6", "Red Number 6", 12499,
-                            "It's the other meal", User.getByEmail("cook@email.com"), true);
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-
     public void btnMealListActivity(View view) {
         Intent intent = new Intent(getApplicationContext(), MealListActivity.class);
         intent.putExtra("cookId", "cook@email.com");
         startActivity(intent);
-    }
-
-    public void btnRateCook(View view) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    User user = rep.getById(User.class, "cook3@email.com");
-                    CookRole cookRole = (CookRole) user.getRole();
-                    cookRole.soldMeal();
-                    Thread.sleep(1000);
-                    cookRole.soldMeal();
-                    Thread.sleep(1000);
-                    cookRole.rate(1);
-                    Thread.sleep(1000);
-                    cookRole.rate(5);
-                    Thread.sleep(2000);
-                    cookRole.resetRatingsAndMealsSold();
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
     }
 
 }
