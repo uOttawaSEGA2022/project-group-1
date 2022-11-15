@@ -27,13 +27,13 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/mealInStockCheck"
+        android:id="@+id/mealOfferedCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusable="false"
         android:gravity="center|right"
         android:onClick="toggleInStock"
-        android:focusable="false"
-        android:text="In Stock" />
+        android:text="Offered" />
 
     <ImageButton
         android:id="@+id/removeMealIconBtn"

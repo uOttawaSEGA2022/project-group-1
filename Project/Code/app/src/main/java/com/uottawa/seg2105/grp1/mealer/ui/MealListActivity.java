@@ -127,7 +127,7 @@ public class MealListActivity extends AppCompatActivity {
 
             mealName = (TextView) listViewItem.findViewById(R.id.mealListName);
             mealPrice = (TextView) listViewItem.findViewById(R.id.mealListPrice);
-            mealInStock = (CheckBox) listViewItem.findViewById(R.id.mealInStockCheck);
+            mealInStock = (CheckBox) listViewItem.findViewById(R.id.mealOfferedCheck);
             removeMealBtn = (ImageButton) listViewItem.findViewById(R.id.removeMealIconBtn);
             viewMealBtn = (ImageButton) listViewItem.findViewById(R.id.viewMealIconBtn);
 
@@ -157,7 +157,7 @@ public class MealListActivity extends AppCompatActivity {
 
     public void toggleInStock(View view) {
 
-        int position = (int) view.findViewById(R.id.mealInStockCheck).getTag();
+        int position = (int) view.findViewById(R.id.mealOfferedCheck).getTag();
         Log.d(TAG, "meal position selected (stock): "+position);
 
         //Block user from interacting (like spamming the check box)
@@ -197,9 +197,25 @@ public class MealListActivity extends AppCompatActivity {
 
         int position = (int) view.findViewById(R.id.removeMealIconBtn).getTag();
         Log.d(TAG, "meal position selected (removeBtn): "+position);
-        showRemoveMealDialog(position);
+
+        Meal meal = meals.get(position);
+        if (meal.getIsOffered())
+            showUnremovableDialog();
+        else
+            showRemoveMealDialog(meal);
+
     }
-    private void showRemoveMealDialog(int mealPosition) {
+    private void showUnremovableDialog() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+            dialogBuilder
+                        .setMessage("Offered meals cannot be removed!")
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+    }
+    private void showRemoveMealDialog(Meal meal) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -210,8 +226,8 @@ public class MealListActivity extends AppCompatActivity {
         final TextView delMealPrice  = (TextView) dialogView.findViewById(R.id.deleteMealPrice);
         final Button removeConfirm = (Button) dialogView.findViewById(R.id.delMealBtn);
 
-        delMealName.setText(meals.get(mealPosition).getName());
-        float price = meals.get(mealPosition).getPrice();
+        delMealName.setText(meal.getName());
+        float price = meal.getPrice();
         delMealPrice.setText("$"+price/100);
 
         final AlertDialog dialog = dialogBuilder.create();
@@ -221,7 +237,7 @@ public class MealListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.d(TAG, "Removing meal with ID: "+meals.get(mealPosition).getId());
+                Log.d(TAG, "Removing meal with ID: "+meal.getId());
 
                 FragmentManager fm = getSupportFragmentManager();
                 spinner = new SpinnerDialog();
@@ -233,11 +249,11 @@ public class MealListActivity extends AppCompatActivity {
 
                         try {
                             MealerSystem.getSystem().getRepository().delete(
-                                    Meal.class, meals.get(mealPosition)
+                                    Meal.class, meal
                             );
 
                             runOnUiThread(() -> {
-                                productsAdapter.remove(meals.get(mealPosition));
+                                productsAdapter.remove(meal);
                                 productsAdapter.notifyDataSetChanged();
 
                                 spinner.dismiss();
