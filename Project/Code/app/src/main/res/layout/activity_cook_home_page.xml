@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SuspensionHome">
+    tools:context=".ui.CookHomePage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,48 +12,59 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/welcomeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cook Welcome"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/Ratingtxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="(rating)"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/mealsSold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="You have been suspended"
-            android:textSize="20sp" />
+            android:text="(mealSoldNum)"
+            android:textSize="18sp" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/banDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="(description)"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/tvBanReason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="(reason)"
-            android:textAlignment="center" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4" />
-
         <Button
             android:id="@+id/mealList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onLogOff"
-            android:text="@string/logOffSusBtn" />
+            android:onClick="btnMealList"
+            android:text="@string/mealListBtn" />
+
+        <Button
+            android:id="@+id/purchaseReq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/PurchaseReqBtn" />
+
+        <Button
+            android:id="@+id/settingsMngmnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnSettingsMngmnt"
+            android:text="@string/settingsMngmntBtn" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

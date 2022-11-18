@@ -37,4 +37,7 @@
     <string name="btnSuspension">Ban Cook</string>
     <string name="txtTitle">(Title should be here)</string>
     <string name="logOffSusBtn">Log Off</string>
+    <string name="mealListBtn">See Meal List</string>
+    <string name="PurchaseReqBtn">See Purchase Requests (temp disabled)</string>
+    <string name="settingsMngmntBtn">Manage Settings</string>
 </resources>
