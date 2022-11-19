@@ -81,6 +81,7 @@ Description: Stores user data for cooks.
 Responsabilities:
 - Store and retrieve the cook's self-description
 - Store and retrieve ban information
+- Store and retrieve ratings and number of meals sold
 
 
 Ban Details:
@@ -92,11 +93,19 @@ It also contains banExpiration which acts as the ban indicator:
 - banExpiration =  0 => The cook is permanently banned
 - banExpiration >  0 => The cook is banned up to the time banExpiration represents, as a unix timestamp in milliseconds
 
+Rating Details:
+
+Instead of storing individual ratings, CookRole accumulates the sum of all ratings along with the number of ratings.
 
 ### Complaint ###
 Signature: `final class Complaint implements IRepositoryEntity`
 
 Description: Stores complaint data
+
+### Meal ###
+Signature: `final class Meal implements IRepositoryEntity`
+
+Description: Stores meal data
 
 ---
 
@@ -217,9 +226,34 @@ Responsablities:
 - Display the message "Welcome, Client"
 - Allow the user to log off, sending them back to LoginActivity
 
-### CookHome ###
+### CookHomePage ###
 Description: The Activity that is started when a cook logs in.
 
 Responsablities:
-- Display the message "Welcome, Cook"
+- Display the Cook's full name and average rating
+- Allow the cook to see their meals list
+- Allow the cook to update their description
 - Allow the user to log off, sending them back to LoginActivity
+
+### CookSettingsActivity ###
+Description: The Activity that lets cooks change their settings
+
+Responsabilities:
+- Allow the cook to edit their description
+
+### MealListActivity ###
+Description: The Activity that lets cooks manage their menu
+
+Responsabilities:
+- Display all of the cook's meals
+- Redirect the cook to CookAddMeal activity for meal creation
+- Redirect the cook to CookAddMeal activity for updating a meal
+- Allows the cook to decide whether a meal is offered publicly or not
+- Allows the cook to delete meals
+
+### CookAddMeal ###
+Description: The Activity that lets cook create or update a meal
+
+Responsabilities:
+- Allow the cook to set each field of a Meal
+- Either update or create a Meal
