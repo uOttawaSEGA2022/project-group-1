@@ -63,13 +63,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.CookHome"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.DebugMode"
             android:exported="false">
             <meta-data

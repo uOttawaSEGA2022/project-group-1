@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            Intent intent = new Intent(getApplicationContext(), CookHome.class);
+                            Intent intent = new Intent(getApplicationContext(), CookHomePage.class);
                             startActivity(intent);
                         }
                     }

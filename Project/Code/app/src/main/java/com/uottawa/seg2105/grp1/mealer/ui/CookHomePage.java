@@ -44,12 +44,30 @@ public class CookHomePage extends AppCompatActivity {
     public void btnMealList(View view){
         System.out.println("mealList");
         Intent intent = new Intent(getApplicationContext(), MealListActivity.class);
+        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
     }
 
     public void btnSettingsMngmnt(View view){
         System.out.println("settingsMngmnt");
         Intent intent = new Intent(getApplicationContext(), CookSettingsActivity.class);
+        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
+    }
+
+    public void onLogOff(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                MealerSystem.getSystem().logoff();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
+            }
+        }.start();
     }
 }
