@@ -129,6 +129,7 @@ public class CookRole extends UserRole {
         this.mealsSold = this.mealsSold + 1;
     }
 
+    public long getMealsSold() { return mealsSold; }
 
     /**
      * Updates the cook's description.
