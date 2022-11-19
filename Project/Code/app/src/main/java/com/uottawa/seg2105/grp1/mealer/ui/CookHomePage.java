@@ -27,7 +27,7 @@ public class CookHomePage extends AppCompatActivity {
         String fullname = cook.getFirstName() + " " + cook.getLastName();
 
         welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
-        welcomeTxt.setText("Welcome" + fullname);
+        welcomeTxt.setText("Welcome, " + fullname);
 
         CookRole role = (CookRole) cook.getRole();
         String rating_string = String.format("%.1f", role.getAverageRating());
