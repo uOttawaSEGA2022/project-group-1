@@ -42,5 +42,11 @@
             android:onClick="btnMealListActivity"
             android:text="Open Meal List Activity" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="createOnePurchaseRequest"
+            android:text="Create One Purchase Request" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

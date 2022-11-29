@@ -86,6 +86,21 @@ public final class Meal implements IRepositoryEntity {
         return meal;
     }
 
+    /**
+     * Searches persistent storage for a meal with this id
+     * @param id The id of the meal to search for
+     * @return The meal with this id, or null if no such meal exists in storage
+     */
+    public static Meal getById(String id) {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Meal meal = null;
+        try {
+            meal = rep.getById(Meal.class, id);
+        } catch (RepositoryRequestException e) {}
+        return meal;
+    }
+
+
     @Override
     public String getId() {
         return id;

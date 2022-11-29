@@ -18,6 +18,7 @@ public interface IRepositoryEntity extends ISerialisableEntity {
             put(User.class, "users");
             put(Complaint.class, "complaints");
             put(Meal.class, "meals");
+            put(PurchaseRequest.class, "purchases");
         }
     };
 

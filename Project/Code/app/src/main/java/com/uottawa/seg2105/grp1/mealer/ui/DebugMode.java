@@ -141,4 +141,29 @@ public class DebugMode extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void createOnePurchaseRequest(View view) {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    User cook = User.getByEmail("cook@email.com");
+                    User client = User.getByEmail("client@email.com");
+                    Meal meal = Meal.getById("boWcX7v8wfkE6jjkPozx");
+                    PurchaseRequest pr = PurchaseRequest.create(cook, client, meal);
+                    Thread.sleep(2000);
+                    pr.approve(true);
+                    Thread.sleep(2000);
+                    pr.complain("Badness was", "There was badness and I didn't like it",
+                            client.getEmail(), cook.getEmail());
+                    Thread.sleep(2000);
+                    pr.rate(5);
+                } catch (RepositoryRequestException ignored) {
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                };
+            }
+        }.start();
+    }
+
 }
