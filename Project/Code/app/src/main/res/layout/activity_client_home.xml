@@ -13,14 +13,37 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/adminWelcome"
+            android:id="@+id/txtWelcome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="Welcome! You are logged in as Client"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Welcome"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnSearch"
+            android:text="@string/btnSearchForFood" />
+
+        <Button
+            android:id="@+id/btnOrderHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnOrderHistory"
+            android:text="@string/btnOrderHistory" />
+
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnPayment"
+            android:text="@string/btnPaymentMethod" />
 
         <Button
             android:id="@+id/adminLogOff"

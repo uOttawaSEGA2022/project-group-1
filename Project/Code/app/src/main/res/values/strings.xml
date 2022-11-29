@@ -40,4 +40,7 @@
     <string name="mealListBtn">View or Create Meals</string>
     <string name="PurchaseReqBtn">See Purchase Requests</string>
     <string name="settingsMngmntBtn">Manage Settings</string>
+    <string name="btnSearchForFood">Search for food</string>
+    <string name="btnOrderHistory">Order History</string>
+    <string name="btnPaymentMethod">Payment Method</string>
 </resources>
