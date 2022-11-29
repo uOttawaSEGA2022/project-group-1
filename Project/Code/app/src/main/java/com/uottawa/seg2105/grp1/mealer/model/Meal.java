@@ -96,7 +96,9 @@ public final class Meal implements IRepositoryEntity {
         Meal meal = null;
         try {
             meal = rep.getById(Meal.class, id);
-        } catch (RepositoryRequestException e) {}
+        } catch (RepositoryRequestException e) {
+            e.printStackTrace();
+        }
         return meal;
     }
 

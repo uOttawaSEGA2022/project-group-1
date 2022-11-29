@@ -3,7 +3,9 @@ package com.uottawa.seg2105.grp1.mealer.model;
 import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -99,6 +101,17 @@ public class CookRole extends UserRole {
             return 0;
         return (float) totalRatings/numRatings;
     }
+
+    public List<PurchaseRequest> getPurchaseRequests() throws RepositoryRequestException {
+        List<PurchaseRequest> purchases;
+        String email = this.getUser().getEmail();
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        purchases = rep.query(PurchaseRequest.class,
+                (pr) -> pr.getCook().getEmail().equals(email)
+        );
+        return purchases;
+    }
+
 
     /**
      * Increments the number of ratings and adds this rating to the total

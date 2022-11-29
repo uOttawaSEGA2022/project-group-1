@@ -3,7 +3,9 @@ package com.uottawa.seg2105.grp1.mealer.model;
 import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +41,16 @@ public class ClientRole extends UserRole {
         rep.update(User.class, id, properties);
 
         ClientRole.this.cardNumber = cardNumber;
+    }
+
+    public List<PurchaseRequest> getPurchaseRequests() throws RepositoryRequestException {
+        List<PurchaseRequest> purchases;
+        String email = this.getUser().getEmail();
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        purchases = rep.query(PurchaseRequest.class,
+                (pr) -> pr.getClient().getEmail().equals(email)
+        );
+        return purchases;
     }
 
     @Override

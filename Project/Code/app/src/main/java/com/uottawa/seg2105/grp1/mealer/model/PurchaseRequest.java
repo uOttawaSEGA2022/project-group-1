@@ -32,6 +32,9 @@ public final class PurchaseRequest implements IRepositoryEntity {
         return pr;
     }
 
+    public User getCook() { return cook; }
+    public User getClient() { return client; }
+
     @Override
     public String getId() {
         return id;
@@ -111,11 +114,25 @@ public final class PurchaseRequest implements IRepositoryEntity {
             client = User.getByEmail((String) clientEmail);
         }
         if (mealId != null) {
-            meal = Meal.getById((String) id);
+            meal = Meal.getById((String) mealId);
         }
 
         if (id == null || cook == null || client == null || meal == null || hasBeenRated == null ||
                 hasComplained == null || status == null) {
+            System.out.print("::::::ID: ");
+            System.out.println(id == null);
+            System.out.print("::::::COOK: ");
+            System.out.println(cook == null);
+            System.out.print("::::::CLIENT: ");
+            System.out.println(client == null);
+            System.out.print("::::::MEAL: ");
+            System.out.println(meal == null);
+            System.out.print("::::::RATED: ");
+            System.out.println(hasBeenRated == null);
+            System.out.print("::::::COMPLAINED: ");
+            System.out.println(hasComplained == null);
+            System.out.print("::::::STATUS: ");
+            System.out.println(status == null);
             throw new EntityDeserialisationException();
         }
         this.id = (String) id;

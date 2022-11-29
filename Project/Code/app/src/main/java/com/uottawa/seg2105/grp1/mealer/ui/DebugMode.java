@@ -158,6 +158,17 @@ public class DebugMode extends AppCompatActivity {
                             client.getEmail(), cook.getEmail());
                     Thread.sleep(2000);
                     pr.rate(5);
+                    Thread.sleep(2000);
+                    CookRole cookRole = (CookRole) cook.getRole();
+                    ClientRole clientRole = (ClientRole) client.getRole();
+                    List<PurchaseRequest> cookList = cookRole.getPurchaseRequests();
+                    List<PurchaseRequest> clientList = clientRole.getPurchaseRequests();
+                    for (PurchaseRequest p : cookList) {
+                        System.out.println(p.getCook().getEmail());
+                    }
+                    for (PurchaseRequest p : clientList) {
+                        System.out.println(p.getClient().getEmail());
+                    }
                 } catch (RepositoryRequestException ignored) {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
