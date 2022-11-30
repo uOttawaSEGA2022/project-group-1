@@ -169,6 +169,10 @@ public class DebugMode extends AppCompatActivity {
                     for (PurchaseRequest p : clientList) {
                         System.out.println(p.getClientEmail());
                     }
+                    List<Meal> mealList = Meal.getOfferedMeals();
+                    for (Meal m : mealList) {
+                        System.out.println(m.getDescription());
+                    }
                 } catch (RepositoryRequestException ignored) {
                 } catch (InterruptedException e) {
                     e.printStackTrace();

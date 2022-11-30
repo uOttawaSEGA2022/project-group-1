@@ -4,6 +4,7 @@ import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class Meal implements IRepositoryEntity {
@@ -22,6 +23,7 @@ public final class Meal implements IRepositoryEntity {
 
     private User cook;
     private boolean isOffered;
+    private boolean isRemoved;
 
     public String getName() { return name; }
     public String getType() { return type; }
@@ -32,29 +34,20 @@ public final class Meal implements IRepositoryEntity {
     public String getDescription() { return description; }
     public User getCook() { return cook; }
     public boolean getIsOffered() { return isOffered; }
+    public boolean getIsRemoved() { return isRemoved; }
 
 
-    public void flipIsOffered() throws InterruptedException {
+    public void flipIsOffered() throws RepositoryRequestException {
         String id = this.getId();
         boolean newVal = !this.isOffered;
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    // Prepare new data
-                    IRepository rep = MealerSystem.getSystem().getRepository();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("isOffered", newVal);
+        // Prepare new data
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        Map<String, Object> data = new HashMap<>();
+        data.put("isOffered", newVal);
 
-                    rep.update(Meal.class, id, data);
+        rep.update(Meal.class, id, data);
 
-                    Meal.this.isOffered = newVal;
-                } catch (RepositoryRequestException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        t.start();
+        Meal.this.isOffered = newVal;
     }
 
 
@@ -73,15 +66,24 @@ public final class Meal implements IRepositoryEntity {
         meal.description = description;
         meal.cook = cook;
         meal.isOffered = isOffered;
+        meal.isRemoved = false;
         rep.set(Meal.class, meal);
         return meal;
+    }
+
+    public void remove() throws RepositoryRequestException {
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        String id = this.getId();
+        Map<String, Object> data = new HashMap<>();
+        data.put("isRemoved", true);
+        rep.update(Meal.class, id, data);
+        this.isRemoved = true;
     }
 
     public Meal updateMeal(String name, String type, String cuisine,
                            String ingredients, String allergens, int price, String description,
                            User cook, boolean isOffered) throws RepositoryRequestException {
-        IRepository rep = MealerSystem.getSystem().getRepository();
-        rep.delete(Meal.class, this);
+        this.remove();
         Meal meal = Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, isOffered);
         return meal;
     }
@@ -106,6 +108,19 @@ public final class Meal implements IRepositoryEntity {
     @Override
     public String getId() {
         return id;
+    }
+
+    public static List<Meal> getOfferedMeals() throws RepositoryRequestException {
+        List<Meal> meals;
+        IRepository rep = MealerSystem.getSystem().getRepository();
+        meals = rep.query(Meal.class, (m) -> m.getIsOffered() == true);
+        for (Meal m : meals) {
+            CookRole cookRole = (CookRole) m.getCook().getRole();
+            if (cookRole.getBanExpiration() >= 0) {
+                meals.remove(m);
+            }
+        }
+        return meals;
     }
 
     @Override
