@@ -147,27 +147,27 @@ public class DebugMode extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    User cook = User.getByEmail("cook@email.com");
-                    User client = User.getByEmail("client@email.com");
-                    Meal meal = Meal.getById("boWcX7v8wfkE6jjkPozx");
-                    PurchaseRequest pr = PurchaseRequest.create(cook, client, meal);
+                    //User cook = User.getByEmail("cook@email.com");
+                    //User client = User.getByEmail("client@email.com");
+                    //Meal meal = Meal.getById("boWcX7v8wfkE6jjkPozx");
+                    PurchaseRequest pr = PurchaseRequest.create("cook@email.com", "client@email.com", "boWcX7v8wfkE6jjkPozx");
                     Thread.sleep(2000);
                     pr.approve(true);
                     Thread.sleep(2000);
                     pr.complain("Badness was", "There was badness and I didn't like it",
-                            client.getEmail(), cook.getEmail());
+                            "client@email.com", "cook@email.com");
                     Thread.sleep(2000);
                     pr.rate(5);
                     Thread.sleep(2000);
-                    CookRole cookRole = (CookRole) cook.getRole();
-                    ClientRole clientRole = (ClientRole) client.getRole();
+                    CookRole cookRole = (CookRole) User.getByEmail("cook@email.com").getRole();
+                    ClientRole clientRole = (ClientRole) User.getByEmail("client@email.com").getRole();
                     List<PurchaseRequest> cookList = cookRole.getPurchaseRequests();
                     List<PurchaseRequest> clientList = clientRole.getPurchaseRequests();
                     for (PurchaseRequest p : cookList) {
-                        System.out.println(p.getCook().getEmail());
+                        System.out.println(p.getCookEmail());
                     }
                     for (PurchaseRequest p : clientList) {
-                        System.out.println(p.getClient().getEmail());
+                        System.out.println(p.getClientEmail());
                     }
                 } catch (RepositoryRequestException ignored) {
                 } catch (InterruptedException e) {

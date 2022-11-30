@@ -48,7 +48,7 @@ public class ClientRole extends UserRole {
         String email = this.getUser().getEmail();
         IRepository rep = MealerSystem.getSystem().getRepository();
         purchases = rep.query(PurchaseRequest.class,
-                (pr) -> pr.getClient().getEmail().equals(email)
+                (pr) -> pr.getClientEmail().equals(email)
         );
         return purchases;
     }

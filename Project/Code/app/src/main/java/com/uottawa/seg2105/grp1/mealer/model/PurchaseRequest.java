@@ -11,20 +11,27 @@ public final class PurchaseRequest implements IRepositoryEntity {
     enum Status { PENDING, COMPLETE, REJECTED }
 
     private String id;
-    private User cook;
-    private User client;
-    private Meal meal;
+    private String cookEmail;
+    private String clientEmail;
+    private String mealId;
+    //private User cook;
+    //private User client;
+    //private Meal meal;
     private boolean hasBeenRated;
     private boolean hasComplained;
     private Status status;
 
-    public static PurchaseRequest create(User cook, User client, Meal meal) throws RepositoryRequestException {
+    //public static PurchaseRequest create(User cook, User client, Meal meal) throws RepositoryRequestException {
+    public static PurchaseRequest create(String cookEmail, String clientEmail, String mealId) throws RepositoryRequestException {
         IRepository rep = MealerSystem.getSystem().getRepository();
         PurchaseRequest pr = new PurchaseRequest();
         pr.id = rep.getAutoID(Meal.class);
-        pr.cook = cook;
-        pr.client = client;
-        pr.meal = meal;
+        pr.cookEmail = cookEmail;
+        pr.clientEmail = clientEmail;
+        pr.mealId = mealId;
+        //pr.cook = cook;
+        //pr.client = client;
+        //pr.meal = meal;
         pr.hasBeenRated = false;
         pr.hasComplained = false;
         pr.status = Status.PENDING;
@@ -32,8 +39,8 @@ public final class PurchaseRequest implements IRepositoryEntity {
         return pr;
     }
 
-    public User getCook() { return cook; }
-    public User getClient() { return client; }
+    public String getCookEmail() { return cookEmail; }
+    public String getClientEmail() { return clientEmail; }
 
     @Override
     public String getId() {
@@ -57,7 +64,7 @@ public final class PurchaseRequest implements IRepositoryEntity {
 
     public void rate(int rating) throws RepositoryRequestException {
         if (!this.hasBeenRated && this.status == Status.COMPLETE) {
-            CookRole cookRole = (CookRole) this.cook.getRole();
+            CookRole cookRole = (CookRole) User.getByEmail(this.cookEmail).getRole();
             cookRole.rate(rating);
             String id = this.getId();
             IRepository rep = MealerSystem.getSystem().getRepository();
@@ -85,9 +92,9 @@ public final class PurchaseRequest implements IRepositoryEntity {
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", getId());
-        map.put("cookEmail", cook.getEmail());
-        map.put("clientEmail", client.getEmail());
-        map.put("mealId", meal.getId());
+        map.put("cookEmail", cookEmail);
+        map.put("clientEmail", clientEmail);
+        map.put("mealId", mealId);
         map.put("hasBeenRated", hasBeenRated);
         map.put("hasComplained", hasComplained);
         map.put("status", status.toString());
@@ -104,41 +111,31 @@ public final class PurchaseRequest implements IRepositoryEntity {
         Object hasBeenRated = map.get("hasBeenRated");
         Object hasComplained = map.get("hasComplained");
         Object status = map.get("status");
-        User cook = null;
-        User client = null;
-        Meal meal = null;
-        if (cookEmail != null) {
-            cook = User.getByEmail((String) cookEmail);
-        }
-        if (clientEmail != null) {
-            client = User.getByEmail((String) clientEmail);
-        }
-        if (mealId != null) {
-            meal = Meal.getById((String) mealId);
-        }
+//        User cook = null;
+//        User client = null;
+//        Meal meal = null;
+//        if (cookEmail != null) {
+//            cook = User.getByEmail((String) cookEmail);
+//        }
+//        if (clientEmail != null) {
+//            client = User.getByEmail((String) clientEmail);
+//        }
+//        if (mealId != null) {
+//            meal = Meal.getById((String) mealId);
+//        }
 
-        if (id == null || cook == null || client == null || meal == null || hasBeenRated == null ||
+        //if (id == null || cook == null || client == null || meal == null || hasBeenRated == null ||
+        if (id == null || cookEmail == null || clientEmail == null || mealId == null || hasBeenRated == null ||
                 hasComplained == null || status == null) {
-            System.out.print("::::::ID: ");
-            System.out.println(id == null);
-            System.out.print("::::::COOK: ");
-            System.out.println(cook == null);
-            System.out.print("::::::CLIENT: ");
-            System.out.println(client == null);
-            System.out.print("::::::MEAL: ");
-            System.out.println(meal == null);
-            System.out.print("::::::RATED: ");
-            System.out.println(hasBeenRated == null);
-            System.out.print("::::::COMPLAINED: ");
-            System.out.println(hasComplained == null);
-            System.out.print("::::::STATUS: ");
-            System.out.println(status == null);
             throw new EntityDeserialisationException();
         }
         this.id = (String) id;
-        this.cook = cook;
-        this.client = client;
-        this.meal = meal;
+        this.cookEmail = (String) cookEmail;
+        this.clientEmail = (String) clientEmail;
+        this.mealId = (String) mealId;
+        //this.cook = cook;
+        //this.client = client;
+        //this.meal = meal;
         this.hasBeenRated = (boolean) hasBeenRated;
         this.hasComplained = (boolean) hasComplained;
         this.status = Enum.valueOf(Status.class, (String) status);

@@ -107,7 +107,7 @@ public class CookRole extends UserRole {
         String email = this.getUser().getEmail();
         IRepository rep = MealerSystem.getSystem().getRepository();
         purchases = rep.query(PurchaseRequest.class,
-                (pr) -> pr.getCook().getEmail().equals(email)
+                (pr) -> pr.getCookEmail().equals(email)
         );
         return purchases;
     }
