@@ -4,6 +4,8 @@ import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,7 @@ public class ClientRole extends UserRole {
         purchases = rep.query(PurchaseRequest.class,
                 (pr) -> pr.getClientEmail().equals(email)
         );
+        Collections.sort(purchases);
         return purchases;
     }
 

@@ -6,7 +6,7 @@ import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class PurchaseRequest implements IRepositoryEntity {
+public final class PurchaseRequest implements IRepositoryEntity, Comparable<PurchaseRequest> {
 
     enum Status { PENDING, COMPLETE, REJECTED }
 
@@ -20,6 +20,8 @@ public final class PurchaseRequest implements IRepositoryEntity {
     private boolean hasBeenRated;
     private boolean hasComplained;
     private Status status;
+
+    public Status getStatus() { return status; }
 
     //public static PurchaseRequest create(User cook, User client, Meal meal) throws RepositoryRequestException {
     public static PurchaseRequest create(String cookEmail, String clientEmail, String mealId) throws RepositoryRequestException {
@@ -45,6 +47,11 @@ public final class PurchaseRequest implements IRepositoryEntity {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public int compareTo(PurchaseRequest pr) {
+        return this.getStatus().compareTo(pr.getStatus());
     }
 
     public void approve(boolean approve) throws RepositoryRequestException {

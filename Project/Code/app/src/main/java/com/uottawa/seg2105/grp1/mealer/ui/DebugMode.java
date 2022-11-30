@@ -163,11 +163,13 @@ public class DebugMode extends AppCompatActivity {
                     ClientRole clientRole = (ClientRole) User.getByEmail("client@email.com").getRole();
                     List<PurchaseRequest> cookList = cookRole.getPurchaseRequests();
                     List<PurchaseRequest> clientList = clientRole.getPurchaseRequests();
+                    System.out.println("-----------------Cook purchases:-----------------");
                     for (PurchaseRequest p : cookList) {
-                        System.out.println(p.getCookEmail());
+                        System.out.println(p.getStatus());
                     }
+                    System.out.println("------------------Client purchases:-----------------");
                     for (PurchaseRequest p : clientList) {
-                        System.out.println(p.getClientEmail());
+                        System.out.println(p.getStatus());
                     }
                     List<Meal> mealList = Meal.getOfferedMeals();
                     for (Meal m : mealList) {

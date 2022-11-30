@@ -4,6 +4,7 @@ import com.uottawa.seg2105.grp1.mealer.storage.IRepository;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +110,7 @@ public class CookRole extends UserRole {
         purchases = rep.query(PurchaseRequest.class,
                 (pr) -> pr.getCookEmail().equals(email)
         );
+        Collections.sort(purchases);
         return purchases;
     }
 
