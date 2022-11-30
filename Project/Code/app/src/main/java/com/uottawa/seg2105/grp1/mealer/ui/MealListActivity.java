@@ -84,7 +84,7 @@ public class MealListActivity extends AppCompatActivity {
                 try {
                     meals = MealerSystem.getSystem().getRepository().query(
                             Meal.class,
-                            (m) -> m.getCook().getId().equals(cookID)
+                            (m) -> m.getCook().getId().equals(cookID) && !m.getIsRemoved()
                     );
 
                     runOnUiThread(() -> {
@@ -248,9 +248,10 @@ public class MealListActivity extends AppCompatActivity {
                     public void run() {
 
                         try {
-                            MealerSystem.getSystem().getRepository().delete(
-                                    Meal.class, meal
-                            );
+                            //MealerSystem.getSystem().getRepository().delete(
+                            //        Meal.class, meal
+                            //);
+                            meal.remove();
 
                             runOnUiThread(() -> {
                                 productsAdapter.remove(meal);

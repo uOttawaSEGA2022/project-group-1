@@ -327,7 +327,7 @@ public class CookAddMeal extends AppCompatActivity {
                                    menuName.getText().toString(), mealType.getText().toString(),
                                    cuisineType.getText().toString(), itemIngrediants.getText().toString(),
                                    itemAllergens.getText().toString(), intPrice,
-                                   itemDescription.getText().toString(), cook, true);
+                                   itemDescription.getText().toString(), cook);
                         } catch (RepositoryRequestException e) {
                             runOnUiThread(() -> {
                                 Toast.makeText(CookAddMeal.this, "An error occurred.", Toast.LENGTH_SHORT).show();

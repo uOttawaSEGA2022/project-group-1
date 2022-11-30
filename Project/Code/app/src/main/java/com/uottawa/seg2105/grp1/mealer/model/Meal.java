@@ -82,9 +82,9 @@ public final class Meal implements IRepositoryEntity {
 
     public Meal updateMeal(String name, String type, String cuisine,
                            String ingredients, String allergens, int price, String description,
-                           User cook, boolean isOffered) throws RepositoryRequestException {
+                           User cook) throws RepositoryRequestException {
         this.remove();
-        Meal meal = Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, isOffered);
+        Meal meal = Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, this.getIsOffered());
         return meal;
     }
 
@@ -137,6 +137,7 @@ public final class Meal implements IRepositoryEntity {
         map.put("description",getDescription());
         map.put("cookEmail",getCook().getEmail());
         map.put("isOffered", getIsOffered());
+        map.put("isRemoved", getIsRemoved());
 
         return map;
     }
@@ -153,6 +154,7 @@ public final class Meal implements IRepositoryEntity {
         Object description = map.get("description");
         Object cookEmail = map.get("cookEmail");
         Object isOffered = map.get("isOffered");
+        Object isRemoved = map.get("isRemoved");
         User cook = null;
         if (cookEmail != null) {
             cook = User.getByEmail((String) cookEmail);
@@ -160,7 +162,7 @@ public final class Meal implements IRepositoryEntity {
 
         if (id == null || name == null || type == null || cuisine == null || ingredients == null ||
                 allergens == null || price == null || description == null ||
-                cook == null || isOffered == null) {
+                cook == null || isOffered == null || isRemoved == null) {
             throw new EntityDeserialisationException();
         }
         this.id = (String) id;
@@ -173,5 +175,6 @@ public final class Meal implements IRepositoryEntity {
         this.description = (String) description;
         this.cook = cook;
         this.isOffered = (boolean) isOffered;
+        this.isRemoved = (boolean) isRemoved;
     }
 }
