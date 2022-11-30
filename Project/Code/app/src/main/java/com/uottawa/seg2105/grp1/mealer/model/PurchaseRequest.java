@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class PurchaseRequest implements IRepositoryEntity, Comparable<PurchaseRequest> {
 
-    enum Status { PENDING, COMPLETE, REJECTED }
+    public enum Status { PENDING, COMPLETE, REJECTED }
 
     private String id;
     private String cookEmail;
@@ -43,6 +43,9 @@ public final class PurchaseRequest implements IRepositoryEntity, Comparable<Purc
 
     public String getCookEmail() { return cookEmail; }
     public String getClientEmail() { return clientEmail; }
+    public String getMealId() { return mealId; }
+    public boolean getIsRated() { return hasBeenRated; }
+    public boolean getIsComplained() { return hasComplained; }
 
     @Override
     public String getId() {

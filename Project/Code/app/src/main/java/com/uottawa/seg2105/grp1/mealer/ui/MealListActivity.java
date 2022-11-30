@@ -39,7 +39,7 @@ public class MealListActivity extends AppCompatActivity {
 
     private SpinnerDialog spinner;
 
-    MealList productsAdapter;
+    private MealList productsAdapter;
     private List<Meal> meals;
 
     private String TAG = "MealListActivity";
@@ -115,7 +115,7 @@ public class MealListActivity extends AppCompatActivity {
 
 
         public MealList(Activity context, List<Meal> meals) {
-            super(context, R.layout.layout_meal_list, meals);
+            super(context, R.layout.layout_meal_item, meals);
             this.context = context;
             this.meals = meals;
         }
@@ -123,7 +123,7 @@ public class MealListActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            View listViewItem = inflater.inflate(R.layout.layout_meal_list, null, true);
+            View listViewItem = inflater.inflate(R.layout.layout_meal_item, null, true);
 
             mealName = (TextView) listViewItem.findViewById(R.id.mealListName);
             mealPrice = (TextView) listViewItem.findViewById(R.id.mealListPrice);
@@ -209,11 +209,11 @@ public class MealListActivity extends AppCompatActivity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-            dialogBuilder
-                        .setMessage("Offered meals cannot be removed!")
-                        .setNegativeButton(android.R.string.ok, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+        dialogBuilder
+                    .setMessage("Offered meals cannot be removed!")
+                    .setNegativeButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
     }
     private void showRemoveMealDialog(Meal meal) {
 

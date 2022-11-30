@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mealDtlsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rate the Meal"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meal: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rateMealName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(meal name here)"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cook: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rateMealCook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(cook name here)"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/rateMealBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/itemRateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#F57F17"
+            android:text="Rate" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
