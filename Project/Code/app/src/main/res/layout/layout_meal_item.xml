@@ -13,6 +13,8 @@
             android:id="@+id/mealListName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
             android:text="(meal name here)"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textSize="16sp" />
@@ -21,6 +23,8 @@
             android:id="@+id/mealListPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
             android:text="(meal price here)"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textSize="16sp" />

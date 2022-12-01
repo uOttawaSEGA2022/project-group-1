@@ -31,7 +31,8 @@
             android:layout_weight="0.5"
             android:ems="10"
             android:hint="@string/loginEmailHint"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/loginPassword"
@@ -40,7 +41,8 @@
             android:layout_weight="0.5"
             android:ems="10"
             android:hint="@string/loginPasswordHint"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/loginBtn"

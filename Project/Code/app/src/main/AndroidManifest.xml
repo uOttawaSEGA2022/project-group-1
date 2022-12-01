@@ -14,7 +14,14 @@
         android:theme="@style/Theme.Mealer"
         tools:targetApi="31">
         <activity
-            android:name=".ViewClientRequestActivity"
+            android:name=".ui.ViewCookRequestActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ViewClientRequestActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

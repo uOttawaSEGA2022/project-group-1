@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Title:     "
@@ -60,6 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="marquee"
                         android:gravity="center|left"
                         android:text="@string/txtTitle"
                         android:textSize="15sp" />
@@ -83,6 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="marquee"
                         android:gravity="center|left"
                         android:text="(Name of client should be here)"
                         android:textSize="15sp" />
@@ -106,6 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:ellipsize="marquee"
                         android:gravity="center|left"
                         android:text=" (Name of Cook should be here)"
                         android:textSize="15sp" />
@@ -136,6 +139,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:inputType="textMultiLine"
                             android:text="(Complaint should be here)"
                             android:textSize="15sp" />
                     </LinearLayout>

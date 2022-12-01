@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -27,9 +26,12 @@ import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.Meal;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.PurchaseRequest;
+import com.uottawa.seg2105.grp1.mealer.model.User;
+import com.uottawa.seg2105.grp1.mealer.model.UserRole;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +66,7 @@ public class ViewClientRequestActivity extends AppCompatActivity {
             if(extras == null) {
                 clientID = null;
             } else {
-                clientID = extras.getString("cookId");
+                clientID = extras.getString("clientId");
             }
         } else {
             clientID = (String) savedInstanceState.getSerializable("clientId");
@@ -100,10 +102,13 @@ public class ViewClientRequestActivity extends AppCompatActivity {
                             (m) -> true
                     );
 
-                    for (String Id : mealIds)
-                        for (Meal meal : tmpMeals)
+                    meals = new HashMap<>();
+                    for (String Id : mealIds) {
+                        for (Meal meal : tmpMeals) {
                             if (meal.getId().equals(Id))
                                 meals.put(Id, meal);
+                        }
+                    }
 
                     runOnUiThread(() -> {
                         purchaseAdapter = new ClientRequestList(ViewClientRequestActivity.this, requests);
@@ -150,7 +155,9 @@ public class ViewClientRequestActivity extends AppCompatActivity {
 
             PurchaseRequest request = requests.get(position);
             Meal meal = meals.get(request.getMealId());
+
             mealName.setText(meal.getName());
+            cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
 
             PurchaseRequest.Status mealStatus =  request.getStatus();
             if (mealStatus == PurchaseRequest.Status.COMPLETE)
@@ -175,16 +182,16 @@ public class ViewClientRequestActivity extends AppCompatActivity {
 
     //Starts ClientComplaintActivity
     public void complainBtn(View view){
-        //Uncomment this and below once ClientComplaintActivity is implemented
-        /*
-        int position = (int) view.findViewById(R.id.removeMealIconBtn).getTag();
+
+        int position = (int) view.findViewById(R.id.clientReqComplainBtn).getTag();
         PurchaseRequest tmpReq = requests.get(position);
 
         if (!tmpReq.getIsComplained()) {
-            Intent intent = new Intent(getApplicationContext(), ClientComplaintActivity.class);
+            Toast.makeText(getApplicationContext(), "Uncomment code if ClientComplaintActivity is done! (line ~190)", Toast.LENGTH_LONG).show();
+            /*Intent intent = new Intent(getApplicationContext(), ClientComplaintActivity.class);
             intent.putExtra("cookId", requests.get(position).getCookEmail());
             intent.putExtra("mealId", requests.get(position).getMealId());
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 0);*/
         } else {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
@@ -193,22 +200,34 @@ public class ViewClientRequestActivity extends AppCompatActivity {
                     .setNegativeButton(android.R.string.ok, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        }*/
+        }
 
     }
 
-    //Calls either 2 methods below depending whether rated or not
+    //Calls either 3 methods below depending whether purchase is complet, rated or not
     public void rateBtn(View view) {
 
         int position = (int) view.findViewById(R.id.clientReqRateBtn).getTag();
         PurchaseRequest tmpReq = requests.get(position);
         Meal meal = meals.get(tmpReq.getMealId());
 
-        if (tmpReq.getIsRated())
+        if (tmpReq.getStatus() != PurchaseRequest.Status.COMPLETE)
+            showUnapprovedDialog();
+        else if (tmpReq.getIsRated())
             showAlreadyRatedDialog();
         else
-            showRateDialog(tmpReq, meal);
+            showRateDialog(tmpReq, meal, position);
 
+    }
+    private void showUnapprovedDialog() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        dialogBuilder
+                .setMessage("Only approved meals can be rated!")
+                .setNegativeButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
     private void showAlreadyRatedDialog() {
 
@@ -220,11 +239,11 @@ public class ViewClientRequestActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-    private void showRateDialog(PurchaseRequest request, Meal meal) {/*
+    private void showRateDialog(PurchaseRequest request, Meal meal, int position) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.rate_meal_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.rate_cook_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final TextView mealName = (TextView) dialogView.findViewById(R.id.rateMealName);
@@ -232,18 +251,17 @@ public class ViewClientRequestActivity extends AppCompatActivity {
         final RatingBar ratingBar  = (RatingBar) dialogView.findViewById(R.id.rateMealBar);
         final Button rateBtn = (Button) dialogView.findViewById(R.id.itemRateBtn);
 
-        delMealName.setText(meal.getName());
-        float price = meal.getPrice();
-        delMealPrice.setText("$"+price/100);
+        mealName.setText(meal.getName());
+        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
 
         final AlertDialog dialog = dialogBuilder.create();
         dialog.show();
 
-        removeConfirm.setOnClickListener(new View.OnClickListener() {
+        rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Log.d(TAG, "Removing meal with ID: "+meal.getId());
+                Log.d(TAG, "Rating cook with ID: "+meal.getCook().getId());
 
                 FragmentManager fm = getSupportFragmentManager();
                 spinner = new SpinnerDialog();
@@ -254,18 +272,21 @@ public class ViewClientRequestActivity extends AppCompatActivity {
                     public void run() {
 
                         try {
-                            //MealerSystem.getSystem().getRepository().delete(
-                            //        Meal.class, meal
-                            //);
-                            meal.remove();
+
+                            request.rate((int) ratingBar.getRating());
+
+                            PurchaseRequest updatedRequest =
+                                    MealerSystem.getSystem().getRepository().getById(
+                                    PurchaseRequest.class, request.getId()
+                            );
 
                             runOnUiThread(() -> {
-                                productsAdapter.remove(meal);
-                                productsAdapter.notifyDataSetChanged();
+                                requests.set(position, updatedRequest);
+                                purchaseAdapter.notifyDataSetChanged();
 
                                 spinner.dismiss();
                                 dialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Meal removed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Meal successfully rated!", Toast.LENGTH_LONG).show();
                             });
 
                         } catch (RepositoryRequestException e) {
@@ -274,7 +295,7 @@ public class ViewClientRequestActivity extends AppCompatActivity {
                     }
                 }.start();
             }
-        });*/
+        });
 
     }
 

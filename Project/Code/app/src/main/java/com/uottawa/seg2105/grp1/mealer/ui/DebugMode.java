@@ -183,4 +183,11 @@ public class DebugMode extends AppCompatActivity {
         }.start();
     }
 
+
+    public void btnClientReqActivity(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewClientRequestActivity.class);
+        intent.putExtra("clientId", "client@email.com");
+        startActivity(intent);
+    }
+
 }

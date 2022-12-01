@@ -48,5 +48,12 @@
             android:onClick="createOnePurchaseRequest"
             android:text="Create One Purchase Request" />
 
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnClientReqActivity"
+            android:text="ClientRequestActivity" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

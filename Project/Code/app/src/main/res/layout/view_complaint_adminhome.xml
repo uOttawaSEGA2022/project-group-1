@@ -23,7 +23,9 @@
             android:id="@+id/complaintSummaryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
             android:hint="No Title"
+            android:singleLine="true"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -50,7 +52,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:ellipsize="marquee"
                     android:hint="(Cook Name)"
+                    android:singleLine="true"
                     android:textSize="16sp" />
 
                 <TextView
@@ -58,7 +62,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:ellipsize="marquee"
                     android:hint="(Cook Email)"
+                    android:singleLine="true"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -88,7 +94,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:ellipsize="marquee"
                     android:hint="(Client Name)"
+                    android:singleLine="true"
                     android:textSize="16sp" />
 
                 <TextView
@@ -96,7 +104,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:ellipsize="marquee"
                     android:hint="(Client Email)"
+                    android:singleLine="true"
                     android:textSize="16sp" />
             </LinearLayout>
 
