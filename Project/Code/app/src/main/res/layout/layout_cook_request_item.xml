@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/clientReqItemName"
+            android:id="@+id/cookReqMealName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
@@ -33,7 +33,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/clientReqItemCook"
+                android:id="@+id/cookReqClientName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/clientReqState"
+        android:id="@+id/cookReqState"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center|right|center_vertical"
@@ -54,7 +54,7 @@
         android:textSize="16sp" />
 
     <ImageButton
-        android:id="@+id/clientReqComplainBtn"
+        android:id="@+id/cookReqStateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
@@ -63,13 +63,13 @@
         android:backgroundTint="#5A5A5A"
         android:cropToPadding="true"
         android:focusable="false"
-        android:onClick="complainBtn"
+        android:onClick="stateDialogBtn"
         android:paddingLeft="1dp"
         android:paddingTop="1dp"
         android:paddingRight="1dp"
         android:paddingBottom="1dp"
         android:scaleType="fitCenter"
-        android:src="@android:drawable/ic_menu_edit" />
+        android:src="@android:drawable/ic_input_get" />
 
 </LinearLayout>
 

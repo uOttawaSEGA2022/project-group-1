@@ -189,5 +189,10 @@ public class DebugMode extends AppCompatActivity {
         intent.putExtra("clientId", "client@email.com");
         startActivity(intent);
     }
+    public void btnCookReqActivity(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewCookRequestActivity.class);
+        intent.putExtra("cookId", "cook@email.com");
+        startActivity(intent);
+    }
 
 }

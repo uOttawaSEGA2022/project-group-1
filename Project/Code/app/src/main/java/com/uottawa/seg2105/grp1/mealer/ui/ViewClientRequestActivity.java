@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
+import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.Meal;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
