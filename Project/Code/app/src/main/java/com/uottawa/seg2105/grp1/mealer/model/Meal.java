@@ -76,6 +76,7 @@ public final class Meal implements IRepositoryEntity {
         String id = this.getId();
         Map<String, Object> data = new HashMap<>();
         data.put("isRemoved", true);
+        data.put("isOffered", false);
         rep.update(Meal.class, id, data);
         this.isRemoved = true;
     }
@@ -84,8 +85,7 @@ public final class Meal implements IRepositoryEntity {
                            String ingredients, String allergens, int price, String description,
                            User cook) throws RepositoryRequestException {
         this.remove();
-        Meal meal = Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, this.getIsOffered());
-        return meal;
+        return Meal.createMeal(name, type, cuisine, ingredients, allergens, price, description, cook, this.getIsOffered());
     }
 
     /**
@@ -113,7 +113,7 @@ public final class Meal implements IRepositoryEntity {
     public static List<Meal> getOfferedMeals() throws RepositoryRequestException {
         List<Meal> meals;
         IRepository rep = MealerSystem.getSystem().getRepository();
-        meals = rep.query(Meal.class, (m) -> m.getIsOffered() == true);
+        meals = rep.query(Meal.class, (m) -> m.getIsOffered());
         for (Meal m : meals) {
             CookRole cookRole = (CookRole) m.getCook().getRole();
             if (cookRole.getBanExpiration() >= 0) {
