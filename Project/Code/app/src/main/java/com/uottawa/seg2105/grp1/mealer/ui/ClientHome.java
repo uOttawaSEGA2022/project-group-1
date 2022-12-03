@@ -30,7 +30,7 @@ public class ClientHome extends AppCompatActivity {
 
     //TODO: change deubgmode to the name of the activity
     public void btnOrderHistory(View view){
-        Intent intent = new Intent(getApplicationContext(), DebugMode.class);
+        Intent intent = new Intent(getApplicationContext(), ViewClientRequestActivity.class);
         intent.putExtra("clientId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
     }
