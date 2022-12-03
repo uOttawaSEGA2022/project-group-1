@@ -31,19 +31,18 @@ public class ClientHome extends AppCompatActivity {
     //TODO: change deubgmode to the name of the activity
     public void btnOrderHistory(View view){
         Intent intent = new Intent(getApplicationContext(), DebugMode.class);
-        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
+        intent.putExtra("clientId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
     }
 
     public void btnSearch(View view){
-        Intent intent = new Intent(getApplicationContext(), DebugMode.class);
-        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(intent);
     }
 
     public void btnPayment(View view){
         Intent intent = new Intent(getApplicationContext(), DebugMode.class);
-        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
+        intent.putExtra("clientId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
     }
 
