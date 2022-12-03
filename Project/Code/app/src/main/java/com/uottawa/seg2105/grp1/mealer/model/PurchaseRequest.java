@@ -27,7 +27,7 @@ public final class PurchaseRequest implements IRepositoryEntity, Comparable<Purc
     public static PurchaseRequest create(String cookEmail, String clientEmail, String mealId) throws RepositoryRequestException {
         IRepository rep = MealerSystem.getSystem().getRepository();
         PurchaseRequest pr = new PurchaseRequest();
-        pr.id = rep.getAutoID(Meal.class);
+        pr.id = rep.getAutoID(PurchaseRequest.class);
         pr.cookEmail = cookEmail;
         pr.clientEmail = clientEmail;
         pr.mealId = mealId;
