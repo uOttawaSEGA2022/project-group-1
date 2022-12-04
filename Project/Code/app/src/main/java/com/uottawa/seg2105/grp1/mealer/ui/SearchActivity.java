@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.uottawa.seg2105.grp1.mealer.R;
 import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.Meal;
+import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.SearchEngine;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
@@ -311,7 +312,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onMealBuy(View view) {
-        Toast.makeText(getApplicationContext(), "onMealBuy " + view.getTag(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
+        intent.putExtra("mealId", productsAdapter.meals.get((int)view.getTag()).getId());
+        startActivity(intent);
     }
 
     public void onMealInfo(View view) {

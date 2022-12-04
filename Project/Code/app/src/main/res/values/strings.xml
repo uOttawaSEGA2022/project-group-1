@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Mealer</string>
+    <!-- Generic -->
+    <string name="btnYes">Yes</string>
+    <string name="btnNo">No</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="btnBack">Back</string>
+    <string name="btnPurchase">Purchase</string>
+    <string name="btnBuy">Buy</string>
+    <!-- To classify later -->
     <string name="btnLogin">Login</string>
     <string name="btnRegisterClient">Register as a client</string>
     <string name="btnRegisterCook">Register as a Cook</string>
@@ -43,4 +51,12 @@
     <string name="btnSearchForFood">Search for food</string>
     <string name="btnOrderHistory">Order History</string>
     <string name="btnPaymentMethod">Payment Method</string>
+
+    <!-- ui/PurchaseActivity.java -->
+    <string name="purchaseact_title">Purchase</string>
+    <string name="purchaseact_cook">from</string>
+    <string name="purchaseact_quantity">Quantity: </string>
+    <string name="purchaseact_quantity_hint">Please enter a quantity</string>
+    <string name="purchaseact_dialog">Purchase "%s" x%d for %.2f?</string>
+    <string name="purchaseact_dialogtitle">Purchase Confirmation</string>
 </resources>
