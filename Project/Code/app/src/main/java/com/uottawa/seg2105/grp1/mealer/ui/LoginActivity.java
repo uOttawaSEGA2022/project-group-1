@@ -74,11 +74,13 @@ public class LoginActivity extends AppCompatActivity {
                             long banExpirationMillis = role.getBanExpiration();
 
                             if (banExpirationMillis >= 0) {
-                                Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
-                                intent.putExtra("banExpiration", role.getBanExpiration());
-                                intent.putExtra("banReason", role.getBanReason());
-                                startActivity(intent);
-                                return;
+                                if (banExpirationMillis == 0 || banExpirationMillis > System.currentTimeMillis()) {
+                                    Intent intent = new Intent(getApplicationContext(), SuspensionHome.class);
+                                    intent.putExtra("banExpiration", role.getBanExpiration());
+                                    intent.putExtra("banReason", role.getBanReason());
+                                    startActivity(intent);
+                                    return;
+                                }
                             }
 
                             Intent intent = new Intent(getApplicationContext(), CookHomePage.class);
