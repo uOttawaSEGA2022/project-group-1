@@ -24,7 +24,7 @@ public class SearchEngine {
 
         meals.removeIf(meal -> !(isSubsequence(name, meal.getName()) &&
                 meal.getType().equals(type) &&
-                meal.getCuisine().equals(type) &&
+                meal.getCuisine().equals(cuisine) &&
                 isBetween(meal.getPrice(), minPriceCents, maxPriceCents)));
 
         return meals;

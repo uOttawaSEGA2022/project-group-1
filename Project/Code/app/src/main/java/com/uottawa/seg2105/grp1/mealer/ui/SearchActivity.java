@@ -147,7 +147,7 @@ public class SearchActivity extends AppCompatActivity {
                         return;
                     }
 
-                    List<Meal> meals = SearchEngine.searchMeal(name, cuisine, type, priceMinCents, priceMaxCents);
+                    List<Meal> meals = SearchEngine.searchMeal(name, type, cuisine, priceMinCents, priceMaxCents);
 
                     runOnUiThread(() -> {
                         if (meals.size() == 0)
