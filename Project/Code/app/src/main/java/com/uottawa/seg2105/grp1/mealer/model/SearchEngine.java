@@ -37,21 +37,19 @@ public class SearchEngine {
      * @return true if subsequence is a subsequence of supersequence
      */
     public static boolean isSubsequence(String subsequence, String supersequence) {
+        subsequence = subsequence.toLowerCase();
+        supersequence = supersequence.toLowerCase();
+        
         if (subsequence.length() == 0)
             return true;
 
         if (supersequence.length() < subsequence.length())
             return false;
 
-        int supidx = 0;
         int subidx = 0;
-        while (subidx < subsequence.length()) {
-            char current_subchar = subsequence.charAt(subidx);
-            while (current_subchar != supersequence.charAt(supidx++)) { // We keep incrementing the supersequence index until we meet a character that matches
-                if (supidx >= supersequence.length()) // If we ran out of characters to check in the super-sequence then it's no match.
-                    return false;
-            }
-            subidx++;
+        for (int supidx = 0; supidx < supersequence.length() && subidx < subsequence.length(); supidx++) {
+            if (subsequence.charAt(subidx) == supersequence.charAt(supidx))
+                subidx++;
         }
 
         return subidx == subsequence.length(); // The subsequence was matched if it reached its end
