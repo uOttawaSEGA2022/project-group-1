@@ -107,6 +107,16 @@ Signature: `final class Meal implements IRepositoryEntity`
 
 Description: Stores meal data
 
+### PurchaseRequest ###
+Signature: `final class PurchaseRequest implements IRepositoryEntity, Comparable<PurchaseEntity>`
+
+Description: Stores data for a purchase request. Exposes functions for approving, rating and complaining about a meal.
+
+### SearchEngine ###
+Signature: `class SearchEngine`
+
+Description: Interfaces with the Meal class to return offered meals according to search criteria
+
 ---
 
 ## Storage Classes ##
@@ -223,8 +233,47 @@ Responsabilities:
 Description: The Activity that is started when a client logs in.
 
 Responsablities:
-- Display the message "Welcome, Client"
+- Display a greeting with the client's name
+- Allow the user to navigate to the search engine, purchase history, or the credit card number editor
 - Allow the user to log off, sending them back to LoginActivity
+
+### SearchActivity ###
+Description: Allows a client to search for offered meals
+
+Responsabilities:
+- Allow the user to select search criteria and execute a search
+- Display search results
+- Display meal and cook information for search results
+- Redirect the client to PurchaseActivity for buying a meal
+
+### PurchaseActivity ###
+Description: Allows a client to purchase a meal from SearchActivity
+
+Responsabilities:
+- Allow the user to select the quantity of the product to buy (0<, 10>=)
+- Display a confirmation message
+
+### ViewClientRequestActivity ###
+Description: Allows a client to see their purchase requests.
+
+Responsabilities:
+- List all requests and their status
+- Allow the client to rate an approved request (unless it has already been rated)
+- Redirect the client to complaint activity on an approved request (unless it has already had a complaint)
+
+### ClientComplaintActivity ###
+Description: Allows a client to write a complaint about an approved request.
+
+Responsabilities:
+- Display the cook and meal that is being complained about
+- Allow the client to write and send their complaint to the administrator inbox
+
+### CreditCardActivity ###
+Description: Allows a client to modify their credit card number
+
+Responsabilities:
+- Allow the client to modify their credit card number
+
 
 ### CookHomePage ###
 Description: The Activity that is started when a cook logs in.
@@ -232,6 +281,7 @@ Description: The Activity that is started when a cook logs in.
 Responsablities:
 - Display the Cook's full name and average rating
 - Allow the cook to see their meals list
+- Allow the cook to see their impending purchase requests
 - Allow the cook to update their description
 - Allow the user to log off, sending them back to LoginActivity
 
@@ -250,6 +300,15 @@ Responsabilities:
 - Redirect the cook to CookAddMeal activity for updating a meal
 - Allows the cook to decide whether a meal is offered publicly or not
 - Allows the cook to delete meals
+
+### ViewCookRequestActivity ###
+Description: The Activity that lets cooks see and manage their impending purchase requests
+
+Responsabilities:
+- Display all of the cook's requests and their status
+- Allow the cook to approve or reject a pending request
+	- Approving adds one to meals sold and "charges" the client's credit card
+- Display the request's client and requested meal
 
 ### CookAddMeal ###
 Description: The Activity that lets cook create or update a meal
