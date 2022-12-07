@@ -113,13 +113,18 @@ public final class Meal implements IRepositoryEntity {
     public static List<Meal> getOfferedMeals() throws RepositoryRequestException {
         List<Meal> meals;
         IRepository rep = MealerSystem.getSystem().getRepository();
-        meals = rep.query(Meal.class, (m) -> m.getIsOffered());
-        for (Meal m : meals) {
+        meals = rep.query(Meal.class, (m) -> {
+            if (!m.getIsOffered())
+                return false;
+
             CookRole cookRole = (CookRole) m.getCook().getRole();
-            if (cookRole.getBanExpiration() >= 0) {
-                meals.remove(m);
-            }
-        }
+            if (cookRole.getBanExpiration() == 0)
+                return false;
+
+            if (cookRole.getBanExpiration() > 0 && cookRole.getBanExpiration() < System.currentTimeMillis())
+                return false;
+            return true;
+        });
         return meals;
     }
 
