@@ -183,7 +183,7 @@ public class ViewClientRequestActivity extends AppCompatActivity {
         int position = (int) view.findViewById(R.id.clientReqComplainBtn).getTag();
         PurchaseRequest tmpReq = requests.get(position);
 
-        if (!tmpReq.getIsComplained()) {
+        if (!tmpReq.getIsComplained() && tmpReq.getStatus() == PurchaseRequest.Status.COMPLETE) {
             Intent intent = new Intent(getApplicationContext(), ClientComplaint.class);
             intent.putExtra("purchaseId", requests.get(position).getId());
             startActivity(intent);
@@ -191,7 +191,7 @@ public class ViewClientRequestActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             dialogBuilder
-                    .setMessage("Already complained about this meal!")
+                    .setMessage(tmpReq.getStatus() == PurchaseRequest.Status.COMPLETE ? "Already complained about this meal!" : "Cannot rate an unapproved meal")
                     .setNegativeButton(android.R.string.ok, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();

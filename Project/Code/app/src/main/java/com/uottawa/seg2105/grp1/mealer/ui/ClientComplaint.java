@@ -46,6 +46,7 @@ public class ClientComplaint extends AppCompatActivity {
         // Create SpinnerDialog
         fm = getSupportFragmentManager();
         spinner = new SpinnerDialog();
+        spinner.show(fm, "some_tag");
 
         // Set description
         complaintTxt = findViewById(R.id.complaintTxt);
