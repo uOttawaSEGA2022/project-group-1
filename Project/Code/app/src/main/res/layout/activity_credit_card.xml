@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CookSettingsActivity">
+    tools:context=".ui.CreditCardActivity">
 
     <EditText
-        android:id="@+id/modifyCookDescription"
+        android:id="@+id/modifyCreditCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -15,10 +15,10 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="top|left"
-        android:hint="Describe yourself!"
-        android:inputType="text"
+        android:hint="Enter Credit Card Number."
+        android:inputType="number"
         android:selectAllOnFocus="false"
-        android:singleLine="false"
+        android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

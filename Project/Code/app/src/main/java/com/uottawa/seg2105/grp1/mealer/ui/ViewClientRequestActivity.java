@@ -22,13 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uottawa.seg2105.grp1.mealer.R;
-import com.uottawa.seg2105.grp1.mealer.model.ClientRole;
-import com.uottawa.seg2105.grp1.mealer.model.CookRole;
 import com.uottawa.seg2105.grp1.mealer.model.Meal;
 import com.uottawa.seg2105.grp1.mealer.model.MealerSystem;
 import com.uottawa.seg2105.grp1.mealer.model.PurchaseRequest;
-import com.uottawa.seg2105.grp1.mealer.model.User;
-import com.uottawa.seg2105.grp1.mealer.model.UserRole;
 import com.uottawa.seg2105.grp1.mealer.storage.RepositoryRequestException;
 
 import java.util.ArrayList;
@@ -188,11 +184,9 @@ public class ViewClientRequestActivity extends AppCompatActivity {
         PurchaseRequest tmpReq = requests.get(position);
 
         if (!tmpReq.getIsComplained()) {
-            Toast.makeText(getApplicationContext(), "Uncomment code if ClientComplaintActivity is done! (line ~190)", Toast.LENGTH_LONG).show();
-            /*Intent intent = new Intent(getApplicationContext(), ClientComplaintActivity.class);
-            intent.putExtra("cookId", requests.get(position).getCookEmail());
-            intent.putExtra("mealId", requests.get(position).getMealId());
-            startActivityForResult(intent, 0);*/
+            Intent intent = new Intent(getApplicationContext(), ClientComplaint.class);
+            intent.putExtra("purchaseId", requests.get(position).getId());
+            startActivity(intent);
         } else {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 

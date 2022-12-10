@@ -74,6 +74,7 @@ public class CookSettingsActivity extends AppCompatActivity {
     }
 
     public void onSave(View view) {
+        String desc = description.getText().toString().trim();
         spinner.show(fm, "some_tag");
 
         new Thread() {
@@ -90,7 +91,7 @@ public class CookSettingsActivity extends AppCompatActivity {
                     CookRole role = (CookRole) cook.getRole();
 
                     // Update their description
-                    role.setDescription(description.getText().toString().trim());
+                    role.setDescription(desc);
 
                     runOnUiThread(() -> {
                         spinner.dismiss();

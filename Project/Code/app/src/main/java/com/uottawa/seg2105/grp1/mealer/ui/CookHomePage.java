@@ -48,6 +48,13 @@ public class CookHomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnPurchaseReq(View view){
+        System.out.println("purchaseReq");
+        Intent intent = new Intent(getApplicationContext(), ViewCookRequestActivity.class);
+        intent.putExtra("cookId", MealerSystem.getSystem().getCurrentUser().getId());
+        startActivity(intent);
+    }
+
     public void btnSettingsMngmnt(View view){
         System.out.println("settingsMngmnt");
         Intent intent = new Intent(getApplicationContext(), CookSettingsActivity.class);

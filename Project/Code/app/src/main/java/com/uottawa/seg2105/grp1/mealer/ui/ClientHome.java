@@ -41,7 +41,7 @@ public class ClientHome extends AppCompatActivity {
     }
 
     public void btnPayment(View view){
-        Intent intent = new Intent(getApplicationContext(), DebugMode.class);
+        Intent intent = new Intent(getApplicationContext(), CreditCardActivity.class);
         intent.putExtra("clientId", MealerSystem.getSystem().getCurrentUser().getId());
         startActivity(intent);
     }
